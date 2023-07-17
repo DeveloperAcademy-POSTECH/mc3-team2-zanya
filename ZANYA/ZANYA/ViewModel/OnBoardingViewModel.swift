@@ -18,6 +18,7 @@ class OnBoardingViewModel: ObservableObject {
     @Published var error: String = ""
     @Published var userName: String = ""
     
+    var profile: Profile = Profile(UID: "", name: "", imageKey: nil, record: nil)
     
     init() {
         getiCloudStatus()

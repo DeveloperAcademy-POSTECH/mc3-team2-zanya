@@ -15,6 +15,7 @@
 		6F5BF90F2A6596B000D8C175 /* OnBoardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5BF90E2A6596B000D8C175 /* OnBoardingViewModel.swift */; };
 		6F5BF9112A65978500D8C175 /* SetProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5BF9102A65978500D8C175 /* SetProfileView.swift */; };
 		6F5BF9132A65979400D8C175 /* SetProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5BF9122A65979400D8C175 /* SetProfileViewModel.swift */; };
+		6F5BF9162A659CF500D8C175 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5BF9152A659CF500D8C175 /* Profile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		6F5BF9102A65978500D8C175 /* SetProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetProfileView.swift; sourceTree = "<group>"; };
 		6F5BF9122A65979400D8C175 /* SetProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetProfileViewModel.swift; sourceTree = "<group>"; };
 		6F5BF9142A659B7B00D8C175 /* ZANYA.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZANYA.entitlements; sourceTree = "<group>"; };
+		6F5BF9152A659CF500D8C175 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 		6F5BF90B2A65950600D8C175 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6F5BF9152A659CF500D8C175 /* Profile.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -178,6 +181,7 @@
 				6F5BF90D2A65960D00D8C175 /* OnBoardingView.swift in Sources */,
 				6F5BF9132A65979400D8C175 /* SetProfileViewModel.swift in Sources */,
 				6F5BF8FE2A61737000D8C175 /* ContentView.swift in Sources */,
+				6F5BF9162A659CF500D8C175 /* Profile.swift in Sources */,
 				6F5BF9112A65978500D8C175 /* SetProfileView.swift in Sources */,
 				6F5BF8FC2A61737000D8C175 /* ZANYAApp.swift in Sources */,
 				6F5BF90F2A6596B000D8C175 /* OnBoardingViewModel.swift in Sources */,
@@ -323,7 +327,6 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = eemdeeks.ZANYA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -353,7 +356,6 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = eemdeeks.ZANYA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
