@@ -27,6 +27,7 @@
 		6F5BF90E2A6596B000D8C175 /* OnBoardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewModel.swift; sourceTree = "<group>"; };
 		6F5BF9102A65978500D8C175 /* SetProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetProfileView.swift; sourceTree = "<group>"; };
 		6F5BF9122A65979400D8C175 /* SetProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetProfileViewModel.swift; sourceTree = "<group>"; };
+		6F5BF9142A659B7B00D8C175 /* ZANYA.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZANYA.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +60,7 @@
 		6F5BF8FA2A61737000D8C175 /* ZANYA */ = {
 			isa = PBXGroup;
 			children = (
+				6F5BF9142A659B7B00D8C175 /* ZANYA.entitlements */,
 				6F5BF8FB2A61737000D8C175 /* ZANYAApp.swift */,
 				6F5BF8FD2A61737000D8C175 /* ContentView.swift */,
 				6F5BF8FF2A61737100D8C175 /* Assets.xcassets */,
@@ -304,6 +306,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ZANYA/ZANYA.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ZANYA/Preview Content\"";
@@ -333,6 +336,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ZANYA/ZANYA.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ZANYA/Preview Content\"";
