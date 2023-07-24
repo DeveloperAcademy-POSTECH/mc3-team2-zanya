@@ -17,10 +17,7 @@ struct SetProfileView: View {
     
     let profileArray = ProfileImageArray
     let setProfileImageArray = SetPrifileCatArray
-    
-    let arrayWidth = [[56.08, 56.08, 56.09], [56.08, 56.08, 56.08]]
-    let arrayHeight = [[47.15, 46.12, 41.06], [47.15, 47.15, 46.12]]
-    
+ 
     //MARK: -2. BODY
     var body: some View {
         NavigationView {
@@ -92,6 +89,7 @@ extension SetProfileView {
                     ForEach(catsRow, id: \.self) { cat in
                         ZStack{
                             Image(viewModel.catName == cat ? ProfileCircleOn : ProfileCircleOff)
+                                .frame(width: 82, height: 82)
                             Image(cat)
                                 .resizable()
                                 .scaledToFit()
@@ -118,7 +116,7 @@ extension SetProfileView {
             //TODO: - 입력 카운트 및, 전체 삭제 버튼(optional한 작업. 공수 남으면 진행)
             TextField("닉네임", text: $viewModel.name)
                 .padding(.horizontal)
-        }
+        }.frame(width: 297)
         .padding(EdgeInsets(top: 7, leading: 46, bottom: 0, trailing: 46))
     }
     

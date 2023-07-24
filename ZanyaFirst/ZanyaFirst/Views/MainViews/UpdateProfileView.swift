@@ -62,9 +62,9 @@ extension UpdateProfileView {
 
     private var catArray: some View{
         VStack(spacing: 0) {
-            ForEach(setProfileImageArray, id: \.self) { row in
+            ForEach(setProfileImageArray, id: \.self) { catRow in
                 HStack(spacing: 0) {
-                    ForEach(row, id: \.self) { i in
+                    ForEach(catRow, id: \.self) { cat in
                         Button {
                             print("")
                         } label: {
@@ -73,25 +73,32 @@ extension UpdateProfileView {
                             } label: {
                                 ZStack{
                                     Image(ProfileCircleOff)
-                                    Image(i)
+                                    //TODO: - on/off 바뀌여면 뷰모델에 catName추가되어야 함/없어서 일단 off로 해둠
+                                        .frame(width: 82, height: 82)
+                                    Image(cat)
                                         .resizable()
-                                        .frame(width: 56.08, height: 46.12)
-                                }.padding(3)
+                                        .scaledToFit()
+                                        .frame(width: 56)
+                                }.padding(7)
                             }
                         }
                     }
                 }
             }
         }
+        .padding(.horizontal, 46)
+        .padding(.init(top: 86, leading: 0, bottom: 0, trailing: 0))
     }
     private var textField: some View{
         ZStack{
             Image(SetProfileTextField)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
             //TODO: - 이름숫자쓰는거 해야함
             TextField("닉네임", text: $viewModel.profileName )
                 .padding(.horizontal)
         }.frame(width: 297)
-            .padding(.vertical,10)
+//            .padding(EdgeInsets(top: 7, leading: 46, bottom: 0, trailing: 46))
     }
     private var saveButton: some View{
         ZStack{
