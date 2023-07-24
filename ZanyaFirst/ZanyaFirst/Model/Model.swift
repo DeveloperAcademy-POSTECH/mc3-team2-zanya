@@ -10,7 +10,7 @@ import CloudKit
 
 //MARK: -PROFILE
 struct Profile: Hashable {
-    let UID: String
+    var UID: String
     var name: String
     var imageKey: String?
     let record: CKRecord? //CKRecord(recordType : "Profile")

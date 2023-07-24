@@ -14,7 +14,7 @@ struct MainView: View {
     @EnvironmentObject var lnManager: LocalNotificationManager
     
     @StateObject var viewModel: MainViewModel
-    @StateObject var roomViewModel: RoomViewModel
+    
     @Environment(\.scenePhase) var scenePhase
     
     @State private var isCreateButtonClicked : Bool = false
@@ -38,7 +38,7 @@ struct MainView: View {
 //                MainPageRoomList
                 MainPageCreateRoomBtn
             }
-        }
+        }.navigationBarBackButtonHidden(true)
         
         //TODO: 스플래시뷰 사용하려면 이거 열어야 함!// 바디밑에 붙이는 뷰임// 프리뷰때매 닫아둠!
         //        .fullScreenCover(isPresented: $ShowOnBoarding) {

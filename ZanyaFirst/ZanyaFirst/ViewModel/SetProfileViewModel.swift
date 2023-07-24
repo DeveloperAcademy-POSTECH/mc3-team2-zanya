@@ -86,11 +86,29 @@ class SetProfileViewModel: ObservableObject {
                 self?.name = ""
             }
         }
+        
+        
     }
     
-    func addRecord(name: String, profile: Profile){
-//        CKContainer.default().publicCloudDatabase.sa
+    func addRecord(name: String, imageKey: String){
+
         //TODO: 닉네임, 프로필 캣 레코드에 저장하는 로직 구현해야함
+        
+        CKContainer.default().fetchUserRecordID { [weak self]returnedID, returnedError in
+            if let id = returnedID {
+                let profile = CKRecord(recordType: "Profile")
+                
+                profile["name"] = name
+                profile["ImageKey"] = imageKey
+                profile["uid"] = id.recordName
+                
+                self?.profile.UID = id.recordName
+                self?.profile.name = name
+                self?.profile.imageKey = imageKey
+                
+                self?.saveItem(record: profile)
+            }
+        }
     }
     
 //    func nextButtonPressed() {
@@ -107,15 +125,16 @@ class SetProfileViewModel: ObservableObject {
 //            print("there's no catName")
 //            return
 //        }
-//        guard !name.isEmpty else {
-//            print("there's no userName")
-//            return
-//        }
+        guard !name.isEmpty else {
+            print("there's no userName")
+            return
+        }
 //
-//        addRecord()
-//        updateItem(profile: profile)
+        addRecord(name: self.name, imageKey: self.catName)
+
         
-//        goToMainView = true
+        goToMainView = true
+        
         DispatchQueue.main.async { [self] in
             print("viewModel name: \(name) | cat: \(self.catName)")
         }
