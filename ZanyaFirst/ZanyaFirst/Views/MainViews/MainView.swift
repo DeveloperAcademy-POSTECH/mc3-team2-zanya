@@ -90,13 +90,14 @@ extension MainView {
             HStack{
                 Spacer()
                 //TODO: - 프로필 설정 페이지로 이동
-                NavigationLink(value: "1") {
+                NavigationLink(value: "1hgj") {
                     Image(MainPageProfileBinu)
                 }
                 .navigationDestination(for: String.self) {_ in
-                    SetProfileView()
+                    UpdateProfileView(viewModel: UpdateProfileViewModel(profile: viewModel.profile, delegate: viewModel), path: $path)
+                    
                 }
-                
+
             }
             .padding(.horizontal, 10)
             .padding(.top, 40)

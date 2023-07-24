@@ -26,6 +26,7 @@ class UpdateProfileViewModel: ObservableObject {
         self.profileName = profile.name
         self.profileImage = profile.imageKey ?? ""
         self.delegate = delegate
+        
         fetchUID()
         
     }
@@ -100,5 +101,9 @@ class UpdateProfileViewModel: ObservableObject {
         
         delegate?.setProfile(profile: profile)
     
+    }
+    
+    func clickedCatBtn(_ cat: String) {
+        profileImage = cat
     }
 }
