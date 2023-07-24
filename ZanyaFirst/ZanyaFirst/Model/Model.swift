@@ -13,7 +13,7 @@ struct Profile: Hashable {
     var UID: String
     var name: String
     var imageKey: String?
-    let record: CKRecord? //CKRecord(recordType : "Profile")
+    var record: CKRecord? //CKRecord(recordType : "Profile")
 }
 
 
