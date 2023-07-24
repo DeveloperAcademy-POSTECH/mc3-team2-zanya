@@ -25,7 +25,7 @@ struct MainView: View {
     
     let profileArray = ProfileImageArray
     //MARK: 프리뷰하려고 더미룸 데이터 넣고 뿌림
-    var rooms : [RoomViewModel]
+    var rooms : [RoomViewModel] = dummyRoomViewModels//TODO: 프리뷰 용임 //올리기 전에 지워야함
     
     
     //MARK: - 2. BODY
@@ -39,12 +39,6 @@ struct MainView: View {
                 MainPageCreateRoomBtn
             }.ignoresSafeArea()
         }
-        
-        //TODO: 스플래시뷰 사용하려면 이거 열어야 함!// 바디밑에 붙이는 뷰임// 프리뷰때매 닫아둠!
-        //        .fullScreenCover(isPresented: $ShowOnBoarding) {
-        //            SplashViewMain(ShowOnBoarding: $ShowOnBoarding)
-        //        }
-        
         .task {
             try? await lnManager
                 .requestAuthorization()
@@ -64,12 +58,12 @@ struct MainView: View {
 
 
 //MARK: -3. PREVIEW
-//struct MainView_Preview: PreviewProvider {
-//    static var previews: some View {
-//        MainView(viewModel: MainViewModel(profile: dummyProfile0), roomViewModel: dummyRoomViewModels[1])
-//            .environmentObject(LocalNotificationManager())
-//    }
-//}
+struct MainView_Preview: PreviewProvider {
+    static var previews: some View {
+        MainView(viewModel: MainViewModel(profile: dummyProfile4), roomViewModel: dummyRoomViewModels[1])
+            .environmentObject(LocalNotificationManager())
+    }
+}
 
 //MARK: -4. EXTENSION
 extension MainView {
@@ -91,11 +85,19 @@ extension MainView {
                 Spacer()
                 //TODO: - 프로필 설정 페이지로 이동
                 NavigationLink(value: "1") {
-                    Image(MainPageProfileBinu)
-                        .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 4)
+                    ZStack {
+                        Image(mainPageProfileSheet)
+                            .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 4)
+                        Image(mainPage_CheeseCat) //TODO: - 프로필에서 고양이 값 받아오기
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 28.22)
+                            .padding(.bottom, -3)
+                    }
+                    
                 }
                 .navigationDestination(for: String.self) {_ in
-                    SetProfileView()
+                    SetProfileView()// 지금 델레게이트 몰라서 걍 이걸로 둠\
                 }.padding(.init(top: 43, leading: 0, bottom: 0, trailing: 18))
                 
             }
@@ -150,3 +152,12 @@ extension Date {
         )
     }
 }
+
+
+
+
+
+//TODO: 스플래시뷰 사용하려면 이거 열어야 함!// 바디밑에 붙이는 뷰임// 프리뷰때매 닫아둠!
+//        .fullScreenCover(isPresented: $ShowOnBoarding) {
+//            SplashViewMain(ShowOnBoarding: $ShowOnBoarding)
+//        }

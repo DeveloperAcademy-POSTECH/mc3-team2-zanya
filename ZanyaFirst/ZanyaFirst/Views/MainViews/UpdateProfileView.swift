@@ -10,7 +10,7 @@ import SwiftUI
 struct UpdateProfileView: View {
     
     //MARK: -1. PROPERTY
-    @StateObject private var viewModel : UpdateProfileViewModel
+    @StateObject var viewModel : UpdateProfileViewModel
     @Binding var path: NavigationPath
     
     let profileArray = ProfileImageArray

@@ -54,7 +54,11 @@ extension RoomView {
             //배경화면
             Image(BackgroundSheet)
             //배경 서있는 고양이 이미지
-            Image(profile.imageKey ?? shamCat_Standing) // 이미지 키
+//            Image(profile.imageKey ?? shamCat_Standing) // 이미지 키 받아오기
+            Image(gentleCat_Standing) // 이미지 사이즈 확인을 위한 테스트용 이미지
+                .resizable()
+                .scaledToFit()
+                .frame(width: 210)
                 .padding(.init(top: 147, leading: 156.84, bottom: 0, trailing: 0))
             //펀치페이지 말풍성
             if PunchMessageToggle == true {
@@ -119,10 +123,17 @@ extension RoomView {
                     ZStack(alignment: .center){
                         Image(ProfilePlateOff)
                         VStack {
-                            Spacer()
+                            //Spacer()
                             Image(profileImageArray[i]) // TODO: 룸데이터에서 유저 정보 받아와야함
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 48)
+                           // Spacer()
+                            ClearRectangle(width: 0,height: 6)
+                        }
+                        VStack{
                             Spacer()
-                            ClearRectangle(width: 0,height: 12)
+                            Image(nameSheet)
                         }
                         VStack{
                             Spacer()
@@ -149,9 +160,9 @@ extension RoomView {
     private var messagePage: some View {
         ZStack(alignment: .bottom){
             Image(MessagePage)
+                .padding(.init(top: 0, leading: 0, bottom: -98, trailing: 0))
             Image(Rectangle77)
             Image(Rectangle33)
-               
             
             VStack{
                 //TTS BUTTON
@@ -203,6 +214,7 @@ extension RoomView {
     private var punchPage: some View {
         ZStack(alignment: .bottom){
             Image(PunchPage)
+                .padding(.init(top: 0, leading: 0, bottom: -98, trailing: 0))
             punchElements
             Image(HandArray[0][ArrayNum])// TODO: - 클라우드에서 프로필 값 받아오기 / 일단 가라로 0 넣어둠
         }
@@ -253,7 +265,7 @@ extension RoomView {
                 Rectangle()
                     .frame(height: 50)
             }
-        }   .offset(y: 40)
+        }   .offset(y: 20)
             .foregroundColor(.clear)
             .padding(0)
     }

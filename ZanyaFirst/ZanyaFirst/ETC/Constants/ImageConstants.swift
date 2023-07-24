@@ -131,6 +131,17 @@ let MainPageSheetImage = "MainPageSheetImage"
 let MainPageProfileBinu = "MainPageProfileBinu"
 let EmptyRoomSheetImage = "EmptyRoomSheetImage"
 let InvitePlate = "InvitePlate"
+let nameSheet = "nameSheet"
+let mainPageProfileSheet = "mainPageProfileSheet"
+
+//MARK: - MAINPAGE CATPROFILE
+let mainPage_ShamCat = "mainPage_ShamCat"
+let mainPage_CheeseCat = "mainPage_CheeseCat"
+let mainPage_BlackCat = "mainPage_BlackCat"
+let mainPage_WhiteCat = "mainPage_WhiteCat"
+let mainPage_GreyCat = "mainPage_GreyCat"
+let mainPage_GentleCat = "mainPage_GentleCat"
+
 
 
 //MARK: -ROOMCELL COMPONENTS
@@ -172,3 +183,4 @@ let CreateRoomSaveButton = "CreateRoomSaveButton"
 let CreateTitleSheet = "CreateTitleSheet"
 let CreatePickerSheet = "CreatePickerSheet"
 let CreatePageXmark = "CreatePageXmark"
+

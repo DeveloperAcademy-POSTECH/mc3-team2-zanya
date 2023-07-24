@@ -47,8 +47,7 @@ struct OnBoardingView: View {
     
     var background: some View {
         Image(SplashViewBackground)
-            .resizable()
-            .ignoresSafeArea()
+            
     }
     
     // 프로필 유무에 따른 분기를 위해 만든 함수.

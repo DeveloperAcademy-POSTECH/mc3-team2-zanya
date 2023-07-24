@@ -18,6 +18,9 @@ struct SetProfileView: View {
     let profileArray = ProfileImageArray
     let setProfileImageArray = SetPrifileCatArray
     
+    let arrayWidth = [[56.08, 56.08, 56.09], [56.08, 56.08, 56.08]]
+    let arrayHeight = [[47.15, 46.12, 41.06], [47.15, 47.15, 46.12]]
+    
     //MARK: -2. BODY
     var body: some View {
         NavigationView {
@@ -91,7 +94,8 @@ extension SetProfileView {
                             Image(viewModel.catName == cat ? ProfileCircleOn : ProfileCircleOff)
                             Image(cat)
                                 .resizable()
-                                .frame(width: 56.08, height: 46.12)
+                                .scaledToFit()
+                                .frame(width: 56)
                         }
                         .onTapGesture {
                             viewModel.clickedCatBtn(cat)
