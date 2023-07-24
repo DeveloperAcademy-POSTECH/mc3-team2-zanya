@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CreateRoomView: View {
+    
     //MARK: -1. PROPERTY
     @ObservedObject var viewModel = CreateRoomViewModel()
     @Binding var path: NavigationPath
@@ -18,34 +19,35 @@ struct CreateRoomView: View {
         ZStack {
             CreatePageSheetBG
             Xmark
-            VStack{
-                ClearRectangle(width: 2, height: screenHeight/6, ClearOn: true)
+            VStack(spacing: 0){
                 CreateRoomTextField
-                ClearRectangle(width: 2, height: screenHeight/155, ClearOn: true)
                 CreateTimePicker
                 Spacer()
                 CreateSaveButton
             }
         }
+        .ignoresSafeArea()
         .navigationBarBackButtonHidden()
     }
 }
 
-
+//MARK: -3. PREVIEW
 struct CreateRoomView_Previews: PreviewProvider {
     static var previews: some View {
         CreateRoomView(path: .constant(NavigationPath()))
     }
 }
+
+//MARK: -4. EXTENSION
 extension CreateRoomView {
- 
+    
     private var CreatePageSheetBG: some View {
         ZStack {
             Image(CreatePageSheet)
                 .ignoresSafeArea()
             VStack{
                 Image(CreateRoomTitle)
-                    .padding(.top, 50)
+                    .padding(.top, 51)
                 Spacer()
             }
         }
@@ -55,17 +57,15 @@ extension CreateRoomView {
         VStack{
             HStack{
                 Button {
-                    print("어디로 이동하나요?")//TODO: - 어디로 이동하는지는 몰라도 버튼 구현
                     path.removeLast()
                 } label: {
                     Image(CreatePageXmark)
                 }
                 Spacer()
-            }.padding(.horizontal, 20)
-                .padding(.top, 64)
+            }
+            .padding(.init(top: 65, leading: 25, bottom: 0, trailing: 0))
             Spacer()
         }
-
     }
     
     private var CreateRoomTextField: some View {
@@ -75,6 +75,7 @@ extension CreateRoomView {
                 .padding()
                 .padding(.top, 25)
         }.frame(width: 297)
+            .padding(.init(top: 179, leading: 0, bottom: 24, trailing: 0))
     }
     
     //MARK: 이거 색깔 어케바꾸지;;;
@@ -94,31 +95,9 @@ extension CreateRoomView {
             } label: {
                 Image(CreateRoomSaveButton)
             }
-        }.padding(.bottom, screenHeight/20)
+        }.padding(.init(top: 0, leading: 0, bottom: 53, trailing: 0))
+            .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 4)
+        
     }
-    }
-    
-//    private var roomNameField: some View {
-//        TextField("방 이름을 정해주세요", text: $viewModel.roomName )
-//            .frame(height: 55)
-//            .padding(.leading)
-//            .background(Color.gray.opacity(0.4))
-//            .cornerRadius(10)
-//    }
-    
-//    private var completeButton: some View {
-//        Button {
-//            viewModel.clickedCompleteButton()
-//        } label: {
-//            Text("방 생성 완료!")
-//                .font(.headline)
-//                .foregroundColor(.white)
-//                .frame(height: 55)
-//                .frame(maxWidth: .infinity)
-//                .background(Color.blue)
-//                .cornerRadius(10)
-//
-//        }
-////    }
-//}
-//MARK: -3. PREVIEW
+}
+

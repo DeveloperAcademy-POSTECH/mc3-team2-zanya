@@ -25,7 +25,7 @@ struct MainView: View {
     
     let profileArray = ProfileImageArray
     //MARK: 프리뷰하려고 더미룸 데이터 넣고 뿌림
-    //    var rooms : [RoomViewModel] = dummyRoomViewModels
+    var rooms : [RoomViewModel]
     
     
     //MARK: - 2. BODY
@@ -35,9 +35,9 @@ struct MainView: View {
             ZStack{
                 MainPageBackground
                 MainPageProfileButton
-//                MainPageRoomList
+                MainPageRoomList
                 MainPageCreateRoomBtn
-            }
+            }.ignoresSafeArea()
         }
         
         //TODO: 스플래시뷰 사용하려면 이거 열어야 함!// 바디밑에 붙이는 뷰임// 프리뷰때매 닫아둠!
@@ -79,7 +79,7 @@ extension MainView {
                 .ignoresSafeArea()
             VStack{
                 Image(RoomListImage)
-                    .padding(.top, 50)
+                    .padding(.top, 51)
                 Spacer()
             }
         }// ZStack
@@ -92,14 +92,13 @@ extension MainView {
                 //TODO: - 프로필 설정 페이지로 이동
                 NavigationLink(value: "1") {
                     Image(MainPageProfileBinu)
+                        .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 4)
                 }
                 .navigationDestination(for: String.self) {_ in
                     SetProfileView()
-                }
+                }.padding(.init(top: 43, leading: 0, bottom: 0, trailing: 18))
                 
             }
-            .padding(.horizontal, 10)
-            .padding(.top, 40)
             Spacer()
         }
     }
@@ -110,8 +109,7 @@ extension MainView {
                 Spacer()
                 NavigationLink(value: 2.0) {
                     ClearRectangle(width: 110, height: 40, ClearOn: true)
-                        .padding(.horizontal)
-                        .padding(.bottom,40)
+                        .padding(.init(top: 0, leading: 0, bottom: 40, trailing: 15))
                 }
                 .navigationDestination(for: Double.self) {ii in
                     CreateRoomView(path: $path)
@@ -119,22 +117,28 @@ extension MainView {
             }
         }
     }
-    //    private var MainPageRoomList: some View {
-    //        VStack{
-    //            ClearRectangle(width: 2, height: screenHeight/5, ClearOn: true)
-    //            ScrollView{
-    //                ForEach(0..<rooms.count, id: \.self) { i in
-    //                    NavigationLink(value: i) {
-    //                        RoomCell(title: rooms[i].roomInfo.name)
-    //                    }
-    //                    .navigationDestination(for: Int.self) { roomNum in
-    //                        //TODO: - ROOMVIEW로 가야함
-    //                        RoomView(viewModel: dummyRoomViewModels[roomNum], path: $path, profile: viewModel.profile)
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
+    private var MainPageRoomList: some View {
+        
+        VStack{
+            if rooms.count == 0 {
+                //
+                Image(EmptyRoomSheetImage)
+                    .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+            } else {
+                ScrollView{
+                    ForEach(0..<rooms.count, id: \.self) { i in
+                        NavigationLink(value: i) {
+                            RoomCell(title: rooms[i].roomInfo.name)
+                                .padding(.init(top: 0, leading: 0, bottom: 2, trailing: 0))
+                        }.navigationDestination(for: Int.self) { roomNum in
+                            //TODO: - ROOMVIEW로 가야함
+                            RoomView(viewModel: dummyRoomViewModels[roomNum], path: $path, profile: viewModel.profile)
+                        }
+                    }
+                }.padding(.init(top: 177, leading: 0, bottom: 0, trailing: 0))
+            }
+        }
+    }
 }
 
 extension Date {

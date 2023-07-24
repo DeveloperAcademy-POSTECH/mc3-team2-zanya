@@ -14,7 +14,7 @@ struct UpdateProfileView: View {
     @Binding var path: NavigationPath
     
     let profileArray = ProfileImageArray
-    let setProfileImageArray = SetProfileImageArray
+    let setProfileImageArray = SetPrifileCatArray
     
     //MARK: -2. BODY
     var body: some View {
@@ -22,15 +22,15 @@ struct UpdateProfileView: View {
             ZStack{
                 SetProfileBackground
                 Chevron
-                VStack {
-                    ClearRectangle(width: 2, height: screenHeight/6, ClearOn: true)
+                VStack(spacing: 0) {
                     catArray
                     textField
                     Spacer()
                     saveButton
                 }
-            }
+            }.ignoresSafeArea()
         }
+        .navigationBarBackButtonHidden()
         .onAppear{
             viewModel.fetchUID()
         }
@@ -39,12 +39,12 @@ struct UpdateProfileView: View {
 
     //MARK: -3. PREVIEW
 
-    //TODO: UpdateProfileViewModel에 Delegate변수 어케 넣을지 모르겠어서 걍 안보고 함
-struct UpdateProfileView_Previews: PreviewProvider {
-    static var previews: some View {
-        SetProfileView()
-    }
-}
+//    //TODO: UpdateProfileViewModel에 Delegate변수 어케 넣을지 모르겠어서 걍 안보고 함
+//struct UpdateProfileView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        UpdateProfileView( path: .constant(NavigationPath()))
+//    }
+//}
     //MARK: -4. EXTENSION
 extension UpdateProfileView {
     
@@ -54,17 +54,16 @@ extension UpdateProfileView {
                 .ignoresSafeArea()
             VStack{
                 Image(updateProfileTitle)
-                    .padding(.top, 50)
+                    .padding(.top, 51)
                 Spacer()
             }
         }
-        
     }
 
     private var catArray: some View{
-        VStack {
+        VStack(spacing: 0) {
             ForEach(setProfileImageArray, id: \.self) { row in
-                HStack {
+                HStack(spacing: 0) {
                     ForEach(row, id: \.self) { i in
                         Button {
                             print("")
@@ -100,8 +99,9 @@ extension UpdateProfileView {
                 viewModel.clickedSaveButton()
             } label: {
                 Image(updateProfileSaveButton)
+                    .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 4)
             }
-        }.padding(.bottom, screenHeight/20)
+        }.padding(.bottom, 57)
     }
     private var Chevron: some View {
         VStack{
@@ -109,29 +109,12 @@ extension UpdateProfileView {
                 Button {
                     print("메인페이지로 이동")//TODO: - 네비게이션 백버튼
                 } label: {
-                    Image(SetPageChevron)
+                    Image("SetPageChevron")
+                        .padding(.init(top: 65, leading: 25, bottom: 0, trailing: 0))
                 }
                 Spacer()
-            }.padding(.horizontal, 20)
-                .padding(.top, 64)
+            }
             Spacer()
         }
-        
     }
-    
-    //MARK: 안쓰는 셋버튼
-//    private var setButton: some View {
-//        Button {
-//            viewModel.nextButtonPressed()
-//        } label: {
-//            Text("다음")
-//                .font(.headline)
-//                .foregroundColor(.white)
-//                .frame(height: 55)
-//                .frame(maxWidth: .infinity)
-//                .background(Color.blue)
-//                .cornerRadius(10)
-//
-//        }
-//    }
 }
