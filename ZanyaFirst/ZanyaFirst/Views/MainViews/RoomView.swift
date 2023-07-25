@@ -17,9 +17,9 @@ struct RoomView: View {
     @State var text : String = ""
     @State var ArrayNum : Int = 0
     @State var PunchMessageToggle: Bool = true
-    @Binding var path: NavigationPath
-    
-    var profile: Profile
+    @Environment(\.dismiss) private var dismiss
+
+//    var profile: Profile
     let profileImageArray = ProfileImageArray
     
     
@@ -86,7 +86,7 @@ extension RoomView {
             //BackButton
             Button {
                 print("clicked back button")
-                path.removeLast()
+                dismiss()
             } label: {
                 Image(NavigationBackButton)
             }

@@ -36,9 +36,7 @@ struct SetProfileView: View {
                         completeButton
                             .background(
                                 NavigationLink(destination: MainView(viewModel: MainViewModel(profile: viewModel.profile)),isActive: $viewModel.goToMainView){
-                                
                             })
-                        
                     }// VStack
                     .padding(.top, UIApplication.shared.windows[0].safeAreaInsets.top)
                 }

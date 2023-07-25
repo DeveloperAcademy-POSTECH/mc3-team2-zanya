@@ -81,7 +81,7 @@ let gentleCat_HandRight = "gentleCat_HandRight"
 //MARK: -MAINPAGE COMPONENTS
 let RoomListImage = "RoomListImage"
 let MainPageSheetImage = "MainPageSheetImage"
-let MainPageProfileBinu = "MainPageProfileBinu"
+let MainPageProfile = "MainPageProfile"
 let EmptyRoomSheetImage = "EmptyRoomSheetImage"
 
 //MARK: -ROOMCELL COMPONENTS

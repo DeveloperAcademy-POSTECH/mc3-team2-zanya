@@ -30,15 +30,16 @@ struct MainView: View {
     
     //MARK: - 2. BODY
     var body: some View {
-        
-        NavigationStack(path: $path) {
+        NavigationView {
             ZStack{
                 MainPageBackground
                 MainPageProfileButton
-//                MainPageRoomList
+                MainPageRoomList
                 MainPageCreateRoomBtn
             }
-        }.navigationBarBackButtonHidden(true)
+            .ignoresSafeArea()
+        }
+        .navigationBarBackButtonHidden(true)
         
         //TODO: 스플래시뷰 사용하려면 이거 열어야 함!// 바디밑에 붙이는 뷰임// 프리뷰때매 닫아둠!
         //        .fullScreenCover(isPresented: $ShowOnBoarding) {
@@ -74,15 +75,9 @@ struct MainView: View {
 //MARK: -4. EXTENSION
 extension MainView {
     private var MainPageBackground: some View {
-        ZStack {
-            Image(MainPageSheetImage)
-                .ignoresSafeArea()
-            VStack{
-                Image(RoomListImage)
-                    .padding(.top, 50)
-                Spacer()
-            }
-        }// ZStack
+        Image(MainPageSheetImage)
+            .resizable()
+            .aspectRatio(contentMode: .fit)
     }
     
     private var MainPageProfileButton: some View {
@@ -90,17 +85,16 @@ extension MainView {
             HStack{
                 Spacer()
                 //TODO: - 프로필 설정 페이지로 이동
-                NavigationLink(value: "1hgj") {
-                    Image(MainPageProfileBinu)
+                NavigationLink {
+                    UpdateProfileView(viewModel: UpdateProfileViewModel(profile: viewModel.profile, delegate: viewModel))
+                } label: {
+                    Image(MainPageProfile)
+                        .shadow(color: .black.opacity(0.25), radius: 3, x: 0, y: 4)
+                    //                        .border(.red)
                 }
-                .navigationDestination(for: String.self) {_ in
-                    UpdateProfileView(viewModel: UpdateProfileViewModel(profile: viewModel.profile, delegate: viewModel), path: $path)
-                    
-                }
-
+                .padding(EdgeInsets(top: 43, leading: 0, bottom: 0, trailing: 18))
+                //                .border(.orange)
             }
-            .padding(.horizontal, 10)
-            .padding(.top, 40)
             Spacer()
         }
     }
@@ -109,33 +103,46 @@ extension MainView {
             Spacer()
             HStack {
                 Spacer()
-                NavigationLink(value: 2.0) {
-                    ClearRectangle(width: 110, height: 40, ClearOn: true)
-                        .padding(.horizontal)
-                        .padding(.bottom,40)
+                
+                NavigationLink {
+                    CreateRoomView()
+                } label: {
+                    ClearRectangle(width: 121, height: 34, ClearOn: true)
+                        .border(.red)
                 }
-                .navigationDestination(for: Double.self) {ii in
-                    CreateRoomView(path: $path)
-                }
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 36.8, trailing: 10))
             }
         }
     }
-    //    private var MainPageRoomList: some View {
-    //        VStack{
-    //            ClearRectangle(width: 2, height: screenHeight/5, ClearOn: true)
-    //            ScrollView{
-    //                ForEach(0..<rooms.count, id: \.self) { i in
-    //                    NavigationLink(value: i) {
-    //                        RoomCell(title: rooms[i].roomInfo.name)
-    //                    }
-    //                    .navigationDestination(for: Int.self) { roomNum in
-    //                        //TODO: - ROOMVIEW로 가야함
-    //                        RoomView(viewModel: dummyRoomViewModels[roomNum], path: $path, profile: viewModel.profile)
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
+    
+    private var MainPageRoomList: some View {
+        VStack {
+            ScrollView {
+                ForEach(viewModel.rooms, id: \.self) { room in
+                    NavigationLink{
+                        RoomView(viewModel: RoomViewModel(allUsers: viewModel.allUsers, users: [viewModel.profile], roomInfo: room))
+                    } label: {
+                        RoomCell(title: room.name)
+//                        VStack{
+//                            Text("방 이름: \(room.name)")
+//                                .font(.headline)
+//                                .foregroundColor(.gray)
+//                            Text("방 인원: \(room.UIDs.map{String($0)}.joined(separator: ","))")
+//                                .font(.headline)
+//                                .foregroundColor(.gray)
+//                        }
+//                        .frame(height: 110)
+//                        .frame(maxWidth: .infinity)
+//                        .overlay(
+//                            RoundedRectangle(cornerRadius: 10)
+//                                .stroke(Color.gray, lineWidth: 4)
+//                        )
+                    }// label
+                }// ForEach
+            }// ScrollView
+            .padding(.top, 183)
+        }
+    }
 }
 
 extension Date {
