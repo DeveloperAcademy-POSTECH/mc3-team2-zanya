@@ -10,12 +10,12 @@ import SwiftUI
 struct UpdateProfileView: View {
     
     //MARK: -1. PROPERTY
-    @StateObject var viewModel: UpdateProfileViewModel
+    @StateObject var viewModel : UpdateProfileViewModel
+    // @Binding var path: NavigationPath
     
     let profileArray = ProfileImageArray
-    let setProfileImageArray = SetProfileImageArray
+    let setProfileImageArray = SetPrifileCatArray
     @Environment(\.dismiss) private var dismiss
-
     
     //MARK: -2. BODY
     var body: some View {
@@ -23,14 +23,14 @@ struct UpdateProfileView: View {
             ZStack{
                 UpdateProfileBackground
                 Chevron
-                VStack {
-                    ClearRectangle(width: 2, height: screenHeight/6, ClearOn: true)
+                VStack(spacing: 0) {
+                    Spacer()
                     catArray
                     textField
                     Spacer()
                     saveButton
                 }
-            }
+            }.ignoresSafeArea()
         }
         .navigationBarBackButtonHidden()
         .onAppear{
@@ -51,9 +51,15 @@ struct UpdateProfileView: View {
 extension UpdateProfileView {
     
     private var UpdateProfileBackground: some View {
+        ZStack {
             Image(SetProfileBackgroundSheet)
-                .resizable()
                 .ignoresSafeArea()
+            VStack{
+                Image(updateProfileTitle)
+                    .padding(.top, 51)
+                Spacer()
+            }
+        }
         
     }
 
@@ -83,11 +89,13 @@ extension UpdateProfileView {
     private var textField: some View{
         ZStack{
             Image(SetProfileTextField)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
             //TODO: - 이름숫자쓰는거 해야함
             TextField(viewModel.profileName, text: $viewModel.profileName )
                 .padding(.horizontal)
         }.frame(width: 297)
-            .padding(.vertical,10)
+//            .padding(EdgeInsets(top: 7, leading: 46, bottom: 0, trailing: 46))
     }
     private var saveButton: some View{
         ZStack{
@@ -95,8 +103,9 @@ extension UpdateProfileView {
                 viewModel.clickedSaveButton()
             } label: {
                 Image(updateProfileSaveButton)
+                    .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 4)
             }
-        }.padding(.bottom, screenHeight/20)
+        }.padding(.bottom, 57)
     }
     private var Chevron: some View {
         VStack{
@@ -104,29 +113,12 @@ extension UpdateProfileView {
                 Button {
                     dismiss()
                 } label: {
-                    Image(SetPageChevron)
+                    Image("SetPageChevron")
+                        .padding(.init(top: 65, leading: 25, bottom: 0, trailing: 0))
                 }
                 Spacer()
-            }.padding(.horizontal, 20)
-                .padding(.top, 64)
+            }
             Spacer()
         }
-        
     }
-    
-    //MARK: 안쓰는 셋버튼
-//    private var setButton: some View {
-//        Button {
-//            viewModel.nextButtonPressed()
-//        } label: {
-//            Text("다음")
-//                .font(.headline)
-//                .foregroundColor(.white)
-//                .frame(height: 55)
-//                .frame(maxWidth: .infinity)
-//                .background(Color.blue)
-//                .cornerRadius(10)
-//
-//        }
-//    }
 }

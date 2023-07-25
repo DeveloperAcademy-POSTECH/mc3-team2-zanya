@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		075B7FB92A6E43250071A856 /* StrokedTextCellLeading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075B7FB82A6E43250071A856 /* StrokedTextCellLeading.swift */; };
+		075B7FBD2A6E47900071A856 /* StrokeTextLabelCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075B7FBC2A6E47900071A856 /* StrokeTextLabelCenter.swift */; };
+		075B7FBF2A6E47B30071A856 /* StrokedTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075B7FBE2A6E47B30071A856 /* StrokedTimeCell.swift */; };
 		07B3E2FD2A6680870080860A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3E2FC2A6680870080860A /* ContentView.swift */; };
 		07B3E3002A671BE20080860A /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3E2FF2A671BE20080860A /* LocalNotificationManager.swift */; };
 		07B3E3072A671F820080860A /* LINESeedKR-Th.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07B3E3042A671F820080860A /* LINESeedKR-Th.ttf */; };
@@ -15,7 +18,6 @@
 		07B3E30D2A6720C90080860A /* TextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3E30C2A6720C90080860A /* TextCell.swift */; };
 		07B3E3112A67289E0080860A /* RoomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3E3102A67289E0080860A /* RoomCell.swift */; };
 		07B3E3132A6739DE0080860A /* ClearRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3E3122A6739DE0080860A /* ClearRectangle.swift */; };
-		07B3E3152A6776A40080860A /* RoomBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3E3142A6776A40080860A /* RoomBottomView.swift */; };
 		07B3E31D2A67A0980080860A /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3E31C2A67A0980080860A /* OnBoardingView.swift */; };
 		07B3E31F2A67A1120080860A /* AlarmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3E31E2A67A1120080860A /* AlarmModel.swift */; };
 		07B3E3212A67A7360080860A /* TimeAndDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3E3202A67A7360080860A /* TimeAndDate.swift */; };
@@ -48,6 +50,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		075B7FB82A6E43250071A856 /* StrokedTextCellLeading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokedTextCellLeading.swift; sourceTree = "<group>"; };
+		075B7FBC2A6E47900071A856 /* StrokeTextLabelCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeTextLabelCenter.swift; sourceTree = "<group>"; };
+		075B7FBE2A6E47B30071A856 /* StrokedTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokedTimeCell.swift; sourceTree = "<group>"; };
 		07B3E2FC2A6680870080860A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		07B3E2FF2A671BE20080860A /* LocalNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
 		07B3E3042A671F820080860A /* LINESeedKR-Th.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LINESeedKR-Th.ttf"; sourceTree = "<group>"; };
@@ -57,7 +62,6 @@
 		07B3E30E2A6723720080860A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		07B3E3102A67289E0080860A /* RoomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCell.swift; sourceTree = "<group>"; };
 		07B3E3122A6739DE0080860A /* ClearRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearRectangle.swift; sourceTree = "<group>"; };
-		07B3E3142A6776A40080860A /* RoomBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomBottomView.swift; sourceTree = "<group>"; };
 		07B3E31C2A67A0980080860A /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = "<group>"; };
 		07B3E31E2A67A1120080860A /* AlarmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmModel.swift; sourceTree = "<group>"; };
 		07B3E3202A67A7360080860A /* TimeAndDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeAndDate.swift; sourceTree = "<group>"; };
@@ -120,7 +124,6 @@
 				07B455572A667C3A00EB9801 /* CreateRoomView.swift */,
 				07B455592A667C5A00EB9801 /* RoomView.swift */,
 				07B455532A667BF200EB9801 /* SetImageView.swift */,
-				07B3E3162A6776A80080860A /* SubView */,
 			);
 			path = MainViews;
 			sourceTree = "<group>";
@@ -131,6 +134,9 @@
 				07B3E30C2A6720C90080860A /* TextCell.swift */,
 				07B3E3102A67289E0080860A /* RoomCell.swift */,
 				07B3E3122A6739DE0080860A /* ClearRectangle.swift */,
+				075B7FB82A6E43250071A856 /* StrokedTextCellLeading.swift */,
+				075B7FBC2A6E47900071A856 /* StrokeTextLabelCenter.swift */,
+				075B7FBE2A6E47B30071A856 /* StrokedTimeCell.swift */,
 			);
 			path = CellComponents;
 			sourceTree = "<group>";
@@ -143,14 +149,6 @@
 				07B3E3042A671F820080860A /* LINESeedKR-Th.ttf */,
 			);
 			path = Fonts;
-			sourceTree = "<group>";
-		};
-		07B3E3162A6776A80080860A /* SubView */ = {
-			isa = PBXGroup;
-			children = (
-				07B3E3142A6776A40080860A /* RoomBottomView.swift */,
-			);
-			path = SubView;
 			sourceTree = "<group>";
 		};
 		07B4552D2A66779D00EB9801 = {
@@ -349,6 +347,7 @@
 				07B455712A667DE100EB9801 /* PlaySound.swift in Sources */,
 				07B3E31D2A67A0980080860A /* OnBoardingView.swift in Sources */,
 				07B455622A667CCC00EB9801 /* UpdateProfileViewModel.swift in Sources */,
+				075B7FB92A6E43250071A856 /* StrokedTextCellLeading.swift in Sources */,
 				07B3E30D2A6720C90080860A /* TextCell.swift in Sources */,
 				07B455562A667C2000EB9801 /* UpdateProfileView.swift in Sources */,
 				07B455582A667C3A00EB9801 /* CreateRoomView.swift in Sources */,
@@ -356,6 +355,7 @@
 				07B3E31F2A67A1120080860A /* AlarmModel.swift in Sources */,
 				07B3E3002A671BE20080860A /* LocalNotificationManager.swift in Sources */,
 				07B4554E2A667A1700EB9801 /* SetProfileView.swift in Sources */,
+				075B7FBF2A6E47B30071A856 /* StrokedTimeCell.swift in Sources */,
 				07B4555A2A667C5A00EB9801 /* RoomView.swift in Sources */,
 				07B3E2FD2A6680870080860A /* ContentView.swift in Sources */,
 				07B4554C2A6679C800EB9801 /* MainView.swift in Sources */,
@@ -364,13 +364,13 @@
 				07B455692A667D3500EB9801 /* ImageConstants.swift in Sources */,
 				07B4556E2A667D8F00EB9801 /* SoundConstants.swift in Sources */,
 				07B3E3212A67A7360080860A /* TimeAndDate.swift in Sources */,
+				075B7FBD2A6E47900071A856 /* StrokeTextLabelCenter.swift in Sources */,
 				07B4555C2A667C7000EB9801 /* MainViewModel.swift in Sources */,
 				07B455642A667CE900EB9801 /* CreateRoomViewModel.swift in Sources */,
 				07B4556C2A667D7300EB9801 /* ScreenConstants.swift in Sources */,
 				07B3E3132A6739DE0080860A /* ClearRectangle.swift in Sources */,
 				07B3E3232A67A74A0080860A /* TimeModel.swift in Sources */,
 				113018CB2A67FF3300DAD625 /* Color+.swift in Sources */,
-				07B3E3152A6776A40080860A /* RoomBottomView.swift in Sources */,
 				07B455602A667C9E00EB9801 /* SetImageViewModel.swift in Sources */,
 				113018CF2A6807AA00DAD625 /* SetProfileViewModel.swift in Sources */,
 				07B455792A667E2D00EB9801 /* Model.swift in Sources */,

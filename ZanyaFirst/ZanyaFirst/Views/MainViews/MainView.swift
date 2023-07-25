@@ -25,7 +25,7 @@ struct MainView: View {
     
     let profileArray = ProfileImageArray
     //MARK: 프리뷰하려고 더미룸 데이터 넣고 뿌림
-    //    var rooms : [RoomViewModel] = dummyRoomViewModels
+    var rooms : [RoomViewModel] = dummyRoomViewModels//TODO: 프리뷰 용임 //올리기 전에 지워야함
     
     
     //MARK: - 2. BODY
@@ -64,10 +64,10 @@ struct MainView: View {
 }// MainView
 
 
-//MARK: -3. PREVIEW
+////MARK: -3. PREVIEW
 //struct MainView_Preview: PreviewProvider {
 //    static var previews: some View {
-//        MainView(viewModel: MainViewModel(profile: dummyProfile0), roomViewModel: dummyRoomViewModels[1])
+//        MainView(viewModel: MainViewModel(profile: dummyProfile4), roomViewModel: dummyRoomViewModels[1])
 //            .environmentObject(LocalNotificationManager())
 //    }
 //}
@@ -77,7 +77,7 @@ extension MainView {
     private var MainPageBackground: some View {
         Image(MainPageSheetImage)
             .resizable()
-            .aspectRatio(contentMode: .fit)
+            .ignoresSafeArea()
     }
     
     private var MainPageProfileButton: some View {
@@ -118,25 +118,16 @@ extension MainView {
     private var MainPageRoomList: some View {
         VStack {
             ScrollView {
+                // if rooms.count == 0 {
+                // Image(EmptyRoomSheetImage)
+                //    .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                // }
                 ForEach(viewModel.rooms, id: \.self) { room in
                     NavigationLink{
                         RoomView(viewModel: RoomViewModel(allUsers: viewModel.allUsers, users: [viewModel.profile], roomInfo: room))
                     } label: {
                         RoomCell(title: room.name)
-//                        VStack{
-//                            Text("방 이름: \(room.name)")
-//                                .font(.headline)
-//                                .foregroundColor(.gray)
-//                            Text("방 인원: \(room.UIDs.map{String($0)}.joined(separator: ","))")
-//                                .font(.headline)
-//                                .foregroundColor(.gray)
-//                        }
-//                        .frame(height: 110)
-//                        .frame(maxWidth: .infinity)
-//                        .overlay(
-//                            RoundedRectangle(cornerRadius: 10)
-//                                .stroke(Color.gray, lineWidth: 4)
-//                        )
+                        
                     }// label
                 }// ForEach
             }// ScrollView

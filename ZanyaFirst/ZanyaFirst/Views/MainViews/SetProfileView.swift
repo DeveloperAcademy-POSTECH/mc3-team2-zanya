@@ -16,8 +16,8 @@ struct SetProfileView: View {
     @StateObject private var viewModel = SetProfileViewModel()
     
     let profileArray = ProfileImageArray
-    let setProfileImageArray = SetProfileImageArray
-    
+    let setProfileImageArray = SetPrifileCatArray
+ 
     //MARK: -2. BODY
     var body: some View {
         NavigationView {
@@ -27,9 +27,7 @@ struct SetProfileView: View {
                 
                 // 키보드가 올라올 때 뷰를 미는 걸 방지하기 위해 Geometry 사용함.
                 GeometryReader { geo in
-                    VStack(alignment: .center, spacing: 0) {
-                        Spacer()
-                            .frame(height: 102)
+                    VStack(spacing: 0) {
                         catArray
                         textField
                         Spacer()
@@ -65,22 +63,26 @@ extension SetProfileView {
                     print("dismiss")
                     dismiss()
                 } label: {
-                    Image(systemName: "xmark")
-                        .font(.system(size: 18, weight: .semibold))
-                        .foregroundColor(.FontTeal)
+                    Image(SetPageXmark)
                 }// label
                 Spacer()
             }// HStack
-            .padding(.leading, 24)
-            .padding(.top, 65)
+            .padding(.init(top: 65, leading: 25, bottom: 0, trailing: 0))
             Spacer()
         }// VStack
     }// dismissButton
     
     private var SetProfileBackground: some View {
-        Image(SetProfileBackgroundSheet)
-            .resizable()
+        ZStack {
+            Image(SetProfileBackgroundSheet)
+                .resizable()
             .aspectRatio(contentMode: .fit)
+            VStack{
+                Image(SetProfileTitle)
+                    .padding(.top, 51)
+                Spacer()
+            }
+        }
     }// SetProfileBackground
     
     private var catArray: some View{
@@ -90,9 +92,11 @@ extension SetProfileView {
                     ForEach(catsRow, id: \.self) { cat in
                         ZStack{
                             Image(viewModel.catName == cat ? ProfileCircleOn : ProfileCircleOff)
+                                .frame(width: 82, height: 82)
                             Image(cat)
                                 .resizable()
-                                .frame(width: 56.08, height: 46.12)
+                                .scaledToFit()
+                                .frame(width: 56)
                         }
                         .onTapGesture {
                             viewModel.clickedCatBtn(cat)
@@ -104,6 +108,7 @@ extension SetProfileView {
             }// catsRow ForEach
         }// VStack
         .padding(.horizontal, 46)
+        .padding(.init(top: 86, leading: 0, bottom: 0, trailing: 0))
     }// catArray
     
     private var textField: some View{
@@ -114,7 +119,7 @@ extension SetProfileView {
             //TODO: - 입력 카운트 및, 전체 삭제 버튼(optional한 작업. 공수 남으면 진행)
             TextField("닉네임", text: $viewModel.name)
                 .padding(.horizontal)
-        }
+        }.frame(width: 297)
         .padding(EdgeInsets(top: 7, leading: 46, bottom: 0, trailing: 46))
     }
     
@@ -123,7 +128,7 @@ extension SetProfileView {
             print("name: \(viewModel.name), cat: \(viewModel.catName)")
             viewModel.completeButtonPressed()
         } label: {
-            Image(viewModel.name == "" ? "SetProfileCompleteButton_disabled" : SetProfileCompleteButton)
+            Image(viewModel.name == "" ? SetProfileCompleteButton_disabled : SetProfileCompleteButton)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .padding(EdgeInsets(top: 0, leading: 22, bottom: 51, trailing: 22))

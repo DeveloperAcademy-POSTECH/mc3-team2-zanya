@@ -20,99 +20,146 @@ struct RoomCell: View {
             ZStack{
                 Image(RoomCellSheetPink)
                 // width: 300, height: 159
-                
-                VStack{
-                    HStack{
-                        TextCell(text: title, size: 19, color: .black)
+                VStack(spacing: 0){
+                    HStack(alignment: .center,spacing: 0){
+                        //Room Title
+                        StrokedTextCellLeading(text: title, size: 19, strokeColor: AppWine)
+                        
                         Spacer()
+                        
+                        //OutButton
                         Button {
                             print("dd")
                             isClickedOut = true
                         } label: {
                             Image(RoomBoxOutPink)
                         }
-                    }
-                    .padding()
-                    .frame(width: 300)
-                    .confirmationDialog("방을 나가게 됩니다.", isPresented: $isClickedOut, titleVisibility: .visible){
-                        Button("나가기",role: .destructive){
-                            //TODO: 나가기 액션
-                        }
-                    }
-                    HStack{
-                        VStack(alignment: .leading){
-                            TextCell(text: "오전", size: 15, color: .black) //TODO: -DATEMODEL로 바까야함
-                            TextCell(text: "11:00", size: 40, color: .accentColor) //TODO: -DATEMODEL로 바까야함
-                        }.padding(.horizontal)
-                        Spacer()
-                        VStack(alignment: .trailing){
-                            Image(InviteTalkBox)
-                            Button {
-                                print("공유하기 작동") //TODO: -공유하기 기능 추가해야함
-                            } label: {
-                                ZStack(alignment: .center){
-                                    Image(InvitePinkBtn)
-                                    HStack{
-                                        Image(InviteTextPink)
-                                        TextCell(text: "0/6", size: 12, color: .accentColor)
-                                            .foregroundColor(.white)
-                                    }.padding(.bottom,7)
-                                }
+                    }.padding(.init(top: 21, leading: 15, bottom: 0, trailing: 18))
+                        .frame(width: 300)
+                        .confirmationDialog("방을 나가게 됩니다.", isPresented: $isClickedOut, titleVisibility: .visible){
+                            Button("나가기",role: .destructive){
+                                //TODO: 방나가기 액션
                             }
-                        }.padding(.horizontal)
+                        }
+                    
+                    HStack(spacing: 0){
+                        //Time
+                        VStack(alignment: .leading, spacing: 0){
+                            //TODO: -DATEMODEL로 바까야함
+                            TextCell(text: "오전", size: 14, color: Color(AppWine))
+                                .padding(.init(top: -3, leading: -8, bottom: 5, trailing: 0))
+                            
+                            HStack {
+                                //TODO: -DATEMODEL로 바까야함
+                                StrokedTimeCell(text: "11:00", size: 40, color: Color(AppWine), strokeColor: AppWhite)
+                                    .padding(.init(top: -4, leading: -47, bottom: -3, trailing: 0))
+                                Spacer()
+                            }
+                        }
+                        .padding(.init(top: 25, leading: 24, bottom: 0, trailing: 0))
+                        
+                        Spacer()
+                        
+                        VStack(alignment: .trailing){
+                            
+                            Spacer()
+                            
+                            //친구를 초대해보세요
+                            Image(InviteTalkBox)
+                                .padding(.init(top: 0, leading: 0, bottom: -8, trailing: 16))
+                                .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 4)
+                            //InviteButton
+                            ZStack{
+                                Button {
+                                    print("공유하기 작동") //TODO: -공유하기 기능 추가해야함
+                                } label: {
+                                    ZStack(alignment: .center){
+                                        Image(InvitePinkBtn)
+                                        HStack{
+                                            Image(InviteTextPink)
+                                            TextCell(text: "0/6", size: 12, color: .white,weight: "Regular")
+                                                .foregroundColor(.white)
+                                                .padding(.leading, -5)
+                                        }.frame(width: 82)
+                                    }
+                                }
+                            } .padding(.init(top: 0, leading: 0, bottom: 28, trailing: 16))
+                        }
                     }.frame(width: 300)
                 }
+                
             }
+            .frame(width: 304, height: 160)
         } else {
             //IsOnTime = false
             ZStack{
                 Image(RoomCellSheetBlue)
                 // width: 300, height: 159
-                
-                VStack{
-                    HStack{
-                        TextCell(text: title, size: 19, color: .accentColor)
+                VStack(spacing: 0){
+                    HStack(alignment: .center,spacing: 0){
+                        //Room Title
+                        StrokedTextCellLeading(text: title, size: 19, color: Color(AppLavender), strokeColor: Apppurple)
+                        
                         Spacer()
+                        
+                        //OutButton
                         Button {
-                            print("ddd")
+                            print("dd")
                             isClickedOut = true
                         } label: {
                             Image(RoomBoxOutBlue)
                         }
-                    }
-                    .padding()
-                    .frame(width: 300)
-                    .confirmationDialog("방을 나가게 됩니다.", isPresented: $isClickedOut, titleVisibility: .visible){
-                        Button("나가기",role: .destructive){
-                            //TODO: 나가기 액션
-                        }
-                    }
-                    HStack{
-                        VStack(alignment: .leading){
-                            TextCell(text: "오전", size: 15,color: .accentColor) //TODO: -DATEMODEL로 바까야함
-                            TextCell(text: "11:00", size: 40, color: .accentColor) //TODO: -DATEMODEL로 바까야함
-                        }.padding(.horizontal)
-                        Spacer()
-                        VStack(alignment: .trailing){
-                            Rectangle()
-                                .foregroundColor(.clear)
-                                .frame(width: 110,height: 31) // InviteTalkBox랑 같은 사이즈 투명박스
-                            Button {
-                                print("공유하기 작동") //TODO: -공유하기 기능 추가해야함
-                            } label: {
-                                ZStack(alignment: .center){
-                                    Image(InviteBlueBtn)
-                                    HStack{
-                                        Image(InviteTextBlue)
-                                        TextCell(text: "0/6", size: 12, color: .accentColor)
-                                            .foregroundColor(.white)
-                                    }.padding(.bottom,2)
-                                }
+                    }.padding(.init(top: 21, leading: 15, bottom: 0, trailing: 18))
+                        .frame(width: 300)
+                        .confirmationDialog("방을 나가게 됩니다.", isPresented: $isClickedOut, titleVisibility: .visible){
+                            Button("나가기",role: .destructive){
+                                //TODO: 방나가기 액션
                             }
-                        }.padding(.horizontal)
+                        }
+                    
+                    HStack(spacing: 0){
+                        //Time
+                        VStack(alignment: .leading, spacing: 0){
+                            //TODO: -DATEMODEL로 바까야함
+                            TextCell(text: "오전", size: 14, color: Color(Apppurple))
+                                .padding(.init(top: -3, leading: -8, bottom: 5, trailing: 0))
+                            
+                            HStack {
+                                //TODO: -DATEMODEL로 바까야함
+                                StrokedTimeCell(text: "11:00", size: 40, color: Color(Apppurple), strokeColor: AppWhite)
+                                    .padding(.init(top: -4, leading: -47, bottom: -3, trailing: 0))
+                                
+                                Spacer()
+                                
+                            }
+                        }
+                        .padding(.init(top: 25, leading: 24, bottom: 0, trailing: 0))
+                        
+                        Spacer()
+                        
+                        VStack(alignment: .trailing){
+                            Spacer()
+                            ClearRectangle(width: 130, height: 40,ClearOn: true)
+                            //InviteButton
+                            ZStack{
+                                Button {
+                                    print("공유하기 작동") //TODO: -공유하기 기능 추가해야함
+                                } label: {
+                                    ZStack(alignment: .center){
+                                        Image(InviteBlueBtn)
+                                        HStack{
+                                            Image(InviteTextBlue)
+                                            TextCell(text: "0/6", size: 12, color: .white,weight: "Regular")
+                                                .foregroundColor(.white)
+                                                .padding(.leading, -5)
+                                        }.frame(width: 82)
+                                    }
+                                }
+                            } .padding(.init(top: 0, leading: 0, bottom: 28, trailing: 16))
+                        }
                     }.frame(width: 300)
                 }
-            }
+            }.frame(width: 304, height: 160)
         }
     }
 }
@@ -121,9 +168,9 @@ struct RoomCell_Previews: PreviewProvider {
     static var previews: some View {
         VStack{
             RoomCell(isOnTime: true, title: "일어날래 나랑살래?")
-            .previewLayout(.sizeThatFits)
+                .previewLayout(.sizeThatFits)
             RoomCell(isOnTime: false, title: "일어날래 나랑살래?")
-            .previewLayout(.sizeThatFits)
+                .previewLayout(.sizeThatFits)
         }
     }
 }

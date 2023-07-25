@@ -7,12 +7,9 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct RoomView: View {
     
     //MARK: - 1. PROPERTY
-
     @StateObject var viewModel: RoomViewModel
     @State var text : String = ""
     @State var ArrayNum : Int = 0
@@ -27,110 +24,129 @@ struct RoomView: View {
     var body: some View {
         ZStack {
             backgroundPage
-            VStack{
+            VStack(spacing: 0){
                 toolBar
                 Spacer()
                 memberSheet
                 bottomTab
             }
-            HiddenTapBurron
+            HiddenTapButton
         }.navigationBarBackButtonHidden()
+            .ignoresSafeArea()
             .toolbar(.hidden)
     }
 }
 
 
 
-//MARK: -3. PREVIEW
-
+////MARK: -3. PREVIEW
 //struct RoomView_Preview: PreviewProvider {
 //    static var previews: some View {
-//        RoomView(viewModel: dummyRoomViewModels[1], path: .constant(NavigationPath()), profile: dummyProfile0)
+//        RoomView(viewModel: dummyRoomViewModels[0], path: .constant(NavigationPath()), profile: dummyProfile0)
 //    }
 //}
 
 //MARK: - 4. EXTENSION
-
-
-
 extension RoomView {
     
     private var backgroundPage: some View {
-        ZStack{
+        ZStack(alignment: .topLeading){
+            //배경화면
             Image(BackgroundSheet)
-                .ignoresSafeArea()
-            
-//            Image(ProfileStandingArray[profile.imageKey ?? 0])
-//                .offset(x:screenWidth/5.6, y: -screenHeight/6.5)
-            
+            //배경 서있는 고양이 이미지
+//            Image(profile.imageKey ?? shamCat_Standing) // 이미지 키 받아오기
+            Image(gentleCat_Standing) // 이미지 사이즈 확인을 위한 테스트용 이미지
+                .resizable()
+                .scaledToFit()
+                .frame(width: 210)
+                .padding(.init(top: 147, leading: 156.84, bottom: 0, trailing: 0))
+            //펀치페이지 말풍성
             if PunchMessageToggle == true {
-                ZStack{
+                ZStack(alignment: .topLeading){
                     Image(PunchDialogSheet)
-                    VStack{
+                        .shadow(color: .black.opacity(0.2), radius: 3.18533, x: 0, y: 4.24711)
+                    VStack(spacing: 5){
                         //TODO: 시간모델 받아와야 함
-                        TextCell(text: "99초" , size: 30, color: Color("FontRed"))
-                        TextCell(text: "남았다냐:3\n", size: 14, color: Color("FontBlack"))
-                    }
-                }.offset(x: -screenWidth/4.9, y: -screenHeight/3.38)
+                        TextCell(text: "99초" , size: 30, color: Color("AppRed"))//TODO: 시간모델 받아와야 함
+                            .padding(.top,-4.5)
+                        Image(itsempty).padding(.top,-6)
+                    } .padding(.init(top: 41.04, leading: 62, bottom: 0, trailing: 0))
+                }.padding(.init(top: 104.96, leading: 13, bottom: 0, trailing: 0))
+                //메세지 페이지 말풍선
             } else {
                 ZStack{
                     Image(MessageDialogSheet)
-                    TextCell(text: "도구에 냥냥펀치를 날리면 \n친구를 깨울 수 있자냐:3\n", size: 14, color: Color("FontBlack"))
-                }.offset(x: -screenWidth/4.9, y: -screenHeight/3.38)
+                        .shadow(color: .black.opacity(0.2), radius: 3.18533, x: 0, y: 4.24711)
+                }.padding(.init(top: 112, leading: 13, bottom: 0, trailing: 0))
             }
         }
     }
 
     private var toolBar: some View {
-        HStack{
+        HStack(spacing: 0){
             //BackButton
             Button {
                 print("clicked back button")
                 dismiss()
             } label: {
                 Image(NavigationBackButton)
+                    .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 4)
             }
             
             //RoomTitle
             ZStack{
                 Image(RoomTitleSheet)
-                Text(viewModel.roomInfo.name)
-            }
+                    .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 4)
+                StrokedTextCellCenter(text: viewModel.roomInfo.name, size: 18, color: .white, strokeColor: AppNavy)
+                    .padding(.bottom, 4)
+            }.padding(.init(top: 0, leading: 13, bottom: 0, trailing: 13))
             
             //QuestionButton
             Button {
                 print("clicked question mark button")
             } label: {
                 Image(QuestionButton)
+                    .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 4)
             }
-        }.padding(.top, 50)
+        }
+        .padding(.init(top: 53, leading: 15, bottom: 0, trailing: 15))
+        .frame(maxWidth: screenWidth)
     }
     
     private var memberSheet: some View {
-        ZStack {
+        ZStack(alignment: .bottomLeading) {
             Image(MemberSheet)
-            HStack {
-                ClearRectangle(width: 15,height: 20,ClearOn: true)
+                .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 4)
+            
+            HStack(alignment: .center,spacing: 0) {
                 ForEach(0..<viewModel.users.count) { i in
-                    ZStack{
-                        Image(ProfilePlate)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 50)
-                            .padding(.top,12)
-                            VStack{
-//                                Image(profileImageArray[viewModel.users[i].imageKey ?? 0])
-//                                    .resizable()
-//                                    .scaledToFit()
-//                                    .frame(width: 38)
-                                TextCell(text: viewModel.users[i].name, size: 13, color: Color("FontBrown"))
-                                    .padding(.top,-6)
-                            }.padding(.top,17)
-                    }
+                    ZStack(alignment: .center){
+                        Image(ProfilePlateOff)
+                        VStack {
+                            //Spacer()
+                            Image(profileImageArray[i]) // TODO: 룸데이터에서 유저 정보 받아와야함
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 48)
+                           // Spacer()
+                            ClearRectangle(width: 0,height: 6)
+                        }
+                        VStack{
+                            Spacer()
+                            Image(nameSheet)
+                        }
+                        VStack{
+                            Spacer()
+                            TextCell(text: viewModel.users[i].name, size: 11, color: Color("AppBrown"))
+                                .padding(.bottom, 4)
+                        }
+                    }.frame(width: 48, height: 60)
+                        .padding(.init(top: 0, leading: 11, bottom: -16.75, trailing: 0))
+
                 }
                 Spacer()
-            }
-        }
+            } .frame(width: 360, height: 111.5)
+        }.padding(.init(top: 0, leading: 0, bottom: 13, trailing: 0))
     }
     
     private var bottomTab: some View {
@@ -140,19 +156,13 @@ extension RoomView {
             messagePage
                 .zIndex(PunchMessageToggle ? 0 : 1)
         }
-    }
-    
+    } 
     private var messagePage: some View {
-        ZStack{
+        ZStack(alignment: .bottom){
             Image(MessagePage)
+                .padding(.init(top: 0, leading: 0, bottom: -98, trailing: 0))
             Image(Rectangle77)
-                .padding(.bottom,-75)
-            
-            //            MessageListView()
-            //                .offset(y:-17)
-            
             Image(Rectangle33)
-                .offset(y: 133)
             
             VStack{
                 //TTS BUTTON
@@ -196,18 +206,17 @@ extension RoomView {
                     }
                 }
             }.offset(y: 120)
-        }.ignoresSafeArea()
+        }
+            
+        
     }
     
     private var punchPage: some View {
-        ZStack{
+        ZStack(alignment: .bottom){
             Image(PunchPage)
+                .padding(.init(top: 0, leading: 0, bottom: -98, trailing: 0))
             punchElements
-                .padding(.bottom, -60)
-            
-//            Image(HandArray[profile.imageKey ?? 0][ArrayNum])
-//                .offset(y: 130)
-//                .offset(y: screenHeight/6)
+            Image(HandArray[0][ArrayNum])// TODO: - 클라우드에서 프로필 값 받아오기 / 일단 가라로 0 넣어둠
         }
     }
     
@@ -216,50 +225,49 @@ extension RoomView {
         let punchElementPage = [TambourinePage1, BBoongPage1, DJPage1]
         let Punchelement = [Tambourine, BBoong, DJ]
         
-        return TabView{
-            ForEach(0..<3, id: \.self ){ i in
-                ZStack{
-                    Image(punchElementPage[i])
-                    Image(Punchelement[i])
-                        .resizable()
-                        .scaledToFit()
-                        .scaleEffect(0.5)
-                    
-                    Button(action: {
-                        print("\(ArrayNum)")
-                        tapElement()
-                        playSound(sound: SoundList[i].rawValue)
-                    }, label: {
-                        Circle()
-                            .frame(width: screenWidth/2)
-                            .foregroundColor(.clear)
-                    })
-                }
-            }
-        }.tabViewStyle(.page(indexDisplayMode: .never))
-            .frame(width: screenWidth, height: screenWidth)
+        return ZStack(alignment: .center) {
+                TabView{
+                    ForEach(0..<3, id: \.self ){ i in
+                        ZStack(alignment: .center){
+                            Image(punchElementPage[i])
+                            HStack{
+                                Image(InstrumentLeft)
+                                    .padding(.init(top: 0, leading: 17.96, bottom: 0, trailing: 0))
+                                Spacer()
+                                Image(Punchelement[i])
+                                    .onTapGesture {
+                                        print("\(ArrayNum)")
+                                        tapElement()
+                                        playSound(sound: SoundList[i].rawValue)
+                                    }
+                                Spacer()
+                                Image(InstrumentRight)
+                                    .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 17.96))
+                            }
+                        }
+                    }
+                }.tabViewStyle(.page(indexDisplayMode: .never))
+            
+        }.frame(height: 360)
     }
     
-    private var HiddenTapBurron: some View {
-        
+    private var HiddenTapButton: some View {
         HStack{
             Button {
                 PunchMessageToggle = true
             } label: {
                 Rectangle()
                     .frame(height: 50)
-                
             }
             Button {
                 PunchMessageToggle = false
             } label: {
                 Rectangle()
                     .frame(height: 50)
-                
             }
-        } .offset(y: 40)
+        }   .offset(y: 20)
             .foregroundColor(.clear)
-        
+            .padding(0)
     }
     
     func tapElement() {

@@ -9,15 +9,17 @@ import SwiftUI
 
 struct TextCell: View {
     
-    var text: String
+    var text: String = "gkgkk"
     var size: CGFloat
     var color: Color
+    var weight: String = "Bold"
     
     var body: some View {
         VStack{
             Text(text)
-                .font(Font.custom("LINESeedKR-Rg", size: size))
+                .font(Font.custom("LINE Seed Sans KR \(weight)", size: size))
                 .foregroundColor(color)
+                
         }
     }
 }
