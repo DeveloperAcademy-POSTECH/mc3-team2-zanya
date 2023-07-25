@@ -17,13 +17,16 @@ class SplashViewModel: ObservableObject {
     @Published var error: String = ""
     @Published var userName: String = ""
     
-    @Published var goToSetProfileView: Bool = false
+    var profile = Profile(UID: "", name: "",imageKey: "", record: nil)
+
     @Published var goToMainView: Bool = false
     
     init() {
         getiCloudStatus()
         requestPermission()
         fetchiCloudUserRecordID()
+        
+        fetchUID()
     }
     
     func fetchUID() {
@@ -36,21 +39,22 @@ class SplashViewModel: ObservableObject {
                 queryOperation.recordMatchedBlock = {  (returnedRecordID, returnedResult) in
                     switch returnedResult {
                     case .success(let record):
-                        guard let name = record["uid"] as? String else {
-                            print("user doesn't exist")
-                            self?.doNotHaveProfile()
-                            return
-                        }
+                        guard let name = record["uid"] as? String else { return }
+                        guard let imageKey = record["ImageKey"] as? String else { return }
                         print("user exist")
                         print(name)
+                        
+                        self?.profile.UID = name
+                        self?.profile.imageKey = imageKey
+                        self?.profile.record = record
+                        
+                        
+                        
                         self?.haveProfile()
                     case .failure(let error):
                         print("Error recordMatchedBlock: \(error)")
                     }
                 }// queryOperation.recordMatchedBlock
-                
-                print("user doesn't exist")
-                self?.doNotHaveProfile()
                 
                 queryOperation.queryResultBlock = { returnedResult in
                     print("Returned result splash1: \(returnedResult)")
@@ -140,10 +144,5 @@ class SplashViewModel: ObservableObject {
         }
     }
     
-    func doNotHaveProfile() {
-        DispatchQueue.main.async {
-            self.goToSetProfileView = true
-        }
-    }
     
 }

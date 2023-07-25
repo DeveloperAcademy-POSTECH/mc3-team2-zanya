@@ -54,11 +54,11 @@ struct OnBoardingView: View {
     // 프로필 유무에 따른 분기를 위해 만든 함수.
     @ViewBuilder
     func getDestination() -> some View {
-        switch viewModel.goToSetProfileView {
+        switch viewModel.goToMainView {
         case true:
-            SetProfileView()
+            MainView(viewModel: MainViewModel(profile: viewModel.profile))
         case false:
-            Text("MainView")
+            SetProfileView()
         }
     }
     
