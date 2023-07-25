@@ -123,6 +123,31 @@ class RoomViewModel: ObservableObject {
         }
         
     }
+    
+    private func sendAlarm(name: String) {
+        let alarm = CKRecord(recordType: "AlarmDB")
+        
+        alarm["whoSend"] = name
+        alarm["roomRecord"] = self.roomInfo.record?.description
+        
+        self.saveItem(record: alarm)
+    }
 
-
+    private func saveItem(record: CKRecord) {
+        CKContainer.default().publicCloudDatabase.save(record) { [weak self] returnedRecord, returnedError in
+            print("Record: \(returnedRecord)")
+            print("Error: \(returnedError)")
+            
+            
+            DispatchQueue.main.async {
+                print("RoomViewModel: 알람보내기냥")
+            }
+        }
+    }
+    
+    func touchNyang() {
+        sendAlarm(name: self.users[0].name)
+        print("RoomViewModel: 터치하기냥")
+    }
+    
 }

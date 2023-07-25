@@ -239,6 +239,8 @@ extension RoomView {
                                         print("\(ArrayNum)")
                                         tapElement()
                                         playSound(sound: SoundList[i].rawValue)
+                                        
+                                        viewModel.touchNyang()
                                     }
                                 Spacer()
                                 Image(InstrumentRight)
