@@ -86,8 +86,6 @@ class SetProfileViewModel: ObservableObject {
                 self?.name = ""
             }
         }
-        
-        
     }
     
     func addRecord(name: String, imageKey: String){
@@ -111,33 +109,27 @@ class SetProfileViewModel: ObservableObject {
         }
     }
     
-//    func nextButtonPressed() {
-//        guard !name.isEmpty else { return }
-//        addName(name: name)
-//    }
-    
     func clickedCatBtn(_ cat: String) {
         catName = cat
     }
     
     func completeButtonPressed() {
-//        guard !catName.isEmpty else {
-//            print("there's no catName")
-//            return
-//        }
         guard !name.isEmpty else {
             print("there's no userName")
             return
         }
-//
         addRecord(name: self.name, imageKey: self.catName)
-
-        
         goToMainView = true
         
         DispatchQueue.main.async { [self] in
             print("viewModel name: \(name) | cat: \(self.catName)")
         }
+    }
+    
+    func printProfile() {
+        print("UID : \(profile.UID)")
+        print("Name : \(profile.name)")
+        print("ImageKey : \(profile.imageKey)")
     }
 }
 

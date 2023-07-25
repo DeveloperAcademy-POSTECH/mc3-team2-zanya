@@ -11,10 +11,11 @@ struct UpdateProfileView: View {
     
     //MARK: -1. PROPERTY
     @StateObject var viewModel: UpdateProfileViewModel
-    @Binding var path: NavigationPath
     
     let profileArray = ProfileImageArray
     let setProfileImageArray = SetProfileImageArray
+    @Environment(\.dismiss) private var dismiss
+
     
     //MARK: -2. BODY
     var body: some View {
@@ -101,7 +102,7 @@ extension UpdateProfileView {
         VStack{
             HStack{
                 Button {
-                    path.removeLast()
+                    dismiss()
                 } label: {
                     Image(SetPageChevron)
                 }
