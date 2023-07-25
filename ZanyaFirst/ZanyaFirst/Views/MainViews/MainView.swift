@@ -14,7 +14,7 @@ struct MainView: View {
     @EnvironmentObject var lnManager: LocalNotificationManager
     
     @StateObject var viewModel: MainViewModel
-    @StateObject var roomViewModel: RoomViewModel
+    
     @Environment(\.scenePhase) var scenePhase
     
     @State private var isCreateButtonClicked : Bool = false
@@ -30,15 +30,22 @@ struct MainView: View {
     
     //MARK: - 2. BODY
     var body: some View {
-        
-        NavigationStack(path: $path) {
+        NavigationView {
             ZStack{
                 MainPageBackground
                 MainPageProfileButton
                 MainPageRoomList
                 MainPageCreateRoomBtn
-            }.ignoresSafeArea()
+            }
+            .ignoresSafeArea()
         }
+        .navigationBarBackButtonHidden(true)
+        
+        //TODO: 스플래시뷰 사용하려면 이거 열어야 함!// 바디밑에 붙이는 뷰임// 프리뷰때매 닫아둠!
+        //        .fullScreenCover(isPresented: $ShowOnBoarding) {
+        //            SplashViewMain(ShowOnBoarding: $ShowOnBoarding)
+        //        }
+        
         .task {
             try? await lnManager
                 .requestAuthorization()
@@ -57,26 +64,20 @@ struct MainView: View {
 }// MainView
 
 
-//MARK: -3. PREVIEW
-struct MainView_Preview: PreviewProvider {
-    static var previews: some View {
-        MainView(viewModel: MainViewModel(profile: dummyProfile4), roomViewModel: dummyRoomViewModels[1])
-            .environmentObject(LocalNotificationManager())
-    }
-}
+////MARK: -3. PREVIEW
+//struct MainView_Preview: PreviewProvider {
+//    static var previews: some View {
+//        MainView(viewModel: MainViewModel(profile: dummyProfile4), roomViewModel: dummyRoomViewModels[1])
+//            .environmentObject(LocalNotificationManager())
+//    }
+//}
 
 //MARK: -4. EXTENSION
 extension MainView {
     private var MainPageBackground: some View {
-        ZStack {
-            Image(MainPageSheetImage)
-                .ignoresSafeArea()
-            VStack{
-                Image(RoomListImage)
-                    .padding(.top, 51)
-                Spacer()
-            }
-        }// ZStack
+        Image(MainPageSheetImage)
+            .resizable()
+            .ignoresSafeArea()
     }
     
     private var MainPageProfileButton: some View {
@@ -84,22 +85,15 @@ extension MainView {
             HStack{
                 Spacer()
                 //TODO: - 프로필 설정 페이지로 이동
-                NavigationLink(value: "1") {
-                    ZStack {
-                        Image(mainPageProfileSheet)
-                            .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 4)
-                        Image(mainPage_CheeseCat) //TODO: - 프로필에서 고양이 값 받아오기
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 28.22)
-                            .padding(.bottom, -3)
-                    }
-                    
+                NavigationLink {
+                    UpdateProfileView(viewModel: UpdateProfileViewModel(profile: viewModel.profile, delegate: viewModel))
+                } label: {
+                    Image(MainPageProfile)
+                        .shadow(color: .black.opacity(0.25), radius: 3, x: 0, y: 4)
+                    //                        .border(.red)
                 }
-                .navigationDestination(for: String.self) {_ in
-                    SetProfileView()// 지금 델레게이트 몰라서 걍 이걸로 둠\
-                }.padding(.init(top: 43, leading: 0, bottom: 0, trailing: 18))
-                
+                .padding(EdgeInsets(top: 43, leading: 0, bottom: 0, trailing: 18))
+                //                .border(.orange)
             }
             Spacer()
         }
@@ -109,36 +103,35 @@ extension MainView {
             Spacer()
             HStack {
                 Spacer()
-                NavigationLink(value: 2.0) {
-                    ClearRectangle(width: 110, height: 40, ClearOn: true)
-                        .padding(.init(top: 0, leading: 0, bottom: 40, trailing: 15))
+                
+                NavigationLink {
+                    CreateRoomView()
+                } label: {
+                    ClearRectangle(width: 121, height: 34, ClearOn: true)
+                        .border(.red)
                 }
-                .navigationDestination(for: Double.self) {ii in
-                    CreateRoomView(path: $path)
-                }
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 36.8, trailing: 10))
             }
         }
     }
+    
     private var MainPageRoomList: some View {
-        
-        VStack{
-            if rooms.count == 0 {
-                //
-                Image(EmptyRoomSheetImage)
-                    .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-            } else {
-                ScrollView{
-                    ForEach(0..<rooms.count, id: \.self) { i in
-                        NavigationLink(value: i) {
-                            RoomCell(title: rooms[i].roomInfo.name)
-                                .padding(.init(top: 0, leading: 0, bottom: 2, trailing: 0))
-                        }.navigationDestination(for: Int.self) { roomNum in
-                            //TODO: - ROOMVIEW로 가야함
-                            RoomView(viewModel: dummyRoomViewModels[roomNum], path: $path, profile: viewModel.profile)
-                        }
-                    }
-                }.padding(.init(top: 177, leading: 0, bottom: 0, trailing: 0))
-            }
+        VStack {
+            ScrollView {
+                // if rooms.count == 0 {
+                // Image(EmptyRoomSheetImage)
+                //    .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                // }
+                ForEach(viewModel.rooms, id: \.self) { room in
+                    NavigationLink{
+                        RoomView(viewModel: RoomViewModel(allUsers: viewModel.allUsers, users: [viewModel.profile], roomInfo: room))
+                    } label: {
+                        RoomCell(title: room.name)
+                        
+                    }// label
+                }// ForEach
+            }// ScrollView
+            .padding(.top, 183)
         }
     }
 }
@@ -152,12 +145,3 @@ extension Date {
         )
     }
 }
-
-
-
-
-
-//TODO: 스플래시뷰 사용하려면 이거 열어야 함!// 바디밑에 붙이는 뷰임// 프리뷰때매 닫아둠!
-//        .fullScreenCover(isPresented: $ShowOnBoarding) {
-//            SplashViewMain(ShowOnBoarding: $ShowOnBoarding)
-//        }

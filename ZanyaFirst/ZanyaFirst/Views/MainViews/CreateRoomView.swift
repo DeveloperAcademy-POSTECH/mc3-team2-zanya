@@ -11,9 +11,9 @@ struct CreateRoomView: View {
     
     //MARK: -1. PROPERTY
     @ObservedObject var viewModel = CreateRoomViewModel()
-    @Binding var path: NavigationPath
     @State var date = Date()
-    
+    @Environment(\.dismiss) private var dismiss
+
     //MARK: -2. BODY
     var body: some View {
         ZStack {
@@ -34,7 +34,7 @@ struct CreateRoomView: View {
 //MARK: -3. PREVIEW
 struct CreateRoomView_Previews: PreviewProvider {
     static var previews: some View {
-        CreateRoomView(path: .constant(NavigationPath()))
+        CreateRoomView()
     }
 }
 
@@ -57,7 +57,8 @@ extension CreateRoomView {
         VStack{
             HStack{
                 Button {
-                    path.removeLast()
+                    print("어디로 이동하나요?")//TODO: - 어디로 이동하는지는 몰라도 버튼 구현
+                    dismiss()
                 } label: {
                     Image(CreatePageXmark)
                 }

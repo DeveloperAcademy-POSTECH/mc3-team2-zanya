@@ -11,18 +11,20 @@ struct UpdateProfileView: View {
     
     //MARK: -1. PROPERTY
     @StateObject var viewModel : UpdateProfileViewModel
-    @Binding var path: NavigationPath
+    // @Binding var path: NavigationPath
     
     let profileArray = ProfileImageArray
     let setProfileImageArray = SetPrifileCatArray
+    @Environment(\.dismiss) private var dismiss
     
     //MARK: -2. BODY
     var body: some View {
-        NavigationView {
+        VStack {
             ZStack{
-                SetProfileBackground
+                UpdateProfileBackground
                 Chevron
                 VStack(spacing: 0) {
+                    Spacer()
                     catArray
                     textField
                     Spacer()
@@ -42,13 +44,13 @@ struct UpdateProfileView: View {
 //    //TODO: UpdateProfileViewModel에 Delegate변수 어케 넣을지 모르겠어서 걍 안보고 함
 //struct UpdateProfileView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        UpdateProfileView( path: .constant(NavigationPath()))
+//        
 //    }
 //}
     //MARK: -4. EXTENSION
 extension UpdateProfileView {
     
-    private var SetProfileBackground: some View {
+    private var UpdateProfileBackground: some View {
         ZStack {
             Image(SetProfileBackgroundSheet)
                 .ignoresSafeArea()
@@ -58,44 +60,39 @@ extension UpdateProfileView {
                 Spacer()
             }
         }
+        
     }
 
     private var catArray: some View{
-        VStack(spacing: 0) {
-            ForEach(setProfileImageArray, id: \.self) { catRow in
-                HStack(spacing: 0) {
-                    ForEach(catRow, id: \.self) { cat in
-                        Button {
-                            print("")
-                        } label: {
-                            Button {
-                                print("d")
-                            } label: {
-                                ZStack{
-                                    Image(ProfileCircleOff)
-                                    //TODO: - on/off 바뀌여면 뷰모델에 catName추가되어야 함/없어서 일단 off로 해둠
-                                        .frame(width: 82, height: 82)
-                                    Image(cat)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 56)
-                                }.padding(7)
-                            }
+        VStack(alignment: .center, spacing: 0) {
+            ForEach(setProfileImageArray, id: \.self) { catsRow in
+                HStack(alignment: .center, spacing: 0){
+                    ForEach(catsRow, id: \.self) { cat in
+                        ZStack{
+                            Image(viewModel.profileImage == cat ? ProfileCircleOn : ProfileCircleOff)
+                            Image(cat)
+                                .resizable()
+                                .frame(width: 56.08, height: 46.12)
                         }
-                    }
-                }
-            }
-        }
+                        .onTapGesture {
+                            viewModel.clickedCatBtn(cat)
+                            print("\(cat) is selected")
+                        }
+                        .padding(7)
+                    }// cat ForEach
+                }// HStack
+            }// catsRow ForEach
+        }// VStack
         .padding(.horizontal, 46)
-        .padding(.init(top: 86, leading: 0, bottom: 0, trailing: 0))
-    }
+    }// catArray
+    
     private var textField: some View{
         ZStack{
             Image(SetProfileTextField)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
             //TODO: - 이름숫자쓰는거 해야함
-            TextField("닉네임", text: $viewModel.profileName )
+            TextField(viewModel.profileName, text: $viewModel.profileName )
                 .padding(.horizontal)
         }.frame(width: 297)
 //            .padding(EdgeInsets(top: 7, leading: 46, bottom: 0, trailing: 46))
@@ -114,7 +111,7 @@ extension UpdateProfileView {
         VStack{
             HStack{
                 Button {
-                    print("메인페이지로 이동")//TODO: - 네비게이션 백버튼
+                    dismiss()
                 } label: {
                     Image("SetPageChevron")
                         .padding(.init(top: 65, leading: 25, bottom: 0, trailing: 0))

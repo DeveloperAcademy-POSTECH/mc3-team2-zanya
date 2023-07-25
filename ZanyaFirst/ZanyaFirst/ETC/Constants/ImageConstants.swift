@@ -128,7 +128,7 @@ let OnboardingText = "OnboardingText"
 //MARK: -MAINPAGE COMPONENTS
 let RoomListImage = "RoomListImage"
 let MainPageSheetImage = "MainPageSheetImage"
-let MainPageProfileBinu = "MainPageProfileBinu"
+let MainPageProfile = "MainPageProfile"
 let EmptyRoomSheetImage = "EmptyRoomSheetImage"
 let InvitePlate = "InvitePlate"
 let nameSheet = "nameSheet"

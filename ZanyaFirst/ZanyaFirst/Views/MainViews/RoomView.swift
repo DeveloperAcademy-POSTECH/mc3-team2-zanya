@@ -14,9 +14,9 @@ struct RoomView: View {
     @State var text : String = ""
     @State var ArrayNum : Int = 0
     @State var PunchMessageToggle: Bool = true
-    @Binding var path: NavigationPath
-    
-    var profile: Profile
+    @Environment(\.dismiss) private var dismiss
+
+//    var profile: Profile
     let profileImageArray = ProfileImageArray
     
     
@@ -39,12 +39,12 @@ struct RoomView: View {
 
 
 
-//MARK: -3. PREVIEW
-struct RoomView_Preview: PreviewProvider {
-    static var previews: some View {
-        RoomView(viewModel: dummyRoomViewModels[0], path: .constant(NavigationPath()), profile: dummyProfile0)
-    }
-}
+////MARK: -3. PREVIEW
+//struct RoomView_Preview: PreviewProvider {
+//    static var previews: some View {
+//        RoomView(viewModel: dummyRoomViewModels[0], path: .constant(NavigationPath()), profile: dummyProfile0)
+//    }
+//}
 
 //MARK: - 4. EXTENSION
 extension RoomView {
@@ -87,7 +87,7 @@ extension RoomView {
             //BackButton
             Button {
                 print("clicked back button")
-                path.removeLast()
+                dismiss()
             } label: {
                 Image(NavigationBackButton)
                     .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 4)
