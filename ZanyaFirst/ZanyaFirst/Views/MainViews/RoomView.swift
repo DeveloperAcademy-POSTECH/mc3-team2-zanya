@@ -39,6 +39,12 @@ struct RoomView: View {
         }.navigationBarBackButtonHidden()
             .ignoresSafeArea()
             .toolbar(.hidden)
+            .onAppear{
+                viewModel.requestNotificationPermission()
+                viewModel.subscribeToNotifications_Dog()
+                viewModel.subscribeToNotifications_Cat()
+                viewModel.subscribeToNotifications_Pig()
+            }
     }
 }
 
@@ -246,6 +252,7 @@ extension RoomView {
                                         print("Tap ZStack")
                                  //       EffectSound.shared.playEffectSound()    // 효과음 내는 곳
                                         playSound(sound: SoundList[i].rawValue)
+
                                         withAnimation {
                                             isItemEffect.toggle()   // 배경 물방울이랑 템버린 반응용 bool
                                         }
@@ -266,6 +273,18 @@ extension RoomView {
                                                     changingDerees *= -1
                                                 }
                                             }
+                                        }
+            
+                                        
+                                        switch i {
+                                        case 0 :
+                                            viewModel.touchNyang()
+                                        case 1:
+                                            viewModel.touchPig()
+                                        case 2:
+                                            viewModel.touchDog()
+                                        default:
+                                            viewModel.touchNyang()
                                         }
                                     }
                                 Spacer()
