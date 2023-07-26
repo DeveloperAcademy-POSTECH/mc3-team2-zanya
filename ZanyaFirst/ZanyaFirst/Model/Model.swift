@@ -29,7 +29,7 @@ let dummyProfile5 = Profile(UID: "UID = 5", name: "Baron", imageKey: gentleCat, 
 //MARK: -ROOM
 struct Room: Hashable {
     let name: String
-    let UIDs: [String]
+    var UIDs: [String]
     let record: CKRecord? //CKRecord(recordType : "Room")
     // var inOnTime: Bool //TODO: - 알람 시간 넣어줘야하는데
 }

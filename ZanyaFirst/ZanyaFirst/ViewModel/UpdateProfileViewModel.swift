@@ -41,10 +41,8 @@ class UpdateProfileViewModel: ObservableObject {
             record["name"] = self.profileName
             record["ImageKey"] = self.profileImage
             
-            
             saveItem(record: record)
             print("업데이트")
-            
         }
     }
     
@@ -85,10 +83,7 @@ class UpdateProfileViewModel: ObservableObject {
                         self?.profileName = self?.profile.name ?? ""
                         self?.profileImage = self?.profile.imageKey ?? ""
                     }
-                    
-                    
                 }
-                
                 CKContainer.default().publicCloudDatabase.add(queryOperation)
             }
         }

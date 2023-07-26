@@ -39,15 +39,22 @@ struct OnBoardingView: View {
                     Spacer()
                 }
             }// ZStack
+            .ignoresSafeArea()
             .onAppear {
                 viewModel.fetchUID()
+            }
+            .onOpenURL { url in
+                var link = url.absoluteString.removingPercentEncoding!
+                print("roomURL: \(link.replacingOccurrences(of: "zanya-invite:://", with: ""))")
+                viewModel.addRoom(url: link.replacingOccurrences(of: "zanya-invite:://", with: ""))
             }
         }// NavigationView
     }// body
     
     var background: some View {
         Image(SplashViewBackground)
-            
+            .resizable()
+//            .aspectRatio(contentMode: .fit)
     }
     
     // 프로필 유무에 따른 분기를 위해 만든 함수.
@@ -66,5 +73,11 @@ struct OnBoardingView: View {
         static var previews: some View {
             OnBoardingView()
         }
+    }
+}
+
+extension String {
+    func remove(target string: String) -> String {
+        return components(separatedBy: string).joined()
     }
 }

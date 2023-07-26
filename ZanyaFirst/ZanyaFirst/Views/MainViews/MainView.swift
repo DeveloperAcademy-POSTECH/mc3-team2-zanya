@@ -108,7 +108,7 @@ extension MainView {
                     CreateRoomView()
                 } label: {
                     ClearRectangle(width: 121, height: 34, ClearOn: true)
-                        .border(.red)
+//                        .border(.red)
                 }
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 36.8, trailing: 10))
             }
@@ -131,6 +131,10 @@ extension MainView {
                     }// label
                 }// ForEach
             }// ScrollView
+            .refreshable {
+                viewModel.fetchItem()
+            }
+            .scrollIndicators(.hidden)
             .padding(.top, 183)
         }
     }

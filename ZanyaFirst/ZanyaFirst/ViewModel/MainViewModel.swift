@@ -49,9 +49,6 @@ class MainViewModel: UpdateProfileViewModelDelegate, ObservableObject {
                 
                 var returnedItems: [Room] = []
                 
-                
-                
-                
                 queryOperation.recordMatchedBlock = { (returnedRecordID, returnedResult) in
                     switch returnedResult {
                     case .success(let record):
