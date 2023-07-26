@@ -64,20 +64,28 @@ struct MainView: View {
 }// MainView
 
 
-////MARK: -3. PREVIEW
-//struct MainView_Preview: PreviewProvider {
-//    static var previews: some View {
-//        MainView(viewModel: MainViewModel(profile: dummyProfile4), roomViewModel: dummyRoomViewModels[1])
-//            .environmentObject(LocalNotificationManager())
-//    }
-//}
+//MARK: -3. PREVIEW
+struct MainView_Preview: PreviewProvider {
+    static var previews: some View {
+        MainView(viewModel: MainViewModel(profile: dummyProfile4))
+            .environmentObject(LocalNotificationManager())
+    }
+}
 
 //MARK: -4. EXTENSION
 extension MainView {
     private var MainPageBackground: some View {
-        Image(MainPageSheetImage)
-            .resizable()
-            .ignoresSafeArea()
+        ZStack {
+            Image(MainPageSheetImage)
+                .resizable()
+                .ignoresSafeArea()
+            
+            VStack {
+                Image(RoomListImage)
+                    .padding(.top, 51)
+                Spacer()
+            }
+        }
     }
     
     private var MainPageProfileButton: some View {
@@ -98,6 +106,7 @@ extension MainView {
             Spacer()
         }
     }
+    
     private var MainPageCreateRoomBtn: some View {
         VStack {
             Spacer()
@@ -108,7 +117,7 @@ extension MainView {
                     CreateRoomView()
                 } label: {
                     ClearRectangle(width: 121, height: 34, ClearOn: true)
-                        .border(.red)
+                    //    .border(.red)
                 }
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 36.8, trailing: 10))
             }
@@ -117,7 +126,7 @@ extension MainView {
     
     private var MainPageRoomList: some View {
         VStack {
-            ScrollView {
+            ScrollView(showsIndicators: false) {
                 // if rooms.count == 0 {
                 // Image(EmptyRoomSheetImage)
                 //    .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
@@ -131,7 +140,7 @@ extension MainView {
                     }// label
                 }// ForEach
             }// ScrollView
-            .padding(.top, 183)
+            .padding(.init(top: 183, leading: 0, bottom: 100, trailing: 0))
         }
     }
 }

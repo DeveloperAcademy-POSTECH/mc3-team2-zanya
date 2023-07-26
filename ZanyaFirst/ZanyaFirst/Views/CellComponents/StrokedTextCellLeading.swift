@@ -20,7 +20,7 @@ struct StrokedTextCellLeading: View {
             
                 HStack {
                     Text(" \(text)")
-                        .font(Font.custom("LINE Seed Sans KR Bold", size: size))
+                        .font(Font.custom("LINE Seed Sans KR Bold", fixedSize: size))
                     .foregroundColor(color)
                     Spacer()
                 }.padding(0)
