@@ -41,12 +41,13 @@ struct UpdateProfileView: View {
 
     //MARK: -3. PREVIEW
 
-//    //TODO: UpdateProfileViewModel에 Delegate변수 어케 넣을지 모르겠어서 걍 안보고 함
-//struct UpdateProfileView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        
-//    }
-//}
+    //TODO: UpdateProfileViewModel에 Delegate변수 어케 넣을지 모르겠어서 걍 안보고 함
+struct UpdateProfileView_Previews: PreviewProvider {
+    static var previews: some View {
+        MainView(viewModel: MainViewModel(profile: dummyProfile4))
+            .environmentObject(LocalNotificationManager())
+    }
+}
     //MARK: -4. EXTENSION
 extension UpdateProfileView {
     
@@ -72,7 +73,8 @@ extension UpdateProfileView {
                             Image(viewModel.profileImage == cat ? ProfileCircleOn : ProfileCircleOff)
                             Image(cat)
                                 .resizable()
-                                .frame(width: 56.08, height: 46.12)
+                                .scaledToFit()
+                                .frame(width: 56)
                         }
                         .onTapGesture {
                             viewModel.clickedCatBtn(cat)

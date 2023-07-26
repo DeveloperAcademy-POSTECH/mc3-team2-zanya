@@ -19,6 +19,7 @@ let Apppurple = "Apppurple"
 let AppRed = "AppRed"
 let AppWine = "AppWine"
 let AppWhite = "AppWhite"
+let AppYellow = "AppYellow"
 
 //MARK: -페이지마다 만들기 귀찮아서 만드는 이미지어레이
 let ProfileImageArray = ["whiteCat_Profile", "cheeseCat_Profile", "greyCat_Profile", "shamCat_Profile", "gentleCat_Profile","blackCat_Profile"]
@@ -63,6 +64,11 @@ let gentleCat_Hand = "gentleCat_Hand"
 let gentleCat_HandLeft = "gentleCat_HandLeft"
 let gentleCat_HandRight = "gentleCat_HandRight"
 
+//MARK: -LAUNCHPAGE COMPONENTS
+let LaunchLogo = "LaunchLogo"
+let LaunchPageSheet = "LaunchPageSheet"
+let LaunchStartButton = "LaunchStartButton"
+
 //MARK: -SETPAGE CATPROFILE
 let setProfileSham = "setProfileSham"
 let setProfileCheese = "setProfileCheese"
@@ -70,8 +76,6 @@ let setProfileBlack = "setProfileBlack"
 let setProfileWhite = "setProfileWhite"
 let setProfileGrey = "setProfileGrey"
 let setProfileGentle = "setProfileGentle"
-
-
 
 //MARK: -COMPONENTS
 let BackgroundSheet = "BackgroundSheet"
@@ -95,7 +99,6 @@ let TTS1ButtonImageActivate = "TTS1ButtonImageActivate"
 let TTS2ButtonImage = "TTS2ButtonImage"
 let TTS3ButtonImage = "TTS3ButtonImage"
 let TTS4ButtonImage = "TTS4ButtonImage"
-let TambourinePage1 = "TambourinePage1"
 let paw = "paw"
 
 
@@ -108,12 +111,18 @@ let PunchDialogSheet = "PunchDialogSheet"
 let PunchPage = "PunchPage"
 let MessagePage = "MessagePage"
 let BBoong = "BBoong"
-let BBoongPage1 = "BBoongPage1"
 let DJ = "DJ"
-let DJPage1 = "DJPage1"
 let InstrumentLeft = "InstrumentLeft"
 let InstrumentRight = "InstrumentRight"
 let Tambourine = "Tambourine"
+
+let TambourinePage = "TambourinePage"
+let BBoongPage = "BBoongPage"
+let DJPage = "DJPage"
+
+let TambourinePage2 = "TambourinePage2"
+let BBoongPage2 = "BBoongPage2"
+let DJPage2 = "DJPage2"
 
 //MARK: -SPLASHVIEW
 let SplachStartButton = "SplachStartButton"
