@@ -34,6 +34,10 @@ struct RoomView: View {
         }.navigationBarBackButtonHidden()
             .ignoresSafeArea()
             .toolbar(.hidden)
+            .onAppear{
+                viewModel.requestNotificationPermission()
+                viewModel.subscribeToNotifications()
+            }
     }
 }
 

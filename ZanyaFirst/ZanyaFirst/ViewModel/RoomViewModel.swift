@@ -24,8 +24,8 @@ class RoomViewModel: ObservableObject {
         self.users = users
         self.roomInfo = roomInfo
         
-        requestNotificationPermission()
-        subscribeToNotifications()
+//        requestNotificationPermission()
+//        subscribeToNotifications()
         
         fetchRoom()
         print("모든 유저 : \(allUsers.count)")
@@ -44,6 +44,7 @@ class RoomViewModel: ObservableObject {
                 print("NOTIFICATION PERMISSION SUCCESS")
                 DispatchQueue.main.async {
                     UIApplication.shared.registerForRemoteNotifications()
+                    print("permission됨")
                 }
             } else {
                 print("NOTIFICATION PERMISSION FAILURE")
@@ -54,7 +55,9 @@ class RoomViewModel: ObservableObject {
     // MARK: - 알람구독
     func subscribeToNotifications() {
         let recordType = CKRecord(recordType: "AlarmDB")
-        let predicate = NSPredicate(format: "roomRecord = %@", argumentArray: ["\(self.roomInfo.record?.description)"])
+        let predicate = NSPredicate(format: "roomRecord = %@", argumentArray: ["\(self.roomInfo.record?.recordID.recordName ?? "")"])
+        print("@log - RoomViewModel: room's record -> \(self.roomInfo.record?.recordID.recordName ?? "")")
+        //let predicate = NSPredicate(value: true)
         let options: CKQuerySubscription.Options = [.firesOnRecordCreation]
         let subscription = CKQuerySubscription(recordType: recordType.recordType, predicate: predicate, subscriptionID: subscriptionID, options: options)
         let notification = CKSubscription.NotificationInfo()
@@ -128,13 +131,13 @@ class RoomViewModel: ObservableObject {
         let alarm = CKRecord(recordType: "AlarmDB")
         
         alarm["whoSend"] = name
-        alarm["roomRecord"] = self.roomInfo.record?.description
+        alarm["roomRecord"] = self.roomInfo.record?.recordID.recordName
         
         self.saveItem(record: alarm)
     }
 
     private func saveItem(record: CKRecord) {
-        CKContainer.default().publicCloudDatabase.save(record) { [weak self] returnedRecord, returnedError in
+        CKContainer.default().publicCloudDatabase.save(record) { returnedRecord, returnedError in
             print("Record: \(returnedRecord)")
             print("Error: \(returnedError)")
             
