@@ -89,8 +89,6 @@ class SetProfileViewModel: ObservableObject {
     }
     
     func addRecord(name: String, imageKey: String){
-
-        //TODO: 닉네임, 프로필 캣 레코드에 저장하는 로직 구현해야함
         
         CKContainer.default().fetchUserRecordID { [weak self]returnedID, returnedError in
             if let id = returnedID {

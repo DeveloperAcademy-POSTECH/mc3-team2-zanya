@@ -34,6 +34,10 @@ struct RoomView: View {
         }.navigationBarBackButtonHidden()
             .ignoresSafeArea()
             .toolbar(.hidden)
+            .onAppear{
+                viewModel.requestNotificationPermission()
+                viewModel.subscribeToNotifications()
+            }
     }
 }
 
@@ -239,6 +243,8 @@ extension RoomView {
                                         print("\(ArrayNum)")
                                         tapElement()
                                         playSound(sound: SoundList[i].rawValue)
+                                        
+                                        viewModel.touchNyang()
                                     }
                                 Spacer()
                                 Image(InstrumentRight)
