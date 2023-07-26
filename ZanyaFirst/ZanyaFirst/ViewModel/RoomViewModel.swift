@@ -17,7 +17,10 @@ class RoomViewModel: ObservableObject {
     @Published var roomInfo: Room
     
     //구독 아이디
-    let subscriptionID = "notification_add"
+    let subscriptionID_Cat = "notification_Cat"
+    let subscriptionID_Dog = "notification_Dog"
+    let subscriptionID_Pig = "notification_Pig"
+    
     
     init(allUsers: [Profile], users: [Profile], roomInfo: Room) {
         self.allUsers = allUsers
@@ -53,17 +56,58 @@ class RoomViewModel: ObservableObject {
     }
     
     // MARK: - 알람구독
-    func subscribeToNotifications() {
-        let recordType = CKRecord(recordType: "AlarmDB")
+    func subscribeToNotifications_Cat() {
+        let recordType = CKRecord(recordType: "AlarmNyang")
         let predicate = NSPredicate(format: "roomRecord = %@", argumentArray: ["\(self.roomInfo.record?.recordID.recordName ?? "")"])
         print("@log - RoomViewModel: room's record -> \(self.roomInfo.record?.recordID.recordName ?? "")")
         //let predicate = NSPredicate(value: true)
         let options: CKQuerySubscription.Options = [.firesOnRecordCreation]
-        let subscription = CKQuerySubscription(recordType: recordType.recordType, predicate: predicate, subscriptionID: subscriptionID, options: options)
+        let subscription = CKQuerySubscription(recordType: recordType.recordType, predicate: predicate, subscriptionID: subscriptionID_Cat, options: options)
         let notification = CKSubscription.NotificationInfo()
-        notification.title = "냥"
-        notification.alertBody = "일어나라냥"
-        notification.soundName = "default"
+        notification.title = "\(self.roomInfo.name)"
+        notification.alertBody = "일어나라 냥!"
+        notification.soundName = "catcat.mp3"
+        subscription.notificationInfo = notification
+        CKContainer.default().publicCloudDatabase.save(subscription) { returnedSubscription, returnedError in
+            if let returnedError = returnedError {
+                print(returnedError.localizedDescription)
+            } else {
+                print("SUCCESSFULLY SUBSCRIBE NOTIFICATION")
+            }
+        }
+    }
+    
+    func subscribeToNotifications_Dog() {
+        let recordType = CKRecord(recordType: "AlarmDog")
+        let predicate = NSPredicate(format: "roomRecord = %@", argumentArray: ["\(self.roomInfo.record?.recordID.recordName ?? "")"])
+        print("@log - RoomViewModel: room's record -> \(self.roomInfo.record?.recordID.recordName ?? "")")
+        //let predicate = NSPredicate(value: true)
+        let options: CKQuerySubscription.Options = [.firesOnRecordCreation]
+        let subscription = CKQuerySubscription(recordType: recordType.recordType, predicate: predicate, subscriptionID: subscriptionID_Dog, options: options)
+        let notification = CKSubscription.NotificationInfo()
+        notification.title = "\(self.roomInfo.name)"
+        notification.alertBody = "일어나라 왈!"
+        notification.soundName = "dogdog.mp3"
+        subscription.notificationInfo = notification
+        CKContainer.default().publicCloudDatabase.save(subscription) { returnedSubscription, returnedError in
+            if let returnedError = returnedError {
+                print(returnedError.localizedDescription)
+            } else {
+                print("SUCCESSFULLY SUBSCRIBE NOTIFICATION")
+            }
+        }
+    }
+    func subscribeToNotifications_Pig() {
+        let recordType = CKRecord(recordType: "AlarmPig")
+        let predicate = NSPredicate(format: "roomRecord = %@", argumentArray: ["\(self.roomInfo.record?.recordID.recordName ?? "")"])
+        print("@log - RoomViewModel: room's record -> \(self.roomInfo.record?.recordID.recordName ?? "")")
+        //let predicate = NSPredicate(value: true)
+        let options: CKQuerySubscription.Options = [.firesOnRecordCreation]
+        let subscription = CKQuerySubscription(recordType: recordType.recordType, predicate: predicate, subscriptionID: subscriptionID_Pig, options: options)
+        let notification = CKSubscription.NotificationInfo()
+        notification.title = "\(self.roomInfo.name)"
+        notification.alertBody = "일어나라 꿀!"
+        notification.soundName = "pigpig.mp3"
         subscription.notificationInfo = notification
         CKContainer.default().publicCloudDatabase.save(subscription) { returnedSubscription, returnedError in
             if let returnedError = returnedError {
@@ -76,7 +120,21 @@ class RoomViewModel: ObservableObject {
     
     // MARK: - 알람 구독 취소(임시 추가)
     func unsubscribeToNotification() {
-        CKContainer.default().publicCloudDatabase.delete(withSubscriptionID: subscriptionID) { returnedID, returnedError in
+        CKContainer.default().publicCloudDatabase.delete(withSubscriptionID: subscriptionID_Dog) { returnedID, returnedError in
+            if let returnedError = returnedError {
+                print(returnedError.localizedDescription)
+            } else {
+                print("SUCCESSFULLY UNSUBSCRIBE NOTIFICATION")
+            }
+        }
+        CKContainer.default().publicCloudDatabase.delete(withSubscriptionID: subscriptionID_Pig) { returnedID, returnedError in
+            if let returnedError = returnedError {
+                print(returnedError.localizedDescription)
+            } else {
+                print("SUCCESSFULLY UNSUBSCRIBE NOTIFICATION")
+            }
+        }
+        CKContainer.default().publicCloudDatabase.delete(withSubscriptionID: subscriptionID_Cat) { returnedID, returnedError in
             if let returnedError = returnedError {
                 print(returnedError.localizedDescription)
             } else {
@@ -127,8 +185,27 @@ class RoomViewModel: ObservableObject {
         
     }
     
-    private func sendAlarm(name: String) {
-        let alarm = CKRecord(recordType: "AlarmDB")
+    private func sendPig(name: String) {
+        let alarm = CKRecord(recordType: "AlarmPig")
+        
+        alarm["whoSend"] = name
+        alarm["roomRecord"] = self.roomInfo.record?.recordID.recordName
+        
+        self.saveItem(record: alarm)
+    }
+    
+    private func sendDog(name: String) {
+        let alarm = CKRecord(recordType: "AlarmDog")
+        
+        alarm["whoSend"] = name
+        alarm["roomRecord"] = self.roomInfo.record?.recordID.recordName
+        
+        self.saveItem(record: alarm)
+    }
+    
+    
+    private func sendNyang(name: String) {
+        let alarm = CKRecord(recordType: "AlarmNyang")
         
         alarm["whoSend"] = name
         alarm["roomRecord"] = self.roomInfo.record?.recordID.recordName
@@ -143,14 +220,23 @@ class RoomViewModel: ObservableObject {
             
             
             DispatchQueue.main.async {
-                print("RoomViewModel: 알람보내기냥")
+                print("RoomViewModel: 알람보내기!")
             }
         }
     }
     
     func touchNyang() {
-        sendAlarm(name: self.users[0].name)
+        sendNyang(name: self.users[0].name)
         print("RoomViewModel: 터치하기냥")
     }
     
+    func touchDog() {
+        sendDog(name: self.users[0].name)
+        print("RoomViewModel: 터치하기왈")
+    }
+    
+    func touchPig() {
+        sendPig(name: self.users[0].name)
+        print("RoomViewModel: 터치하기꿀")
+    }
 }

@@ -36,7 +36,9 @@ struct RoomView: View {
             .toolbar(.hidden)
             .onAppear{
                 viewModel.requestNotificationPermission()
-                viewModel.subscribeToNotifications()
+                viewModel.subscribeToNotifications_Dog()
+                viewModel.subscribeToNotifications_Cat()
+                viewModel.subscribeToNotifications_Pig()
             }
     }
 }
@@ -244,7 +246,17 @@ extension RoomView {
                                         tapElement()
                                         playSound(sound: SoundList[i].rawValue)
                                         
-                                        viewModel.touchNyang()
+                                        switch i {
+                                        case 0 :
+                                            viewModel.touchNyang()
+                                        case 1:
+                                            viewModel.touchPig()
+                                        case 2:
+                                            viewModel.touchDog()
+                                        default:
+                                            viewModel.touchNyang()
+                                        }
+                                        
                                     }
                                 Spacer()
                                 Image(InstrumentRight)
