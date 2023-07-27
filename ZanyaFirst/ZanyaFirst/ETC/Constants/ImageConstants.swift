@@ -124,6 +124,8 @@ let TambourinePage2 = "TambourinePage2"
 let BBoongPage2 = "BBoongPage2"
 let DJPage2 = "DJPage2"
 
+let messageCell = "messageCell"
+
 //MARK: -SPLASHVIEW
 let SplachStartButton = "SplachStartButton"
 let SplashHand = "SplashHand"
@@ -142,6 +144,12 @@ let EmptyRoomSheetImage = "EmptyRoomSheetImage"
 let InvitePlate = "InvitePlate"
 let nameSheet = "nameSheet"
 let mainPageProfileSheet = "mainPageProfileSheet"
+
+let outMessageSheet = "outMessageSheet"
+let outMessageOutButton = "outMessageOutButton"
+let outMessageCancleButton = "outMessageCancleButton"
+let BlurRectangle = "BlurRectangle"
+
 
 //MARK: - MAINPAGE CATPROFILE
 let mainPage_ShamCat = "mainPage_ShamCat"

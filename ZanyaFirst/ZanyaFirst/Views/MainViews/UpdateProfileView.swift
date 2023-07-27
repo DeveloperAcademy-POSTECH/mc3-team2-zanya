@@ -24,7 +24,6 @@ struct UpdateProfileView: View {
                 UpdateProfileBackground
                 Chevron
                 VStack(spacing: 0) {
-                    Spacer()
                     catArray
                     textField
                     Spacer()
@@ -71,6 +70,7 @@ extension UpdateProfileView {
                     ForEach(catsRow, id: \.self) { cat in
                         ZStack{
                             Image(viewModel.profileImage == cat ? ProfileCircleOn : ProfileCircleOff)
+                                .frame(width: 82, height: 82)
                             Image(cat)
                                 .resizable()
                                 .scaledToFit()
@@ -82,10 +82,12 @@ extension UpdateProfileView {
                         }
                         .padding(7)
                     }// cat ForEach
-                }// HStack
+                }
+                // HStack
             }// catsRow ForEach
         }// VStack
         .padding(.horizontal, 46)
+        .padding(.init(top: 147, leading: 0, bottom: 0, trailing: 0))
     }// catArray
     
     private var textField: some View{
@@ -97,7 +99,7 @@ extension UpdateProfileView {
             TextField(viewModel.profileName, text: $viewModel.profileName )
                 .padding(.horizontal)
         }.frame(width: 297)
-//            .padding(EdgeInsets(top: 7, leading: 46, bottom: 0, trailing: 46))
+            .padding(EdgeInsets(top: 7, leading: 46, bottom: 0, trailing: 46))
     }
     private var saveButton: some View{
         ZStack{

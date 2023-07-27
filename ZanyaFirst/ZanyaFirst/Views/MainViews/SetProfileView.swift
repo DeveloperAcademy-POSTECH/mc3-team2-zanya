@@ -104,11 +104,13 @@ extension SetProfileView {
                         }
                         .padding(7)
                     }// cat ForEach
-                }// HStack
+                }
+                // HStack
+                
             }// catsRow ForEach
         }// VStack
         .padding(.horizontal, 46)
-        .padding(.init(top: 86, leading: 0, bottom: 0, trailing: 0))
+        .padding(.init(top: 97, leading: 0, bottom: 0, trailing: 0))
     }// catArray
     
     private var textField: some View{
