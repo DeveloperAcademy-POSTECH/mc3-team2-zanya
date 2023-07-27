@@ -7,13 +7,14 @@
 
 import SwiftUI
 
+
 struct CreateRoomView: View {
     
     //MARK: -1. PROPERTY
     @ObservedObject var viewModel = CreateRoomViewModel()
     @State var date = Date()
     @Environment(\.dismiss) private var dismiss
-
+    
     //MARK: -2. BODY
     var body: some View {
         ZStack {
@@ -83,8 +84,24 @@ extension CreateRoomView {
     private var CreateTimePicker: some View {
         ZStack{
             Image(CreatePickerSheet)
-            DatePicker(selection: $date, displayedComponents: .hourAndMinute){}
-                .datePickerStyle(WheelDatePickerStyle())
+            //TODO: -피커 가운데 바 노랗게 하는건 모르겠음
+            VStack {
+                DatePicker(selection: $date, displayedComponents: .hourAndMinute){}
+                    .datePickerStyle(WheelDatePickerStyle())
+                    .colorInvert()
+                    .colorMultiply(Color(AppWine))
+            }.frame(width: 198.5)
+                .padding(.trailing, 8)
+                .padding(.top, 15)
+                .foregroundColor(.FontRed)
+//            VStack{
+////                RoundedRectangle(cornerRadius: 6)
+////                    .frame(width: 302, height: 34)
+////                    .padding(.top, 14)
+////                    .colorMultiply(Color(AppYellow))
+////                    .foregroundColor(.white)
+////                    .opacity(0.9)
+//            }
         }
     }
     

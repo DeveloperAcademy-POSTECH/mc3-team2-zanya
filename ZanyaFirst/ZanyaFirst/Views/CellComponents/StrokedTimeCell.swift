@@ -21,7 +21,7 @@ struct StrokedTimeCell: View {
                 StrokeTimeLabel(text: text, size: size, strokeColor: strokeColor)
                 
                 Text(text)
-                    .font(Font.custom("LINE Seed Sans KR Bold", size: size))
+                    .font(Font.custom("LINE Seed Sans KR Bold", fixedSize: size))
                     .foregroundColor(color)
             }
         }.frame(height: size )
