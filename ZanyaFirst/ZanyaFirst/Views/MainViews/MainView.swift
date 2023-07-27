@@ -140,7 +140,11 @@ extension MainView {
                     }// label
                 }// ForEach
             }// ScrollView
-            .padding(.init(top: 183, leading: 0, bottom: 100, trailing: 0))
+            .refreshable {
+                viewModel.fetchItem()
+            }
+            .scrollIndicators(.hidden)
+            .padding(.top, 183)
         }
     }
 }

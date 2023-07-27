@@ -6,13 +6,22 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct RoomCell: View {
     
     var isOnTime: Bool = true //TODO: -일단 트루놨는데 알람에서 타임 받아서 여기 비워줘야함
     @State var isClickedOut: Bool = false
+//    var roomInfo: Room
+//    @StateObject private var viewModel = RoomCellViewModel(roomInfo)
     var title: String
-    //var time: Date //TODO: 시간 모델 만들어서 받아야함
+//    var time: Date
+    
+    let preFix: String = "zanya-invite:://"
+    
+    @State var showShare: Bool = false
+    
+    //TODO: 시간 모델 만들어서 받아야함
     
     var body: some View {
         
@@ -71,7 +80,9 @@ struct RoomCell: View {
                             //InviteButton
                             ZStack{
                                 Button {
+                                    showShare.toggle()
                                     print("공유하기 작동") //TODO: -공유하기 기능 추가해야함
+                                    print("showShare : \(showShare)")
                                 } label: {
                                     ZStack(alignment: .center){
                                         Image(InvitePinkBtn)
@@ -83,7 +94,18 @@ struct RoomCell: View {
                                         }.frame(width: 82)
                                     }
                                 }
-                            } .padding(.init(top: 0, leading: 0, bottom: 28, trailing: 16))
+                            }
+                            .padding(.init(top: 0, leading: 0, bottom: 28, trailing: 16))
+                            .sheet(
+                                isPresented: $showShare,
+                                onDismiss: {
+                                    showShare = false
+                                    print("\(showShare) onDismiss") },
+                                content: {
+                                    ActivityView(text: preFix + title)
+                                        .presentationDetents([.medium, .large])
+                                }
+                            )// Sheet
                         }
                     }.frame(width: 300)
                 }
@@ -152,15 +174,35 @@ struct RoomCell: View {
                                             TextCell(text: "0/6", size: 12, color: .white,weight: "Regular")
                                                 .foregroundColor(.white)
                                                 .padding(.leading, -5)
-                                        }.frame(width: 82)
+                                        }
+                                        .frame(width: 82)
                                     }
                                 }
-                            } .padding(.init(top: 0, leading: 0, bottom: 28, trailing: 16))
+                            }
+                            .padding(.init(top: 0, leading: 0, bottom: 28, trailing: 16))
                         }
-                    }.frame(width: 300)
+                    }
+                    .frame(width: 300)
                 }
-            }.frame(width: 304, height: 160)
+            }
+            .frame(width: 304, height: 160)
         }
+    }// body
+    
+//    var shareButton: some View {
+//        Button {
+//            showShare.toggle()
+//            print("\(showShare) onClicked")
+//        } label: {
+//            Text("Deeplink")
+//                .font(.largeTitle)
+//        }
+//    }
+    
+    
+    func shareLink() {
+        var url = preFix + title
+        
     }
 }
 
@@ -172,5 +214,17 @@ struct RoomCell_Previews: PreviewProvider {
             RoomCell(isOnTime: false, title: "일어날래 나랑살래?")
                 .previewLayout(.sizeThatFits)
         }
+    }
+}
+
+struct ActivityView: UIViewControllerRepresentable{
+    let text: String
+    
+    func makeUIViewController(context: UIViewControllerRepresentableContext<ActivityView>) -> some UIViewController {
+        return UIActivityViewController(activityItems: [text], applicationActivities: nil)
+    }
+    
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+        
     }
 }

@@ -16,6 +16,10 @@ class SplashViewModel: ObservableObject {
     @Published var isSignedInToiCloud: Bool = false
     @Published var error: String = ""
     @Published var userName: String = ""
+    @Published var roomName: String = ""
+    
+    @Published var rooms: [Room] = []
+
     
     var profile = Profile(UID: "", name: "",imageKey: "", record: nil)
 
@@ -27,6 +31,7 @@ class SplashViewModel: ObservableObject {
         fetchiCloudUserRecordID()
         
         fetchUID()
+        fetchItem()
     }
     
     func fetchUID() {
@@ -48,8 +53,6 @@ class SplashViewModel: ObservableObject {
                         self?.profile.imageKey = imageKey
                         self?.profile.record = record
                         
-                        
-                        
                         self?.haveProfile()
                     case .failure(let error):
                         print("Error recordMatchedBlock: \(error)")
@@ -64,6 +67,49 @@ class SplashViewModel: ObservableObject {
                 // Profile이 있는지만 확인하기 위함으로, 아래 line은 불필요함.
                 CKContainer.default().publicCloudDatabase.add(queryOperation)
             }// if let id = returnedID
+        }
+    }
+    
+    func fetchItem() {
+        CKContainer.default().fetchUserRecordID { [weak self] returnedID, returnedError in
+            if let id = returnedID {
+                let predicate = NSPredicate(value: true)
+                let query = CKQuery(recordType: "Room", predicate: predicate)
+                //query.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]    // 쿼리 받아올때 정렬해주는 방법, 쿼리 자체를 정렬해줘요!
+                                
+                let queryOperation = CKQueryOperation(query: query)
+                
+                //                queryOperation.resultsLimit = 2 //쿼리를 최대 2개만 가져오게 하는 방법이에요!
+                // 설정하지 않는다면 기본 100개의 쿼리만 반환 돼요!
+                
+                var returnedItems: [Room] = []
+                
+                queryOperation.recordMatchedBlock = { (returnedRecordID, returnedResult) in
+                    switch returnedResult {
+                    case .success(let record):
+                        guard let name = record["name"] as? String else { return }
+                        guard let uids = record["uids"] as? [String] else { return }
+//                        if uids.contains(id.recordName){
+//                            returnedItems.append(Room(name: name, UIDs: uids, record: record))
+//                        }
+                        returnedItems.append(Room(name: name, UIDs: uids, record: record))
+//                        print(uids)
+                        
+                    case .failure(let error):
+                        print("Error recordMatchedBlock: \(error)")
+                    }
+                }
+//                print(returnedItems)
+                
+                queryOperation.queryResultBlock = { [weak self] returnedResult in
+                    print("Returned result: \(returnedResult)")
+                    DispatchQueue.main.async {
+                        self?.rooms = returnedItems
+                    }
+                    
+                }
+                CKContainer.default().publicCloudDatabase.add(queryOperation)
+            }
         }
     }
     
@@ -132,17 +178,42 @@ class SplashViewModel: ObservableObject {
         }
     }
     
-//    func nextButtonPressed() {
-//        guard !name.isEmpty else { return }
-//        //        addName(name: name)
-//        haveProfile()
-//    }
-    
     func haveProfile() {
         DispatchQueue.main.async {
             self.goToMainView = true
         }
     }
     
+    func addRoom(url:String) {
+        var arrayOfUIDs: [String] = []
+        let rooms: [Room] = self.rooms
+//        var room = C
+        var room = CKRecord(recordType: "Room")
+        
+        for tmp in rooms {
+            print("방 이름 ~ \(tmp.name)")
+            if tmp.name == url {
+                room = tmp.record!
+                arrayOfUIDs.append(contentsOf: tmp.UIDs)
+                break
+            }
+        }
+        arrayOfUIDs.append(self.profile.UID)
+        
+//        room["name"] = url
+        room["uids"] = arrayOfUIDs
+
+        print("room name : \(room["name"])")
+        print("room uids : \(room["uids"])")
+        //        print("profile uid String(describing: \(String(des)cribing: self?.profile.UID))")
+        
+        self.saveItem(record: room)
+    }
     
+    private func saveItem(record: CKRecord) {
+        CKContainer.default().publicCloudDatabase.save(record) { returnedRecord, returnedError in
+            print("Record: \(returnedRecord)")
+            print("Error: \(returnedError)")
+        }
+    }
 }

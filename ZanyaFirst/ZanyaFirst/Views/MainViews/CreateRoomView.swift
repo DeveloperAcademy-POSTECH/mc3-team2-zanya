@@ -20,7 +20,7 @@ struct CreateRoomView: View {
         ZStack {
             CreatePageSheetBG
             Xmark
-            VStack(spacing: 0){
+            VStack(spacing: 0) {
                 CreateRoomTextField
                 CreateTimePicker
                 Spacer()
@@ -113,8 +113,9 @@ extension CreateRoomView {
             } label: {
                 Image(CreateRoomSaveButton)
             }
-        }.padding(.init(top: 0, leading: 0, bottom: 53, trailing: 0))
-            .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 4)
+        }
+        .padding(.init(top: 0, leading: 0, bottom: 53, trailing: 0))
+        .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 4)
         
     }
 }
