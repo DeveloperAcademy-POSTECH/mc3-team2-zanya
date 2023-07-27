@@ -46,8 +46,19 @@ struct SetProfileView: View {
         .onAppear{
             print("user name: \(viewModel.name)")
         }
-        .alert(isPresented: $viewModel.isCompleted) {
-            Alert(title: Text("프로필이 생성되었습니다"), dismissButton: .default(Text("OK")) {viewModel.goToMainView = true})
+//        .alert(isPresented: $viewModel.isCompleted) {
+//            Alert(title: Text("프로필이 생성되었습니다"), dismissButton: .default(Text("OK")) {viewModel.goToMainView = true})
+//        }
+        .confirmationDialog(
+            "프로필이 생성되었습니다",
+            isPresented: $viewModel.isCompleted,
+            titleVisibility: .visible
+        ) {
+            Button("OK", role: .cancel) {
+                viewModel.goToMainView = true
+            }
+        } message: {
+            Text("")
         }
 
     }// body

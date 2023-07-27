@@ -30,11 +30,29 @@ struct CreateRoomView: View {
         }
         .ignoresSafeArea()
         .navigationBarBackButtonHidden()
-        .alert(isPresented: $isClickedComBut) {
-            Alert(title: Text("방이 생성되었습니다"), dismissButton: .default(Text("OK")) {})
+//        .alert(isPresented: $isClickedComBut) {
+//            Alert(title: Text("방이 생성되었습니다"), dismissButton: .default(Text("OK")) {})
+//        }
+        
+        .confirmationDialog("\n방이 생성되었습니다", isPresented: $isClickedComBut, titleVisibility: .visible) {
+            Text("")
+        } message: {
+            Text("")
+        }
+        
+//        .confirmationDialog(
+//            "방이 생성되었습니다",
+//            isPresented: $isClickedComBut, titleVisibility: .visible
+//        ) {
+//            Button("OK", role: .cancel) {
+//                // Handle empty trash action.
+//            }
+//        } message: {
+//            Text("")
+//        }
         }
     }
-}
+
 
 //MARK: -3. PREVIEW
 struct CreateRoomView_Previews: PreviewProvider {

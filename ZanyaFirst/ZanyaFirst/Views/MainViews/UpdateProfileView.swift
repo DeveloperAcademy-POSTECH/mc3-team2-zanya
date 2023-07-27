@@ -35,8 +35,13 @@ struct UpdateProfileView: View {
         .onAppear{
             viewModel.fetchUID()
         }
-        .alert(isPresented: $viewModel.isUpdated) {
-            Alert(title: Text("프로필이 수정되었습니다"), dismissButton: .default(Text("OK")) {})
+//        .alert(isPresented: $viewModel.isUpdated) {
+//            Alert(title: Text("프로필이 수정되었습니다"), dismissButton: .default(Text("OK")) {})
+//        }
+        .confirmationDialog("\n프로필이 수정되었습니다", isPresented: $viewModel.isUpdated, titleVisibility: .visible) {
+            Text("dsafdafdasfas").font(.system(size: 40))
+        } message: {
+            Text("")
         }
     }
 }
