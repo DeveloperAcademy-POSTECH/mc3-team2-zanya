@@ -14,6 +14,7 @@ struct RoomView: View {
     @State var text : String = ""
     @State var ArrayNum : Int = 0
     @State var PunchMessageToggle: Bool = true
+    @State var tapIndexNum : Int = 0
     @Environment(\.dismiss) private var dismiss
 
 //    var profile: Profile
@@ -39,6 +40,12 @@ struct RoomView: View {
         }.navigationBarBackButtonHidden()
             .ignoresSafeArea()
             .toolbar(.hidden)
+            .onAppear{
+                viewModel.requestNotificationPermission()
+                viewModel.subscribeToNotifications_Dog()
+                viewModel.subscribeToNotifications_Cat()
+                viewModel.subscribeToNotifications_Pig()
+            }
     }
 }
 
@@ -223,6 +230,7 @@ extension RoomView {
         let punchElementPage2 = [TambourinePage2, BBoongPage2, DJPage2]
         let Punchelement = [Tambourine, BBoong, DJ]
         
+        
 
         
         return ZStack(alignment: .bottom){
@@ -230,22 +238,22 @@ extension RoomView {
                 .padding(.init(top: 0, leading: 0, bottom: -98, trailing: 0))
             ZStack(alignment: .center) {
                 TabView{
-                    ForEach(0..<3, id: \.self ){ i in
                         ZStack(alignment: .center){
-                            Image(punchElementPage2[i])
+                            Image(punchElementPage2[tapIndexNum])
                                 .zIndex(isItemEffect ? 2 : 0)
-                            Image(punchElementPage[i])
+                            Image(punchElementPage[tapIndexNum])
                                 .zIndex(1)
                             HStack{
                                 Spacer()
-                                Image(Punchelement[i])
+                                Image(Punchelement[tapIndexNum])
                                     .scaleEffect(isItemEffect ? 1.1 : 1.0)
                                     .rotationEffect(isItemEffect ? .degrees(changingDerees) : .zero)
                                    
                                     .onTapGesture {
                                         print("Tap ZStack")
+                                        print("\(tapIndexNum)")
                                  //       EffectSound.shared.playEffectSound()    // 효과음 내는 곳
-                                        playSound(sound: SoundList[i].rawValue)
+                                        playSound(sound: SoundList[tapIndexNum].rawValue)
                                         withAnimation {
                                             isItemEffect.toggle()   // 배경 물방울이랑 템버린 반응용 bool
                                         }
@@ -267,24 +275,126 @@ extension RoomView {
                                                 }
                                             }
                                         }
+            
+                                        
+                                        switch tapIndexNum {
+                                        case 0 :
+                                            viewModel.touchNyang()
+                                        case 1:
+                                            viewModel.touchPig()
+                                        case 2:
+                                            viewModel.touchDog()
+                                        default:
+                                            viewModel.touchNyang()
+                                        }
                                     }
                                 Spacer()
                             }.zIndex(3)
                         }
-                    }
+                    
                 }.tabViewStyle(.page(indexDisplayMode: .never))
                 
                 HStack(spacing: 0){
-                    Image(InstrumentLeft)
-                        .padding(.init(top: -37, leading: 3, bottom: 0, trailing: 0))
+                    Button {
+                        if tapIndexNum == 0 {
+                            tapIndexNum = 2}
+                        else {
+                            tapIndexNum -= 1
+                        }
+                        
+                        print("\(tapIndexNum)")
+                    } label: {
+                        Image(InstrumentLeft)
+                            .padding(.init(top: 0, leading: 3, bottom: 0, trailing: 0))
+                    }
                     Spacer()
-                    Image(InstrumentRight)
-                        .padding(.init(top: -37, leading: 0, bottom: 0, trailing: 3))
-                }
+                    Button {
+                        if tapIndexNum == 2 {
+                            tapIndexNum = 0}
+                        else {
+                            tapIndexNum += 1
+                        }
+                        print("\(tapIndexNum)")
+                    } label: {
+                        Image(InstrumentRight)
+                            .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 3))
+                    }
+                }.padding(.bottom, 37)
             }.frame(width: 360, height: 360)
             Image(HandArray[0][catHandIndex])// TODO: - 클라우드에서 프로필 값 받아오기 / 일단 가라로 0 넣어둠
         }
     }
+//    private var punchPage: some View {
+//        let SoundList = [Sounds.catcat, Sounds.pigpig, Sounds.dogdog]
+//        let punchElementPage = [TambourinePage, BBoongPage, DJPage]
+//        let punchElementPage2 = [TambourinePage2, BBoongPage2, DJPage2]
+//        let Punchelement = [Tambourine, BBoong, DJ]
+//
+//
+//
+//        return ZStack(alignment: .bottom){
+//            Image(PunchPage)
+//                .padding(.init(top: 0, leading: 0, bottom: -98, trailing: 0))
+//            ZStack(alignment: .center) {
+//                TabView{
+//                    ForEach(0..<3, id: \.self ){ i in
+//                        ZStack(alignment: .center){
+//                            Image(punchElementPage2[i])
+//                                .zIndex(isItemEffect ? 2 : 0)
+//                            Image(punchElementPage[i])
+//                                .zIndex(1)
+//                            HStack{
+//                                Spacer()
+//                                Image(Punchelement[i])
+//                                    .scaleEffect(isItemEffect ? 1.1 : 1.0)
+//                                    .rotationEffect(isItemEffect ? .degrees(changingDerees) : .zero)
+//
+//                                    .onTapGesture {
+//                                        print("Tap ZStack")
+//                                 //       EffectSound.shared.playEffectSound()    // 효과음 내는 곳
+//                                        playSound(sound: SoundList[i].rawValue)
+//                                        withAnimation {
+//                                            isItemEffect.toggle()   // 배경 물방울이랑 템버린 반응용 bool
+//                                        }
+//                                        touchCount += 1 // 고양이 왼손 오른손을 교차하기 위한 로직
+//                                        switch touchCount % 2 {
+//                                        case 0:
+//                                            catHandIndex = 2
+//                                        case 1:
+//                                            catHandIndex = 1
+//                                        default:
+//                                            break
+//                                        }
+//                                        if isItemEffect {
+//                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+//                                                catHandIndex = 0
+//                                                withAnimation {
+//                                                    isItemEffect = false
+//                                                    changingDerees *= -1
+//                                                }
+//                                            }
+//                                        }
+//                                    }
+//                                Spacer()
+//                            }.zIndex(3)
+//                        }
+//                    }
+//                }.tabViewStyle(.page(indexDisplayMode: .never))
+//
+//                HStack(spacing: 0){
+//                    Image(InstrumentLeft)
+//                        .padding(.init(top: 0, leading: 3, bottom: 0, trailing: 0))
+//                        .onTapGesture {
+//
+//                        }
+//                    Spacer()
+//                    Image(InstrumentRight)
+//                        .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 3))
+//                }.padding(.bottom, 37)
+//            }.frame(width: 360, height: 360)
+//            Image(HandArray[0][catHandIndex])// TODO: - 클라우드에서 프로필 값 받아오기 / 일단 가라로 0 넣어둠
+//        }
+//    }
     
     
     private var HiddenTapButton: some View {
@@ -312,5 +422,6 @@ extension RoomView {
         } else {
             ArrayNum += 1 }
     }
+    
 }
 
