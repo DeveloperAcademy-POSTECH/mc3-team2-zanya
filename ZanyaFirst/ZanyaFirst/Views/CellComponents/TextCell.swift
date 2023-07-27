@@ -19,7 +19,6 @@ struct TextCell: View {
             Text(text)
                 .font(Font.custom("LINE Seed Sans KR \(weight)", size: size))
                 .foregroundColor(color)
-                
         }
     }
 }
