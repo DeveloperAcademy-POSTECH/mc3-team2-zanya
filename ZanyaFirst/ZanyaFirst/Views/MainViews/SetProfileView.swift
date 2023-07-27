@@ -17,6 +17,7 @@ struct SetProfileView: View {
     
     let profileArray = ProfileImageArray
     let setProfileImageArray = SetPrifileCatArray
+    
  
     //MARK: -2. BODY
     var body: some View {
@@ -45,6 +46,10 @@ struct SetProfileView: View {
         .onAppear{
             print("user name: \(viewModel.name)")
         }
+        .alert(isPresented: $viewModel.isCompleted) {
+            Alert(title: Text("프로필이 생성되었습니다"), dismissButton: .default(Text("OK")) {viewModel.goToMainView = true})
+        }
+
     }// body
 }// SetProfileView
 

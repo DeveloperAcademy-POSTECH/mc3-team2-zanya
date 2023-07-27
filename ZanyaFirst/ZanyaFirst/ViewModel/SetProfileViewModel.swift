@@ -22,6 +22,8 @@ class SetProfileViewModel: ObservableObject {
         fetchUID()
     }
     
+    @Published var isCompleted: Bool = false
+    
     func fetchUID() {
         CKContainer.default().fetchUserRecordID { [weak self] returnedID, returnedError in
             if let id = returnedID {
@@ -117,7 +119,8 @@ class SetProfileViewModel: ObservableObject {
             return
         }
         addRecord(name: self.name, imageKey: self.catName)
-        goToMainView = true
+        isCompleted.toggle()
+       // goToMainView = true
         
         DispatchQueue.main.async { [self] in
             print("viewModel name: \(name) | cat: \(self.catName)")

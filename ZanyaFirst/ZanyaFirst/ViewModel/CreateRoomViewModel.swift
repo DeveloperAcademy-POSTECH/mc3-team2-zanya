@@ -10,6 +10,7 @@ import CloudKit
 
 class CreateRoomViewModel: ObservableObject {
     @Published var roomName: String = ""
+   
     
     private func createRoom(roomName: String) {
         CKContainer.default().fetchUserRecordID { [weak self] returnedID, returnedError in

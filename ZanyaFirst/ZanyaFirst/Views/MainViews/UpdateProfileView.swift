@@ -35,6 +35,9 @@ struct UpdateProfileView: View {
         .onAppear{
             viewModel.fetchUID()
         }
+        .alert(isPresented: $viewModel.isUpdated) {
+            Alert(title: Text("프로필이 수정되었습니다"), dismissButton: .default(Text("OK")) {})
+        }
     }
 }
 

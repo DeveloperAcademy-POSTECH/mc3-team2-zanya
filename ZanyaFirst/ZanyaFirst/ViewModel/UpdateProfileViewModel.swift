@@ -16,6 +16,7 @@ class UpdateProfileViewModel: ObservableObject {
     
     @Published var profileImage: String = ""
     @Published var profileName: String = ""
+    @Published var isUpdated: Bool = false
     
     weak var delegate: UpdateProfileViewModelDelegate?
     
@@ -30,6 +31,8 @@ class UpdateProfileViewModel: ObservableObject {
         fetchUID()
         
     }
+    
+    
     
     // MARK: - Update
     private func updateItem(profile: Profile) {
@@ -95,7 +98,7 @@ class UpdateProfileViewModel: ObservableObject {
         updateItem(profile: profile)
         
         delegate?.setProfile(profile: profile)
-    
+        isUpdated.toggle()
     }
     
     func clickedCatBtn(_ cat: String) {
