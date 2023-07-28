@@ -37,8 +37,8 @@ struct MainView: View {
                 MainPageProfileButton
                 MainPageRoomList
                 MainPageCreateRoomBtn
-                //  outMessage // 나가기 버튼 누르면 뜨는 알림창
-                //  inviteMessage // 초대 버튼 누르면 뜨는 알림창
+//                  outMessage // 나가기 버튼 누르면 뜨는 알림창 //TODO: - 블러뷰 구현 못함;;;
+//                  inviteMessage // 초대 버튼 누르면 뜨는 알림창
                 
                 
             }
