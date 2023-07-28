@@ -150,6 +150,10 @@ let outMessageOutButton = "outMessageOutButton"
 let outMessageCancleButton = "outMessageCancleButton"
 let BlurRectangle = "BlurRectangle"
 
+let inviteMessageSheet = "inviteMessageSheet"
+let inviteMessageInviteButton = "inviteMessageInviteButton"
+let inviteMessageCancelButton = "inviteMessageCancelButton"
+
 
 //MARK: - MAINPAGE CATPROFILE
 let setProfileSham_MainProfile = "setProfileSham_MainProfile"
