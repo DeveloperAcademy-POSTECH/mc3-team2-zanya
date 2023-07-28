@@ -38,8 +38,19 @@ struct UpdateProfileView: View {
 //        .alert(isPresented: $viewModel.isUpdated) {
 //            Alert(title: Text("프로필이 수정되었습니다"), dismissButton: .default(Text("OK")) {})
 //        }
-        .confirmationDialog("\n프로필이 수정되었습니다", isPresented: $viewModel.isUpdated, titleVisibility: .visible) {
-            Text("dsafdafdasfas").font(.system(size: 40))
+//        .confirmationDialog("프로필이 수정되었습니다", isPresented: $viewModel.isUpdated, titleVisibility: .visible) {
+//            Text("dsafdafdasfas").font(.system(size: 40))
+//        } message: {
+//            Text("")
+//        }
+        .confirmationDialog(
+            "프로필이 수정되었습니다",
+            isPresented: $viewModel.isUpdated,
+            titleVisibility: .visible
+        ) {
+            Button("OK", role: .cancel) {
+//                dismiss()
+            }
         } message: {
             Text("")
         }

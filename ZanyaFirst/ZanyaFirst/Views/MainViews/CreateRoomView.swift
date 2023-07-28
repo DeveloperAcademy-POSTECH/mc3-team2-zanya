@@ -33,12 +33,12 @@ struct CreateRoomView: View {
 //        .alert(isPresented: $isClickedComBut) {
 //            Alert(title: Text("방이 생성되었습니다"), dismissButton: .default(Text("OK")) {})
 //        }
-        
-        .confirmationDialog("\n방이 생성되었습니다", isPresented: $isClickedComBut, titleVisibility: .visible) {
-            Text("")
-        } message: {
-            Text("")
-        }
+
+//        .confirmationDialog("\n방이 생성되었습니다", isPresented: $isClickedComBut, titleVisibility: .visible) {
+//            Text("")
+//        } message: {
+//            Text("")
+//        }
         
 //        .confirmationDialog(
 //            "방이 생성되었습니다",
@@ -50,6 +50,18 @@ struct CreateRoomView: View {
 //        } message: {
 //            Text("")
 //        }
+        .confirmationDialog(
+            "방이 생성되었습니다",
+            isPresented: $isClickedComBut,
+            titleVisibility: .visible
+        ) {
+            Button("OK", role: .cancel) {
+                viewModel.clickedCompleteButton()
+                dismiss()
+            }
+        } message: {
+            Text("")
+        }
         }
     }
 
@@ -123,7 +135,7 @@ extension CreateRoomView {
             Button {
                 Text("New Room Created")
                 isClickedComBut = true
-                viewModel.clickedCompleteButton()
+//                viewModel.clickedCompleteButton()
             } label: {
                 Image(CreateRoomSaveButton)
             }
