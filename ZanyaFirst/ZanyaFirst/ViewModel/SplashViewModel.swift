@@ -32,6 +32,8 @@ class SplashViewModel: ObservableObject {
         
         fetchUID()
         fetchItem()
+        
+        print("SplashViewModel: Profile -> \(profile)")
     }
     
     func fetchUID() {
@@ -44,12 +46,15 @@ class SplashViewModel: ObservableObject {
                 queryOperation.recordMatchedBlock = {  (returnedRecordID, returnedResult) in
                     switch returnedResult {
                     case .success(let record):
-                        guard let name = record["uid"] as? String else { return }
+                        guard let uid = record["uid"] as? String else { return }
                         guard let imageKey = record["ImageKey"] as? String else { return }
-                        print("user exist")
-                        print(name)
+                        guard let name = record["name"] as? String else { return }
                         
-                        self?.profile.UID = name
+                        print("user exist")
+                        print(uid)
+                        
+                        self?.profile.UID = uid
+                        self?.profile.name = name
                         self?.profile.imageKey = imageKey
                         self?.profile.record = record
                         
