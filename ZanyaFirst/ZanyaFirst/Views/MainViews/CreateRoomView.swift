@@ -13,6 +13,7 @@ struct CreateRoomView: View {
     //MARK: -1. PROPERTY
     @ObservedObject var viewModel = CreateRoomViewModel()
     @State var date = Date()
+    @State var isClickedComBut: Bool = false
     @Environment(\.dismiss) private var dismiss
     
     //MARK: -2. BODY
@@ -29,8 +30,41 @@ struct CreateRoomView: View {
         }
         .ignoresSafeArea()
         .navigationBarBackButtonHidden()
+//        .alert(isPresented: $isClickedComBut) {
+//            Alert(title: Text("방이 생성되었습니다"), dismissButton: .default(Text("OK")) {})
+//        }
+
+//        .confirmationDialog("\n방이 생성되었습니다", isPresented: $isClickedComBut, titleVisibility: .visible) {
+//            Text("")
+//        } message: {
+//            Text("")
+//        }
+        
+//        .confirmationDialog(
+//            "방이 생성되었습니다",
+//            isPresented: $isClickedComBut, titleVisibility: .visible
+//        ) {
+//            Button("OK", role: .cancel) {
+//                // Handle empty trash action.
+//            }
+//        } message: {
+//            Text("")
+//        }
+        .confirmationDialog(
+            "방이 생성되었습니다",
+            isPresented: $isClickedComBut,
+            titleVisibility: .visible
+        ) {
+            Button("OK", role: .cancel) {
+                viewModel.clickedCompleteButton()
+                dismiss()
+            }
+        } message: {
+            Text("")
+        }
+        }
     }
-}
+
 
 //MARK: -3. PREVIEW
 struct CreateRoomView_Previews: PreviewProvider {
@@ -58,7 +92,6 @@ extension CreateRoomView {
         VStack{
             HStack{
                 Button {
-                    print("어디로 이동하나요?")//TODO: - 어디로 이동하는지는 몰라도 버튼 구현
                     dismiss()
                 } label: {
                     Image(CreatePageXmark)
@@ -94,14 +127,6 @@ extension CreateRoomView {
                 .padding(.trailing, 8)
                 .padding(.top, 15)
                 .foregroundColor(.FontRed)
-//            VStack{
-////                RoundedRectangle(cornerRadius: 6)
-////                    .frame(width: 302, height: 34)
-////                    .padding(.top, 14)
-////                    .colorMultiply(Color(AppYellow))
-////                    .foregroundColor(.white)
-////                    .opacity(0.9)
-//            }
         }
     }
     
@@ -109,7 +134,8 @@ extension CreateRoomView {
         VStack{
             Button {
                 Text("New Room Created")
-                viewModel.clickedCompleteButton()
+                isClickedComBut = true
+//                viewModel.clickedCompleteButton()
             } label: {
                 Image(CreateRoomSaveButton)
             }

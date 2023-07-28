@@ -44,7 +44,6 @@
 		07B455762A667DF500EB9801 /* catcat.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 07B455732A667DF500EB9801 /* catcat.mp3 */; };
 		07B455772A667DF500EB9801 /* dogdog.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 07B455742A667DF500EB9801 /* dogdog.mp3 */; };
 		07B455792A667E2D00EB9801 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B455782A667E2D00EB9801 /* Model.swift */; };
-		07DA7BCE2A6FC493000218A4 /* PickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DA7BCD2A6FC493000218A4 /* PickerCell.swift */; };
 		07DA7BD02A70B5AF000218A4 /* LaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DA7BCF2A70B5AF000218A4 /* LaunchScreen.swift */; };
 		113018CB2A67FF3300DAD625 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113018CA2A67FF3300DAD625 /* Color+.swift */; };
 		113018CF2A6807AA00DAD625 /* SetProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113018CE2A6807AA00DAD625 /* SetProfileViewModel.swift */; };
@@ -92,7 +91,6 @@
 		07B455732A667DF500EB9801 /* catcat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = catcat.mp3; sourceTree = "<group>"; };
 		07B455742A667DF500EB9801 /* dogdog.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = dogdog.mp3; sourceTree = "<group>"; };
 		07B455782A667E2D00EB9801 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		07DA7BCD2A6FC493000218A4 /* PickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerCell.swift; sourceTree = "<group>"; };
 		07DA7BCF2A70B5AF000218A4 /* LaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreen.swift; sourceTree = "<group>"; };
 		113018CA2A67FF3300DAD625 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		113018CE2A6807AA00DAD625 /* SetProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetProfileViewModel.swift; sourceTree = "<group>"; };
@@ -142,7 +140,6 @@
 				075B7FB82A6E43250071A856 /* StrokedTextCellLeading.swift */,
 				075B7FBC2A6E47900071A856 /* StrokeTextLabelCenter.swift */,
 				075B7FBE2A6E47B30071A856 /* StrokedTimeCell.swift */,
-				07DA7BCD2A6FC493000218A4 /* PickerCell.swift */,
 			);
 			path = CellComponents;
 			sourceTree = "<group>";
@@ -379,7 +376,6 @@
 				07B3E3232A67A74A0080860A /* TimeModel.swift in Sources */,
 				113018CB2A67FF3300DAD625 /* Color+.swift in Sources */,
 				07B455602A667C9E00EB9801 /* SetImageViewModel.swift in Sources */,
-				07DA7BCE2A6FC493000218A4 /* PickerCell.swift in Sources */,
 				113018CF2A6807AA00DAD625 /* SetProfileViewModel.swift in Sources */,
 				07B455792A667E2D00EB9801 /* Model.swift in Sources */,
 				07B4553A2A66779D00EB9801 /* ZanyaFirstApp.swift in Sources */,

@@ -17,6 +17,7 @@ struct SetProfileView: View {
     
     let profileArray = ProfileImageArray
     let setProfileImageArray = SetPrifileCatArray
+    
  
     //MARK: -2. BODY
     var body: some View {
@@ -45,6 +46,21 @@ struct SetProfileView: View {
         .onAppear{
             print("user name: \(viewModel.name)")
         }
+//        .alert(isPresented: $viewModel.isCompleted) {
+//            Alert(title: Text("프로필이 생성되었습니다"), dismissButton: .default(Text("OK")) {viewModel.goToMainView = true})
+//        }
+        .confirmationDialog(
+            "프로필이 생성되었습니다",
+            isPresented: $viewModel.isCompleted,
+            titleVisibility: .visible
+        ) {
+            Button("OK", role: .cancel) {
+                viewModel.goToMainView = true
+            }
+        } message: {
+            Text("")
+        }
+
     }// body
 }// SetProfileView
 
@@ -104,11 +120,13 @@ extension SetProfileView {
                         }
                         .padding(7)
                     }// cat ForEach
-                }// HStack
+                }
+                // HStack
+                
             }// catsRow ForEach
         }// VStack
         .padding(.horizontal, 46)
-        .padding(.init(top: 86, leading: 0, bottom: 0, trailing: 0))
+        .padding(.init(top: 97, leading: 0, bottom: 0, trailing: 0))
     }// catArray
     
     private var textField: some View{

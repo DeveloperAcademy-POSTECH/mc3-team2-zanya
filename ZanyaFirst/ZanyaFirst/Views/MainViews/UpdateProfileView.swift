@@ -24,7 +24,6 @@ struct UpdateProfileView: View {
                 UpdateProfileBackground
                 Chevron
                 VStack(spacing: 0) {
-                    Spacer()
                     catArray
                     textField
                     Spacer()
@@ -35,6 +34,25 @@ struct UpdateProfileView: View {
         .navigationBarBackButtonHidden()
         .onAppear{
             viewModel.fetchUID()
+        }
+//        .alert(isPresented: $viewModel.isUpdated) {
+//            Alert(title: Text("프로필이 수정되었습니다"), dismissButton: .default(Text("OK")) {})
+//        }
+//        .confirmationDialog("프로필이 수정되었습니다", isPresented: $viewModel.isUpdated, titleVisibility: .visible) {
+//            Text("dsafdafdasfas").font(.system(size: 40))
+//        } message: {
+//            Text("")
+//        }
+        .confirmationDialog(
+            "프로필이 수정되었습니다",
+            isPresented: $viewModel.isUpdated,
+            titleVisibility: .visible
+        ) {
+            Button("OK", role: .cancel) {
+//                dismiss()
+            }
+        } message: {
+            Text("")
         }
     }
 }
@@ -71,6 +89,7 @@ extension UpdateProfileView {
                     ForEach(catsRow, id: \.self) { cat in
                         ZStack{
                             Image(viewModel.profileImage == cat ? ProfileCircleOn : ProfileCircleOff)
+                                .frame(width: 82, height: 82)
                             Image(cat)
                                 .resizable()
                                 .scaledToFit()
@@ -82,10 +101,12 @@ extension UpdateProfileView {
                         }
                         .padding(7)
                     }// cat ForEach
-                }// HStack
+                }
+                // HStack
             }// catsRow ForEach
         }// VStack
         .padding(.horizontal, 46)
+        .padding(.init(top: 147, leading: 0, bottom: 0, trailing: 0))
     }// catArray
     
     private var textField: some View{
@@ -97,7 +118,7 @@ extension UpdateProfileView {
             TextField(viewModel.profileName, text: $viewModel.profileName )
                 .padding(.horizontal)
         }.frame(width: 297)
-//            .padding(EdgeInsets(top: 7, leading: 46, bottom: 0, trailing: 46))
+            .padding(EdgeInsets(top: 7, leading: 46, bottom: 0, trailing: 46))
     }
     private var saveButton: some View{
         ZStack{
