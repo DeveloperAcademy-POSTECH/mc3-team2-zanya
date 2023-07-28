@@ -96,7 +96,7 @@ extension MainView {
                 NavigationLink {
                     UpdateProfileView(viewModel: UpdateProfileViewModel(profile: viewModel.profile, delegate: viewModel))
                 } label: {
-                    Image(MainPageProfile)
+                    Image("\(viewModel.profile.imageKey ?? "")_MainProfile")
                         .shadow(color: .black.opacity(0.25), radius: 3, x: 0, y: 4)
                     //                        .border(.red)
                 }
