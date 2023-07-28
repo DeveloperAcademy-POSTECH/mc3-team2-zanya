@@ -67,8 +67,9 @@ extension RoomView {
             //배경화면
             Image(BackgroundSheet)
             //배경 서있는 고양이 이미지
-            
-            Image("\(viewModel.users[0].imageKey)_Standing" ?? "gentleCat_Standing")
+
+            Image("\(viewModel.users[0].imageKey ?? "")_Standing") // 이미지 사이즈 확인을 위한 테스트용 이미지
+
                 .resizable()
                 .scaledToFit()
                 .frame(width: 210)
@@ -137,7 +138,7 @@ extension RoomView {
                         Image(ProfilePlateOff)
                         VStack {
                             //Spacer()
-                            Image(profileImageArray[i]) // TODO: 룸데이터에서 유저 정보 받아와야함
+                            Image("\(viewModel.users[i].imageKey ?? "")_RoomSheet") // TODO: 룸데이터에서 유저 정보 받아와야함
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 48)

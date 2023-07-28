@@ -29,10 +29,22 @@ class RoomViewModel: ObservableObject {
         
 //        requestNotificationPermission()
 //        subscribeToNotifications()
-        
+        fetchUsers()
         fetchRoom()
         print("모든 유저 : \(allUsers.count)")
         print("방 유자: \(users.count)")
+    }
+    
+    func fetchUsers() {
+        for user in roomInfo.UIDs{
+            for prof in allUsers {
+                if user == prof.UID{
+                    if !users.contains(prof) {
+                        users.append(prof)
+                    }
+                }
+            }
+        }
     }
     
     

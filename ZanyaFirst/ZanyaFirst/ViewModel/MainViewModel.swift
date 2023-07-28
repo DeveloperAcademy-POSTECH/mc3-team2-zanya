@@ -23,6 +23,8 @@ class MainViewModel: UpdateProfileViewModelDelegate, ObservableObject {
         self.profile = profile
         fetchItem()
         fetchAllUsers()
+        
+        print("MainViewModel: Profile -> \(profile)")
     }
 
     
