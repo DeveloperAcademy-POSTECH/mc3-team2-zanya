@@ -37,8 +37,8 @@ struct MainView: View {
                 MainPageProfileButton
                 MainPageRoomList
                 MainPageCreateRoomBtn
-              //  outMessage
-                    
+                //  outMessage
+                
                 
             }
             .ignoresSafeArea()
@@ -100,8 +100,17 @@ extension MainView {
                 NavigationLink {
                     UpdateProfileView(viewModel: UpdateProfileViewModel(profile: viewModel.profile, delegate: viewModel))
                 } label: {
-                    Image("\(viewModel.profile.imageKey ?? "")_MainProfile")
-                        .shadow(color: .black.opacity(0.25), radius: 3, x: 0, y: 4)
+                    ZStack {
+                        Image(MainPageProfileBag)
+                            .shadow(color: .black.opacity(0.25), radius: 3, x: 0, y: 4)
+                        Image("\(viewModel.profile.imageKey ?? "")_MainProfile")
+//                        Image("setProfileGentle_MainProfile") // 테스트이미지
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 28.22)
+                            .padding(.top, 11.69)
+                        
+                    }
                     //                        .border(.red)
                 }
                 .padding(EdgeInsets(top: 43, leading: 0, bottom: 0, trailing: 18))
@@ -182,7 +191,7 @@ extension MainView {
                 }.padding(.bottom,10.37)
             }.frame(width: 300, height: 166)
         }.frame(width: screenWidth, height: screenHeight)
-        .background(.ultraThinMaterial)
+            .background(.ultraThinMaterial)
     }
 }
 

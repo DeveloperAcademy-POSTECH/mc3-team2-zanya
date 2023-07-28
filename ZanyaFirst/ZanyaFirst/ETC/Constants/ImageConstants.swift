@@ -37,12 +37,12 @@ let greyCat = "greyCat"
 let gentleCat = "gentleCat"
 
 //MARK: -CAT STANDING
-let shamCat_Standing = "shamCat_Standing"
-let cheeseCat_Standing = "cheeseCat_Standing"
-let blackCat_Standing = "blackCat_Standing"
-let whiteCat_Standing = "whiteCat_Standing"
-let greyCat_Standing = "greyCat_Standing"
-let gentleCat_Standing = "gentleCat_Standing"
+let setProfileSham_Standing = "setProfileSham_Standing"
+let setProfileCheese_Standing = "setProfileCheese_Standing"
+let setProfileBlack_Standing = "setProfileBlack_Standing"
+let setProfileWhite_Standing = "setProfileWhite_Standing"
+let setProfileGrey_Standing = "setProfileGrey_Standing"
+let setProfileGentle_Standing = "setProfileGentle_Standing"
 
 //MARK: -CatHandImage
 let shamCat_Hand = "shamCat_Hand"
@@ -152,13 +152,13 @@ let BlurRectangle = "BlurRectangle"
 
 
 //MARK: - MAINPAGE CATPROFILE
-let mainPage_ShamCat = "mainPage_ShamCat"
-let mainPage_CheeseCat = "mainPage_CheeseCat"
-let mainPage_BlackCat = "mainPage_BlackCat"
-let mainPage_WhiteCat = "mainPage_WhiteCat"
-let mainPage_GreyCat = "mainPage_GreyCat"
-let mainPage_GentleCat = "mainPage_GentleCat"
-
+let setProfileSham_MainProfile = "setProfileSham_MainProfile"
+let setProfileCheese_MainProfile = "setProfileCheese_MainProfile"
+let setProfileBlack_MainProfile = "setProfileBlack_MainProfile"
+let setProfileWhite_MainProfile = "setProfileWhite_MainProfile"
+let setProfileGrey_MainProfile = "setProfileGrey_MainProfile"
+let setProfileGentle_MainProfile = "setProfileGentle_MainProfile"
+let MainPageProfileBag = "MainPageProfileBag"
 
 
 //MARK: -ROOMCELL COMPONENTS
