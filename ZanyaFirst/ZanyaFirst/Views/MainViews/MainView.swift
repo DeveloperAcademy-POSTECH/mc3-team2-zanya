@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct MainView: View {
     
     //MARK: -1. PROPERTY
@@ -36,6 +37,9 @@ struct MainView: View {
                 MainPageProfileButton
                 MainPageRoomList
                 MainPageCreateRoomBtn
+              //  outMessage
+                    
+                
             }
             .ignoresSafeArea()
         }
@@ -144,8 +148,41 @@ extension MainView {
                 viewModel.fetchItem()
             }
             .scrollIndicators(.hidden)
-            .padding(.top, 183)
+            .padding(.init(top: 183, leading: 0, bottom: 100, trailing: 0))
         }
+    }
+    
+    private var outMessage: some View {
+        ZStack{
+            Image(BlurRectangle)
+            Image(outMessageSheet)
+                .resizable()
+                .frame(width: 300, height: 160)
+                .shadow(color: .black.opacity(0.25), radius: 3, x: 0, y: 4)
+            
+            VStack{
+                Spacer()
+                HStack(spacing: 0){
+                    Button {
+                        print("cancle")
+                    } label: {
+                        Image(outMessageCancleButton)
+                            .resizable()
+                            .frame(width: 138, height: 46.01)
+                    }.padding(.leading, 8)
+                    Spacer()
+                    Button {
+                        print("out")
+                    } label: {
+                        Image(outMessageOutButton)
+                            .resizable()
+                            .frame(width: 138, height: 46.01)
+                    }.padding(.trailing, 8)
+                    
+                }.padding(.bottom,10.37)
+            }.frame(width: 300, height: 166)
+        }.frame(width: screenWidth, height: screenHeight)
+        .background(.ultraThinMaterial)
     }
 }
 
