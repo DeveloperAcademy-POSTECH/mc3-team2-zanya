@@ -16,6 +16,7 @@ struct RoomCell: View {
 //    @StateObject private var viewModel = RoomCellViewModel(roomInfo)
     var title: String
 //    var time: Date
+    var userCount: Int
     
     let preFix: String = "zanya-invite:://"
     
@@ -88,7 +89,7 @@ struct RoomCell: View {
                                         Image(InvitePinkBtn)
                                         HStack{
                                             Image(InviteTextPink)
-                                            TextCell(text: "0/6", size: 12, color: .white,weight: "Regular")
+                                            TextCell(text: "\(userCount)/6", size: 12, color: .white,weight: "Regular")
                                                 .foregroundColor(.white)
                                                 .padding(.leading, -5)
                                         }.frame(width: 82)
@@ -171,7 +172,7 @@ struct RoomCell: View {
                                         Image(InviteBlueBtn)
                                         HStack{
                                             Image(InviteTextBlue)
-                                            TextCell(text: "0/6", size: 12, color: .white,weight: "Regular")
+                                            TextCell(text: "\(userCount)/6", size: 12, color: .white,weight: "Regular")
                                                 .foregroundColor(.white)
                                                 .padding(.leading, -5)
                                         }
@@ -209,9 +210,9 @@ struct RoomCell: View {
 struct RoomCell_Previews: PreviewProvider {
     static var previews: some View {
         VStack{
-            RoomCell(isOnTime: true, title: "일어날래 나랑살래?")
+            RoomCell(isOnTime: true, title: "일어날래 나랑살래?", userCount: 0)
                 .previewLayout(.sizeThatFits)
-            RoomCell(isOnTime: false, title: "일어날래 나랑살래?")
+            RoomCell(isOnTime: false, title: "일어날래 나랑살래?", userCount: 0)
                 .previewLayout(.sizeThatFits)
         }
     }

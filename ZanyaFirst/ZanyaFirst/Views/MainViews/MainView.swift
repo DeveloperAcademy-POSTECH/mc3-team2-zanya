@@ -135,7 +135,7 @@ extension MainView {
                     NavigationLink{
                         RoomView(viewModel: RoomViewModel(allUsers: viewModel.allUsers, users: [viewModel.profile], roomInfo: room))
                     } label: {
-                        RoomCell(title: room.name)
+                        RoomCell(title: room.name, userCount: room.UIDs.count)
                         
                     }// label
                 }// ForEach
