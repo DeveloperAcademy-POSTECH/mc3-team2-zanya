@@ -17,29 +17,20 @@ struct OnBoardingView: View {
     
     var body: some View {
         NavigationView {
-            ZStack {
-                //TODO: 레이아웃 작업은 추후에 다시 해야함.
-                background
-                VStack(alignment: .center){
-                    Spacer()
-                    Image(SplashLogoSecond)
-                        .padding(.leading, 55)
-                    Spacer()
-                    Spacer()
-                    Image(SplashImage)
-                    Spacer()
-                    
-                    NavigationLink {
-                        getDestination()
-                    } label: {
-                        Image(SplashOKButton)
-                    }
-                    
-                    Spacer()
-                    Spacer()
+            
+            ZStack(alignment: .top){
+                Image(LaunchPageSheet)
+                    .ignoresSafeArea()
+                Image(LaunchLogo)
+                    .padding(.init(top: 328, leading: 0, bottom: 0, trailing: 0.36))
+                NavigationLink {
+                    getDestination()
+                } label: {
+                    Image(LaunchStartButton)
+                        .padding(.top, 728)
+                        .shadow(color: .black.opacity(0.15), radius: 5.5, x: 0, y: 4)
                 }
-            }// ZStack
-            .ignoresSafeArea()
+            }
             .onAppear {
                 viewModel.fetchUID()
             }
@@ -52,9 +43,7 @@ struct OnBoardingView: View {
     }// body
     
     var background: some View {
-        Image(SplashViewBackground)
-            .resizable()
-//            .aspectRatio(contentMode: .fit)
+        Image(LaunchPageSheet)
     }
     
     // 프로필 유무에 따른 분기를 위해 만든 함수.
