@@ -14,11 +14,12 @@ struct SetProfileView: View {
     //MARK: -1. PROPERTY
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = SetProfileViewModel()
+    @ObservedObject var keyboardMonitor : KeyboardMonitor = KeyboardMonitor()
     
     let profileArray = ProfileImageArray
     let setProfileImageArray = SetPrifileCatArray
     
- 
+    
     //MARK: -2. BODY
     var body: some View {
         NavigationView {
@@ -35,7 +36,7 @@ struct SetProfileView: View {
                         completeButton
                             .background(
                                 NavigationLink(destination: MainView(viewModel: MainViewModel(profile: viewModel.profile)),isActive: $viewModel.goToMainView){
-                            })
+                                })
                     }// VStack
                     .padding(.top, UIApplication.shared.windows[0].safeAreaInsets.top)
                 }
@@ -43,12 +44,11 @@ struct SetProfileView: View {
             .ignoresSafeArea()
         }// NavigationView
         .navigationBarBackButtonHidden()
+        .hideKeyboardWhenTappedAround()
         .onAppear{
             print("user name: \(viewModel.name)")
         }
-//        .alert(isPresented: $viewModel.isCompleted) {
-//            Alert(title: Text("프로필이 생성되었습니다"), dismissButton: .default(Text("OK")) {viewModel.goToMainView = true})
-//        }
+        .animation(.easeOut(duration: 0.1), value: keyboardMonitor.isKeyboardUP)
         .confirmationDialog(
             "프로필이 생성되었습니다",
             isPresented: $viewModel.isCompleted,
@@ -60,7 +60,7 @@ struct SetProfileView: View {
         } message: {
             Text("")
         }
-
+        
     }// body
 }// SetProfileView
 
@@ -71,28 +71,15 @@ struct SetProfileView_Previews: PreviewProvider {
     }
 }
 
+//MARK: -4. EXTENSION
 extension SetProfileView {
-    private var dismissButton: some View {
-        VStack{
-            HStack{
-                Button {
-                    print("dismiss")
-                    dismiss()
-                } label: {
-                    Image(SetPageXmark)
-                }// label
-                Spacer()
-            }// HStack
-            .padding(.init(top: 65, leading: 25, bottom: 0, trailing: 0))
-            Spacer()
-        }// VStack
-    }// dismissButton
+    
     
     private var SetProfileBackground: some View {
         ZStack {
             Image(SetProfileBackgroundSheet)
                 .resizable()
-            .aspectRatio(contentMode: .fit)
+                .aspectRatio(contentMode: .fit)
             VStack{
                 Image(SetProfileTitle)
                     .padding(.top, 51)
@@ -138,7 +125,7 @@ extension SetProfileView {
             TextField("닉네임", text: $viewModel.name)
                 .padding(.horizontal)
         }.frame(width: 297)
-        .padding(EdgeInsets(top: 7, leading: 46, bottom: 0, trailing: 46))
+            .padding(EdgeInsets(top: 7, leading: 46, bottom: 0, trailing: 46))
     }
     
     private var completeButton: some View{
@@ -152,8 +139,26 @@ extension SetProfileView {
                 .padding(EdgeInsets(top: 0, leading: 22, bottom: 51, trailing: 22))
                 .shadow(color: .black.opacity(0.15), radius: 5.5, x: 0, y: 4)
         }
+        .offset(y: keyboardMonitor.keyboardHeight * -0.9)
         .disabled(viewModel.name == "" ? true : false)
     }
+    
+    private var dismissButton: some View {
+        VStack{
+            HStack{
+                Button {
+                    print("dismiss")
+                    dismiss()
+                } label: {
+                    Image(SetPageXmark)
+                }// label
+                Spacer()
+            }// HStack
+            .padding(.init(top: 65, leading: 25, bottom: 0, trailing: 0))
+            Spacer()
+        }// VStack
+    }// dismissButton
+    
 }
 
 
