@@ -8,31 +8,35 @@
 import SwiftUI
 
 struct OnBoardingView: View {
+    //MARK: -1. PROPERTY
     
     init() {
         UINavigationBar.setAnimationsEnabled(false)
     }
     
     @StateObject private var viewModel = SplashViewModel()
+    @State private var isBlinking = false
     
+    //MARK: - 2. BODY
     var body: some View {
         NavigationView {
             
             ZStack(alignment: .top){
                 Image(LaunchPageSheet)
+                    .resizable()
+                    .scaledToFill()
                     .ignoresSafeArea()
-                Image(LaunchLogo)
-                    .padding(.init(top: 328, leading: 0, bottom: 0, trailing: 0.36))
                 NavigationLink {
                     getDestination()
                 } label: {
                     Image(LaunchStartButton)
-                        .padding(.top, 728)
-                        .shadow(color: .black.opacity(0.15), radius: 5.5, x: 0, y: 4)
+                        .padding(.top, 703)
+                        .opacity(isBlinking ? 0 : 1)
                 }
             }
             .onAppear {
                 viewModel.fetchUID()
+                blinkAnimation()
             }
             .onOpenURL { url in
                 var link = url.absoluteString.removingPercentEncoding!
@@ -42,8 +46,10 @@ struct OnBoardingView: View {
         }// NavigationView
     }// body
     
-    var background: some View {
-        Image(LaunchPageSheet)
+    private func blinkAnimation() {
+        withAnimation(Animation.easeInOut(duration: 0.6).repeatForever()) {
+            isBlinking.toggle()
+        }
     }
     
     // 프로필 유무에 따른 분기를 위해 만든 함수.
@@ -57,7 +63,7 @@ struct OnBoardingView: View {
         }
     }
     
-    
+    //MARK: -3. PREVIEW
     struct SplashView_Previews: PreviewProvider {
         static var previews: some View {
             OnBoardingView()
@@ -65,6 +71,7 @@ struct OnBoardingView: View {
     }
 }
 
+//MARK: -4. EXTENSION
 extension String {
     func remove(target string: String) -> String {
         return components(separatedBy: string).joined()
