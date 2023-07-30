@@ -53,5 +53,5 @@ struct NyangSound: Hashable {
     let roomRecord: CKRecord
     let messsage: String
     let voiceType: String
-    let userName: String
+    let whoSend: String
 }

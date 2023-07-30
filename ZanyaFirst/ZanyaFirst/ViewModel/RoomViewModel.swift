@@ -16,6 +16,10 @@ class RoomViewModel: ObservableObject {
     @Published var users: [Profile]
     @Published var roomInfo: Room
     
+    @Published var nyangSounds: [NyangSound] = []
+    @Published var sendMessage: String = ""
+    @Published var soundType: String = ""
+    
     //구독 아이디
     let subscriptionID_Cat = "notification_Cat"
     let subscriptionID_Dog = "notification_Dog"
@@ -37,6 +41,7 @@ class RoomViewModel: ObservableObject {
         print("방 인원: \(users.count)")
     }
     
+    // MARK: - 방 유져 fetch 함수
     func fetchUsers() {
         for user in roomInfo.UIDs{
             for prof in allUsers {
@@ -234,7 +239,7 @@ class RoomViewModel: ObservableObject {
             
             
             DispatchQueue.main.async {
-                print("RoomViewModel: 알람보내기!")
+                print("RoomViewModel: 아이템 저장 성공!")
             }
         }
     }
@@ -253,4 +258,26 @@ class RoomViewModel: ObservableObject {
         sendPig(name: self.users[0].name)
         print("RoomViewModel: 터치하기꿀")
     }
+    
+    // MARK: - 냥소리 구현
+    //냥소리 보내기
+    private func addNyangSound(whoSend: String, message: String, soundType: String) {
+        let nyang = CKRecord(recordType: "NyangSound")
+        
+        nyang["whoSend"] = whoSend
+        nyang["message"] = message
+        nyang["soundType"] = soundType
+        nyang["roomRecord"] = self.roomInfo.record?.recordID.recordName
+        
+        self.saveItem(record: nyang)
+    }
+    
+    func sendNyangSound() {
+        guard !sendMessage.isEmpty else { return }
+        //ToDo: soundType 기본 정의 해줘야됨
+        addNyangSound(whoSend: self.users[0].name, message: self.sendMessage, soundType: self.soundType)
+        
+        self.sendMessage = ""
+    }
+    
 }
