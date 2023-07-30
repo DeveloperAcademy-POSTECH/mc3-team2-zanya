@@ -95,10 +95,17 @@ let SendButtonActivate = "SendButtonActivate"
 let SendButtonDisabled = "SendButtonDisabled"
 let Rectangle11 = "Rectangle11"
 let Rectangle33 = "Rectangle33"
-let TTS1ButtonImageActivate = "TTS1ButtonImageActivate"
+
+//MARK: -TTS BUTTON
+let TTS1ButtonImage = "TTS1ButtonImage"
 let TTS2ButtonImage = "TTS2ButtonImage"
 let TTS3ButtonImage = "TTS3ButtonImage"
 let TTS4ButtonImage = "TTS4ButtonImage"
+
+let TTS1ButtonImage_disable = "TTS1ButtonImage_disable"
+let TTS2ButtonImage_disable = "TTS2ButtonImage_disable"
+let TTS3ButtonImage_disable = "TTS3ButtonImage_disable"
+let TTS4ButtonImage_disable = "TTS4ButtonImage_disable"
 let paw = "paw"
 
 

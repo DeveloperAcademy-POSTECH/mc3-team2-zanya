@@ -15,6 +15,7 @@ struct RoomView: View {
     @State var ArrayNum : Int = 0
     @State var PunchMessageToggle: Bool = true
     @State var tapIndexNum : Int = 0
+    @State private var selectedButton: String = "TTS1"
     @Environment(\.dismiss) private var dismiss
 
 //    var profile: Profile
@@ -316,23 +317,27 @@ extension RoomView {
                 HStack(spacing: 0){
                     Button {
                         print("clickedTTS1")
+                        selectedButton = "TTS1"
                     } label: {
-                        Image(TTS1ButtonImageActivate)
+                        Image(selectedButton == "TTS1" ? TTS1ButtonImage : TTS1ButtonImage_disable)
                     }.padding(.trailing, 4)
                     Button {
                         print("clickedTTS2")
+                        selectedButton = "TTS2"
                     } label: {
-                        Image(TTS2ButtonImage)
+                        Image(selectedButton == "TTS2" ? TTS2ButtonImage : TTS2ButtonImage_disable)
                     }.padding(.trailing, 4)
                     Button {
                         print("clickedTTS3")
+                        selectedButton = "TTS3"
                     } label: {
-                        Image(TTS3ButtonImage)
+                        Image(selectedButton == "TTS3" ? TTS3ButtonImage : TTS3ButtonImage_disable)
                     }.padding(.trailing, 4)
                     Button {
                         print("clickedTTS4")
+                        selectedButton = "TTS4"
                     } label: {
-                        Image(TTS4ButtonImage)
+                        Image(selectedButton == "TTS4" ? TTS4ButtonImage : TTS4ButtonImage_disable)
                     }.padding(.trailing, 4)
                     Spacer()
                 }.padding(.init(top: 0, leading: 15, bottom: 16, trailing: 15))
