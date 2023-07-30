@@ -12,6 +12,7 @@ struct RoomCell: View {
     
     var isOnTime: Bool = true //TODO: -일단 트루놨는데 알람에서 타임 받아서 여기 비워줘야함
     var title: String
+   
 
 //    var time: Date
     var userCount: Int
@@ -66,7 +67,11 @@ struct RoomCell: View {
     var rightView: some View {
         VStack(alignment: .trailing, spacing: 0) {
             roomOutButton
-            Spacer()
+            Image(InviteTalkBox)
+                .padding(EdgeInsets(top: 34, leading: 0, bottom: -3, trailing: 0))
+                .shadow(color: .black.opacity(0.1), radius: 3, x: 0, y: 2)
+                .opacity(userCount > 1 ? 1 : 0)
+            
             roomInviteButton
                 .padding(.leading, 194)
         }
