@@ -171,8 +171,8 @@ extension RoomView {
     
     private var bottomTab: some View {
         ZStack {
-            punchPage
-                .zIndex(PunchMessageToggle ? 1 : 0)
+//            punchPage
+//                .zIndex(PunchMessageToggle ? 1 : 0)
             messagePage
                 .zIndex(PunchMessageToggle ? 0 : 1)
         }
@@ -282,7 +282,6 @@ extension RoomView {
             Image(MessagePage)
                 .padding(.init(top: 0, leading: 0, bottom: -98, trailing: 0))
             Image(Rectangle77)
-            
             ScrollView(showsIndicators: false) {
                 LazyVGrid(columns: columns, spacing: 15) {
                     ForEach(0..<10) {i in //TODO: - 메세지 데이터에서 메세지 숫자 받기
@@ -313,6 +312,14 @@ extension RoomView {
                 }.padding(.top, 12)
             }.frame(width: 362, height: 226)
                 .padding(.init(top: 0, leading: 0, bottom: 136, trailing: 0))
+            Rectangle().fill(LinearGradient(colors: [Color(AppIvory), .clear], startPoint: .top, endPoint: .bottom))
+                .frame(width: 362, height: 30)
+                .cornerRadius(6)
+                .padding(.bottom, 334)
+            Rectangle().fill(LinearGradient(colors: [Color(AppIvory), .clear], startPoint: .bottom, endPoint: .top))
+                .frame(width: 362, height: 40)
+                .cornerRadius(6)
+                .padding(.bottom, 134)
             ZStack{
                 Image(Rectangle33)
                 VStack(spacing: 0){
@@ -349,8 +356,22 @@ extension RoomView {
                     HStack(spacing: 15){
                         ZStack{
                             Image(Rectangle11)
-                            TextField("메세지를 입력하세요", text: $text)
-                                .frame(width:280)
+                            
+                            HStack {
+                                TextField("냥소리를 입력해보세요 :3", text: $text)
+                                Button {
+                                   print("d")
+                                    speechMsg(msg: text)
+                                } label: {
+                                    if text != "" {
+                                        Image(SoundEnableButtonImage)}
+                                    else {
+                                        Image(SoundDisableButtonImage)
+                                    }
+                                }
+                            } .frame(width:280)
+                                .padding(.bottom, 2)
+                                .padding(.leading, 6)
                         }
                         Button {
                             print("음성메세지 전송버튼") //TODO: 음성메세지 전송할 수 있게 하기
