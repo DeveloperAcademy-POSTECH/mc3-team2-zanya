@@ -29,10 +29,12 @@ class RoomViewModel: ObservableObject {
         
 //        requestNotificationPermission()
 //        subscribeToNotifications()
-        fetchUsers()
+
         fetchRoom()
-        print("모든 유저 : \(allUsers.count)")
-        print("방 유자: \(users.count)")
+        fetchUsers()
+        
+        print("모든 유저 수 : \(allUsers.count)")
+        print("방 인원: \(users.count)")
     }
     
     func fetchUsers() {
@@ -51,7 +53,7 @@ class RoomViewModel: ObservableObject {
     // MARK: - notification permission
     func requestNotificationPermission() {
         
-        let options: UNAuthorizationOptions = [.alert, .sound, .badge]
+        let options: UNAuthorizationOptions = [.alert, .sound, .badge, .criticalAlert]
         UNUserNotificationCenter.current().requestAuthorization(options: options) { success, error in
             if let error = error {
                 print(error.localizedDescription)
