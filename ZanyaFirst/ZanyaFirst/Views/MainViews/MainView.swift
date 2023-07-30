@@ -13,16 +13,14 @@ struct MainView: View {
     //MARK: -1. PROPERTY
     //권한설정 요구하는 거임
     @EnvironmentObject var lnManager: LocalNotificationManager
-    
     @StateObject var viewModel: MainViewModel
+    @StateObject var alertObject = CustomAlertObject()
     
     @Environment(\.scenePhase) var scenePhase
     
     @State private var isCreateButtonClicked : Bool = false
     @State private var path = NavigationPath()
     @State private var profileNumber: Int = 0
-    
-    @State var ShowOnBoarding: Bool = true
     
     let profileArray = ProfileImageArray
     //MARK: 프리뷰하려고 더미룸 데이터 넣고 뿌림
@@ -33,23 +31,29 @@ struct MainView: View {
     var body: some View {
         NavigationView {
             ZStack{
-                MainPageBackground
-                MainPageProfileButton
-                MainPageRoomList
-                MainPageCreateRoomBtn
-                //  outMessage
+                Group {
+                    MainPageBackground
+                        .zIndex(1)
+                    MainPageProfileButton
+                        .zIndex(2)
+                    MainPageRoomList
+                        .zIndex(3)
+                    MainPageCreateRoomBtn
+                        .zIndex(4)
+                }
+                .blur(radius: alertObject.isClicked ? 12 : 0, opaque: false)
                 
-                
+                CustomAlertView()
+                    .environmentObject(alertObject)
+                    .zIndex(alertObject.isClicked ? 5 : 0)
+                    .onChange(of: alertObject.isClicked) { newValue in
+                        print("ROOM NAME \(newValue)")
+//                        viewModel.fetchItem()
+                    }
             }
             .ignoresSafeArea()
         }
         .navigationBarBackButtonHidden(true)
-        
-        //TODO: 스플래시뷰 사용하려면 이거 열어야 함!// 바디밑에 붙이는 뷰임// 프리뷰때매 닫아둠!
-        //        .fullScreenCover(isPresented: $ShowOnBoarding) {
-        //            SplashViewMain(ShowOnBoarding: $ShowOnBoarding)
-        //        }
-        
         .task {
             try? await lnManager
                 .requestAuthorization()
@@ -83,7 +87,6 @@ extension MainView {
             Image(MainPageSheetImage)
                 .resizable()
                 .ignoresSafeArea()
-            
             VStack {
                 Image(RoomListImage)
                     .padding(.top, 51)
@@ -104,17 +107,14 @@ extension MainView {
                         Image(MainPageProfileBag)
                             .shadow(color: .black.opacity(0.25), radius: 3, x: 0, y: 4)
                         Image("\(viewModel.profile.imageKey ?? "")_MainProfile")
-//                        Image("setProfileGentle_MainProfile") // 테스트이미지
+                        //                        Image("setProfileGentle_MainProfile") // 테스트이미지
                             .resizable()
                             .scaledToFit()
                             .frame(width: 28.22)
                             .padding(.top, 11.69)
-                        
                     }
-                    //                        .border(.red)
                 }
                 .padding(EdgeInsets(top: 43, leading: 0, bottom: 0, trailing: 18))
-                //                .border(.orange)
             }
             Spacer()
         }
@@ -130,7 +130,6 @@ extension MainView {
                     CreateRoomView()
                 } label: {
                     ClearRectangle(width: 121, height: 34, ClearOn: true)
-                    //    .border(.red)
                 }
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 36.8, trailing: 10))
             }
@@ -140,16 +139,13 @@ extension MainView {
     private var MainPageRoomList: some View {
         VStack {
             ScrollView(showsIndicators: false) {
-                // if rooms.count == 0 {
-                // Image(EmptyRoomSheetImage)
-                //    .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-                // }
                 ForEach(viewModel.rooms, id: \.self) { room in
                     NavigationLink{
                         RoomView(viewModel: RoomViewModel(allUsers: viewModel.allUsers, users: [viewModel.profile], roomInfo: room))
                     } label: {
-                        RoomCell(title: room.name, userCount: room.UIDs.count)
-                        
+                        //TODO: isOnTime 로직 구현해야함
+                        RoomCell(viewModel: RoomCellViewModel(isOnTime: true, room: room), UID: viewModel.profile.UID)
+                            .environmentObject(alertObject)
                     }// label
                 }// ForEach
             }// ScrollView
@@ -189,9 +185,11 @@ extension MainView {
                     }.padding(.trailing, 8)
                     
                 }.padding(.bottom,10.37)
-            }.frame(width: 300, height: 166)
-        }.frame(width: screenWidth, height: screenHeight)
-            .background(.ultraThinMaterial)
+            }
+            .frame(width: 300, height: 166)
+        }
+        .frame(width: screenWidth, height: screenHeight)
+        .background(.ultraThinMaterial)
     }
 }
 

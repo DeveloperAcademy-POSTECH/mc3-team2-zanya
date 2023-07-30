@@ -48,6 +48,9 @@
 		113018CB2A67FF3300DAD625 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113018CA2A67FF3300DAD625 /* Color+.swift */; };
 		113018CF2A6807AA00DAD625 /* SetProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113018CE2A6807AA00DAD625 /* SetProfileViewModel.swift */; };
 		113018D12A68496600DAD625 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113018D02A68496600DAD625 /* SplashViewModel.swift */; };
+		1153CA5B2A76A67800CA8D11 /* CustomAlertObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1153CA5A2A76A67800CA8D11 /* CustomAlertObservableObject.swift */; };
+		1153CA5D2A76B04600CA8D11 /* RoomCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1153CA5C2A76B04600CA8D11 /* RoomCellViewModel.swift */; };
+		11785B7A2A73A38E00BBCDEC /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11785B792A73A38E00BBCDEC /* CustomAlertView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -95,6 +98,9 @@
 		113018CA2A67FF3300DAD625 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		113018CE2A6807AA00DAD625 /* SetProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetProfileViewModel.swift; sourceTree = "<group>"; };
 		113018D02A68496600DAD625 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
+		1153CA5A2A76A67800CA8D11 /* CustomAlertObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertObservableObject.swift; sourceTree = "<group>"; };
+		1153CA5C2A76B04600CA8D11 /* RoomCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCellViewModel.swift; sourceTree = "<group>"; };
+		11785B792A73A38E00BBCDEC /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +186,7 @@
 				07B455472A66790800EB9801 /* ZanyaFirst.entitlements */,
 				07B455392A66779D00EB9801 /* ZanyaFirstApp.swift */,
 				07B3E2FC2A6680870080860A /* ContentView.swift */,
+				1153CA592A76A62300CA8D11 /* CustomAlert */,
 				07B455482A66797D00EB9801 /* Views */,
 				07B4554A2A6679A800EB9801 /* ViewModel */,
 				07B455492A66798500EB9801 /* Model */,
@@ -227,6 +234,7 @@
 				07B4555F2A667C9E00EB9801 /* SetImageViewModel.swift */,
 				113018CE2A6807AA00DAD625 /* SetProfileViewModel.swift */,
 				113018D02A68496600DAD625 /* SplashViewModel.swift */,
+				1153CA5C2A76B04600CA8D11 /* RoomCellViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -268,6 +276,15 @@
 				113018CA2A67FF3300DAD625 /* Color+.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		1153CA592A76A62300CA8D11 /* CustomAlert */ = {
+			isa = PBXGroup;
+			children = (
+				11785B792A73A38E00BBCDEC /* CustomAlertView.swift */,
+				1153CA5A2A76A67800CA8D11 /* CustomAlertObservableObject.swift */,
+			);
+			path = CustomAlert;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -346,6 +363,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11785B7A2A73A38E00BBCDEC /* CustomAlertView.swift in Sources */,
 				07B455542A667BF200EB9801 /* SetImageView.swift in Sources */,
 				07B455712A667DE100EB9801 /* PlaySound.swift in Sources */,
 				07B3E31D2A67A0980080860A /* OnBoardingView.swift in Sources */,
@@ -360,6 +378,7 @@
 				07B4554E2A667A1700EB9801 /* SetProfileView.swift in Sources */,
 				075B7FBF2A6E47B30071A856 /* StrokedTimeCell.swift in Sources */,
 				07B4555A2A667C5A00EB9801 /* RoomView.swift in Sources */,
+				1153CA5B2A76A67800CA8D11 /* CustomAlertObservableObject.swift in Sources */,
 				07B3E2FD2A6680870080860A /* ContentView.swift in Sources */,
 				07B4554C2A6679C800EB9801 /* MainView.swift in Sources */,
 				07B455662A667D0300EB9801 /* RoomViewModel.swift in Sources */,
@@ -375,6 +394,7 @@
 				07B3E3132A6739DE0080860A /* ClearRectangle.swift in Sources */,
 				07B3E3232A67A74A0080860A /* TimeModel.swift in Sources */,
 				113018CB2A67FF3300DAD625 /* Color+.swift in Sources */,
+				1153CA5D2A76B04600CA8D11 /* RoomCellViewModel.swift in Sources */,
 				07B455602A667C9E00EB9801 /* SetImageViewModel.swift in Sources */,
 				113018CF2A6807AA00DAD625 /* SetProfileViewModel.swift in Sources */,
 				07B455792A667E2D00EB9801 /* Model.swift in Sources */,

@@ -18,6 +18,7 @@ let AppNavy = "AppNavy"
 let Apppurple = "Apppurple"
 let AppRed = "AppRed"
 let AppWine = "AppWine"
+let AppWineAlertText = "AppWineAlertText"
 let AppWhite = "AppWhite"
 let AppYellow = "AppYellow"
 
@@ -145,9 +146,12 @@ let InvitePlate = "InvitePlate"
 let nameSheet = "nameSheet"
 let mainPageProfileSheet = "mainPageProfileSheet"
 
+//MARK: -ALERT COMPONENTS
 let outMessageSheet = "outMessageSheet"
-let outMessageOutButton = "outMessageOutButton"
+let inviteMessageCancelButton = "inviteMessageCancelButton"
+let inviteMessageOkayButton = "inviteMessageOkayButton"
 let outMessageCancleButton = "outMessageCancleButton"
+let outMessageOutButton = "outMessageOutButton"
 let BlurRectangle = "BlurRectangle"
 
 
