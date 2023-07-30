@@ -37,6 +37,7 @@ struct OnBoardingView: View {
             .onAppear {
                 viewModel.fetchUID()
                 blinkAnimation()
+    
             }
             .onOpenURL { url in
                 var link = url.absoluteString.removingPercentEncoding!
@@ -49,6 +50,7 @@ struct OnBoardingView: View {
     private func blinkAnimation() {
         withAnimation(Animation.easeInOut(duration: 0.6).repeatForever()) {
             isBlinking.toggle()
+            
         }
     }
     
