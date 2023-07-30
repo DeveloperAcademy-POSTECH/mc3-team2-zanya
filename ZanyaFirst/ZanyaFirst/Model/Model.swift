@@ -52,6 +52,6 @@ let dummyRoomViewModels = [RoomViewModel(allUsers: [dummyProfile0,dummyProfile1,
 struct NyangSound: Hashable {
     let roomRecord: CKRecord
     let messsage: String
-    let voiceType: String
+    let soundType: String
     let whoSend: String
 }

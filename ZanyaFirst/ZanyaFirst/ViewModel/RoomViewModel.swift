@@ -36,6 +36,7 @@ class RoomViewModel: ObservableObject {
 
         fetchRoom()
         fetchUsers()
+        fetchNyangMessage()
         
         print("모든 유저 수 : \(allUsers.count)")
         print("방 인원: \(users.count)")
@@ -280,4 +281,39 @@ class RoomViewModel: ObservableObject {
         self.sendMessage = ""
     }
     
+    func fetchNyangMessage() {
+        let predicate = NSPredicate(format: "roomRecord = %@", argumentArray: ["\(self.roomInfo.record?.recordID.recordName ?? "")"])
+        let query = CKQuery(recordType: "NyangSound", predicate: predicate)
+        let queryOperation = CKQueryOperation(query: query)
+
+        var returnedItems: [NyangSound] = []
+        
+        queryOperation.recordMatchedBlock = {  (returnedRecordID, returnedResult) in
+            switch returnedResult {
+            case .success(let record):
+                guard let roomRecord = record["roomRecord"] as? CKRecord else { return }
+                guard let message = record["message"] as? String else { return }
+                guard let soundType = record["soundType"] as? String else { return }
+                guard let whoSend = record["whoSend"] as? String else { return }
+                
+                returnedItems.append(NyangSound(roomRecord: roomRecord, messsage: message, soundType: soundType, whoSend: whoSend))
+                
+            case .failure(let error):
+                print("Error recordMatchedBlock: \(error)")
+            }
+        }
+        
+        print(returnedItems)
+        
+        queryOperation.queryResultBlock = { [weak self] returnedResult in
+            print("Returned result: \(returnedResult)")
+            DispatchQueue.main.async {
+                self?.nyangSounds = returnedItems
+            }
+            
+        }
+        
+        CKContainer.default().publicCloudDatabase.add(queryOperation)
+        
+    }
 }
