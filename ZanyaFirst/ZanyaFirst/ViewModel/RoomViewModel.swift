@@ -18,7 +18,7 @@ class RoomViewModel: ObservableObject {
     
     @Published var nyangSounds: [NyangSound] = []
     @Published var sendMessage: String = ""
-    @Published var soundType: String = ""
+    @Published var soundType: String = "TTS1"
     
     //구독 아이디
     let subscriptionID_Cat = "notification_Cat"
@@ -262,10 +262,11 @@ class RoomViewModel: ObservableObject {
     
     // MARK: - 냥소리 구현
     //냥소리 보내기
-    private func addNyangSound(whoSend: String, message: String, soundType: String) {
+    private func addNyangSound(whoSend: String, imageKey: String, message: String, soundType: String) {
         let nyang = CKRecord(recordType: "NyangSound")
         
         nyang["whoSend"] = whoSend
+        nyang["imageKey"] = imageKey
         nyang["message"] = message
         nyang["soundType"] = soundType
         nyang["roomRecord"] = self.roomInfo.record?.recordID.recordName
@@ -276,13 +277,14 @@ class RoomViewModel: ObservableObject {
     func sendNyangSound() {
         guard !sendMessage.isEmpty else { return }
         //ToDo: soundType 기본 정의 해줘야됨
-        addNyangSound(whoSend: self.users[0].name, message: self.sendMessage, soundType: self.soundType)
+        addNyangSound(whoSend: self.users[0].name, imageKey: self.users[0].imageKey ?? "", message: self.sendMessage, soundType: self.soundType)
         
         self.sendMessage = ""
     }
     
     func fetchNyangMessage() {
         let predicate = NSPredicate(format: "roomRecord = %@", argumentArray: ["\(self.roomInfo.record?.recordID.recordName ?? "")"])
+        print("fetchNyang - roomRecord: \(self.roomInfo.record?.recordID.recordName ?? "")")
         let query = CKQuery(recordType: "NyangSound", predicate: predicate)
         let queryOperation = CKQueryOperation(query: query)
 
@@ -291,12 +293,13 @@ class RoomViewModel: ObservableObject {
         queryOperation.recordMatchedBlock = {  (returnedRecordID, returnedResult) in
             switch returnedResult {
             case .success(let record):
-                guard let roomRecord = record["roomRecord"] as? CKRecord else { return }
+                guard let roomRecord = record["roomRecord"] as? String else { return }
                 guard let message = record["message"] as? String else { return }
                 guard let soundType = record["soundType"] as? String else { return }
                 guard let whoSend = record["whoSend"] as? String else { return }
+                guard let imageKey = record["imageKey"] as? String else { return }
                 
-                returnedItems.append(NyangSound(roomRecord: roomRecord, messsage: message, soundType: soundType, whoSend: whoSend))
+                print(returnedItems.append(NyangSound(roomRecord: roomRecord, messsage: message, soundType: soundType, whoSend: whoSend,imageKey: imageKey)))
                 
             case .failure(let error):
                 print("Error recordMatchedBlock: \(error)")
@@ -315,5 +318,6 @@ class RoomViewModel: ObservableObject {
         
         CKContainer.default().publicCloudDatabase.add(queryOperation)
         
+        print("nyangSound fetch!!")
     }
 }

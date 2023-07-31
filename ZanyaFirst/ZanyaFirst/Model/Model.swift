@@ -51,9 +51,10 @@ let dummyRoomCellViewModel = RoomCellViewModel(isOnTime: true, room: dummyRoom0)
 
 //MARK: -NyangSound
 struct NyangSound: Hashable {
-    let roomRecord: CKRecord
+    let roomRecord: String
     let messsage: String
     let soundType: String
     let whoSend: String
+    let imageKey: String
 }
 

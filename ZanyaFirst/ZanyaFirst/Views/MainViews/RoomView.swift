@@ -12,11 +12,11 @@ struct RoomView: View {
     //MARK: - 1. PROPERTY
     @StateObject var viewModel: RoomViewModel
     @ObservedObject var keyboardMonitor : KeyboardMonitor = KeyboardMonitor()
-    @State var text : String = ""
+    
     @State var ArrayNum : Int = 0
     @State var PunchMessageToggle: Bool = true
     @State var tapIndexNum : Int = 0
-    @State private var selectedButton: String = "TTS1"
+    
     @Environment(\.dismiss) private var dismiss
     
     //    var profile: Profile
@@ -139,7 +139,7 @@ extension RoomView {
                 .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 4)
             
             HStack(alignment: .center,spacing: 0) {
-                ForEach(0..<viewModel.users.count) { i in
+                ForEach(0..<viewModel.users.count, id: \.self) { i in
                     ZStack(alignment: .center){
                         Image(ProfilePlateOff)
                         VStack {
@@ -285,17 +285,20 @@ extension RoomView {
             ScrollView(showsIndicators: false) {
                 LazyVGrid(columns: columns, spacing: 15) {
                     if viewModel.nyangSounds.count != 0  {
-                        ForEach(0..<viewModel.nyangSounds.count) {i in //TODO: - 메세지 데이터에서 메세지 숫자 받기
+                        ForEach(0..<viewModel.nyangSounds.count, id: \.self) {i in //TODO: - 메세지 데이터에서 메세지 숫자 받기
                             Button {
                                 print("message play")
-                                if selectedButton == "TTS1" {
+                                switch viewModel.nyangSounds[i].soundType{
+                                case "TTS1":
                                     speechMsg_TTS1(msg: viewModel.nyangSounds[i].messsage)
-                                } else if selectedButton == "TTS2" {
-                                    speechMsg_TTS2(msg: text)
-                                } else if selectedButton == "TTS3" {
-                                    speechMsg_TTS3(msg: text)
-                                } else if selectedButton == "TTS4" {
-                                    speechMsg_TTS4(msg: text)
+                                case "TTS2":
+                                    speechMsg_TTS2(msg: viewModel.nyangSounds[i].messsage)
+                                case "TTS3":
+                                    speechMsg_TTS3(msg: viewModel.nyangSounds[i].messsage)
+                                case "TTS4":
+                                    speechMsg_TTS4(msg: viewModel.nyangSounds[i].messsage)
+                                default:
+                                    speechMsg_TTS1(msg: viewModel.nyangSounds[i].messsage)
                                 }
                             } label: {
                                 ZStack(alignment: .bottomLeading){
@@ -304,15 +307,15 @@ extension RoomView {
                                         .frame(width: 105, height: 85)
                                     HStack {
                                         VStack(alignment: .leading){
-                                            TextCell(text: "비누", size: 11, color: .white) // TODO: - 메세지 데이터에서 닉네임 받기
+//                                            TextCell(text: "비누", size: 11, color: .white) // TODO: - 메세지 데이터에서 닉네임 받기
                                             TextCell(text: "\(viewModel.nyangSounds[i].whoSend)", size: 11, color: .white) // TODO: - 메세지 데이터에서 닉네임 받기
                                                 .padding(.init(top: 0, leading: 10, bottom: -7, trailing: 0))
                                             TextCell(text: "20초", size: 10, color: .white) // TODO: - 메세지 데이터에서 시간 값 받기
                                                 .padding(.init(top: 0, leading: 10, bottom: 10, trailing: 0))
                                         }
                                         Spacer()
-                                        Image("messageBox_WhiteCat") // TODO: - 메세지 데이터에서 프로필 이미지키 받기
-    //                                    Image(viewModel.nyangSounds[i].whoSend.imageKey)
+                                        //Image("messageBox_WhiteCat") // TODO: - 메세지 데이터에서 프로필 이미지키 받기
+                                        Image(viewModel.nyangSounds[i].imageKey)
                                             .resizable()
                                             .frame(width: 38.36, height: 31.54)
                                             .padding(.init(top: 0, leading: 0, bottom: 8.46, trailing: 9.64))
@@ -341,27 +344,27 @@ extension RoomView {
                     HStack(spacing: 0){
                         Button {
                             print("clickedTTS1")
-                            selectedButton = "TTS1"
+                            viewModel.soundType = "TTS1"
                         } label: {
-                            Image(selectedButton == "TTS1" ? TTS1ButtonImage : TTS1ButtonImage_disable)
+                            Image(viewModel.soundType == "TTS1" ? TTS1ButtonImage : TTS1ButtonImage_disable)
                         }.padding(.trailing, 4)
                         Button {
                             print("clickedTTS2")
-                            selectedButton = "TTS2"
+                            viewModel.soundType = "TTS2"
                         } label: {
-                            Image(selectedButton == "TTS2" ? TTS2ButtonImage : TTS2ButtonImage_disable)
+                            Image(viewModel.soundType == "TTS2" ? TTS2ButtonImage : TTS2ButtonImage_disable)
                         }.padding(.trailing, 4)
                         Button {
                             print("clickedTTS3")
-                            selectedButton = "TTS3"
+                            viewModel.soundType = "TTS3"
                         } label: {
-                            Image(selectedButton == "TTS3" ? TTS3ButtonImage : TTS3ButtonImage_disable)
+                            Image(viewModel.soundType == "TTS3" ? TTS3ButtonImage : TTS3ButtonImage_disable)
                         }.padding(.trailing, 4)
                         Button {
                             print("clickedTTS4")
-                            selectedButton = "TTS4"
+                            viewModel.soundType = "TTS4"
                         } label: {
-                            Image(selectedButton == "TTS4" ? TTS4ButtonImage : TTS4ButtonImage_disable)
+                            Image(viewModel.soundType == "TTS4" ? TTS4ButtonImage : TTS4ButtonImage_disable)
                         }.padding(.trailing, 4)
                         Spacer()
                     }.padding(.init(top: 0, leading: 15, bottom: 0, trailing: 15))
@@ -372,19 +375,22 @@ extension RoomView {
                             Image(Rectangle11)
                             
                             HStack {
-                                TextField("냥소리를 입력해보세요 :3", text: $text)
+                                TextField("냥소리를 입력해보세요 :3", text: $viewModel.sendMessage)
                                 Button {
-                                    if selectedButton == "TTS1" {
-                                        speechMsg_TTS1(msg: text)
-                                    } else if selectedButton == "TTS2" {
-                                        speechMsg_TTS2(msg: text)
-                                    } else if selectedButton == "TTS3" {
-                                        speechMsg_TTS3(msg: text)
-                                    } else if selectedButton == "TTS4" {
-                                        speechMsg_TTS4(msg: text)
+                                    switch viewModel.soundType {
+                                    case "TTS1":
+                                        speechMsg_TTS1(msg: viewModel.sendMessage)
+                                    case "TTS2":
+                                        speechMsg_TTS2(msg: viewModel.sendMessage)
+                                    case "TTS3":
+                                        speechMsg_TTS3(msg: viewModel.sendMessage)
+                                    case "TTS4":
+                                        speechMsg_TTS4(msg: viewModel.sendMessage)
+                                    default:
+                                        speechMsg_TTS1(msg: viewModel.sendMessage)
                                     }
                                 } label: {
-                                    if text != "" {
+                                    if viewModel.sendMessage != "" {
                                         Image(SoundEnableButtonImage)}
                                     else {
                                         Image(SoundDisableButtonImage)
@@ -398,7 +404,7 @@ extension RoomView {
                             print("음성메세지 전송버튼") //TODO: 음성메세지 전송할 수 있게 하기
                             viewModel.sendNyangSound()
                         } label: {
-                            if text != "" {
+                            if viewModel.sendMessage != "" {
                                 Image(SendButtonActivate)}
                             else {
                                 Image(SendButtonDisabled)
