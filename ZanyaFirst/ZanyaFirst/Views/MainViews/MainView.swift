@@ -43,7 +43,7 @@ struct MainView: View {
                 }
                 .blur(radius: alertObject.isClicked ? 12 : 0, opaque: false)
                 
-                CustomAlertView()
+                CustomAlertView(task: $viewModel.task)
                     .environmentObject(alertObject)
                     .zIndex(alertObject.isClicked ? 5 : 0)
                     .onChange(of: alertObject.isClicked) { newValue in
