@@ -16,6 +16,10 @@ class RoomViewModel: ObservableObject {
     @Published var users: [Profile]
     @Published var roomInfo: Room
     
+    @Published var nyangSounds: [NyangSound] = []
+    @Published var sendMessage: String = ""
+    @Published var soundType: String = ""
+    
     //구독 아이디
     let subscriptionID_Cat = "notification_Cat"
     let subscriptionID_Dog = "notification_Dog"
@@ -29,12 +33,16 @@ class RoomViewModel: ObservableObject {
         
 //        requestNotificationPermission()
 //        subscribeToNotifications()
-        fetchUsers()
+
         fetchRoom()
-        print("모든 유저 : \(allUsers.count)")
-        print("방 유자: \(users.count)")
+        fetchUsers()
+        fetchNyangMessage()
+        
+        print("모든 유저 수 : \(allUsers.count)")
+        print("방 인원: \(users.count)")
     }
     
+    // MARK: - 방 유져 fetch 함수
     func fetchUsers() {
         for user in roomInfo.UIDs{
             for prof in allUsers {
@@ -51,7 +59,7 @@ class RoomViewModel: ObservableObject {
     // MARK: - notification permission
     func requestNotificationPermission() {
         
-        let options: UNAuthorizationOptions = [.alert, .sound, .badge]
+        let options: UNAuthorizationOptions = [.alert, .sound, .badge, .criticalAlert]
         UNUserNotificationCenter.current().requestAuthorization(options: options) { success, error in
             if let error = error {
                 print(error.localizedDescription)
@@ -232,7 +240,7 @@ class RoomViewModel: ObservableObject {
             
             
             DispatchQueue.main.async {
-                print("RoomViewModel: 알람보내기!")
+                print("RoomViewModel: 아이템 저장 성공!")
             }
         }
     }
@@ -250,5 +258,62 @@ class RoomViewModel: ObservableObject {
     func touchPig() {
         sendPig(name: self.users[0].name)
         print("RoomViewModel: 터치하기꿀")
+    }
+    
+    // MARK: - 냥소리 구현
+    //냥소리 보내기
+    private func addNyangSound(whoSend: String, message: String, soundType: String) {
+        let nyang = CKRecord(recordType: "NyangSound")
+        
+        nyang["whoSend"] = whoSend
+        nyang["message"] = message
+        nyang["soundType"] = soundType
+        nyang["roomRecord"] = self.roomInfo.record?.recordID.recordName
+        
+        self.saveItem(record: nyang)
+    }
+    
+    func sendNyangSound() {
+        guard !sendMessage.isEmpty else { return }
+        //ToDo: soundType 기본 정의 해줘야됨
+        addNyangSound(whoSend: self.users[0].name, message: self.sendMessage, soundType: self.soundType)
+        
+        self.sendMessage = ""
+    }
+    
+    func fetchNyangMessage() {
+        let predicate = NSPredicate(format: "roomRecord = %@", argumentArray: ["\(self.roomInfo.record?.recordID.recordName ?? "")"])
+        let query = CKQuery(recordType: "NyangSound", predicate: predicate)
+        let queryOperation = CKQueryOperation(query: query)
+
+        var returnedItems: [NyangSound] = []
+        
+        queryOperation.recordMatchedBlock = {  (returnedRecordID, returnedResult) in
+            switch returnedResult {
+            case .success(let record):
+                guard let roomRecord = record["roomRecord"] as? CKRecord else { return }
+                guard let message = record["message"] as? String else { return }
+                guard let soundType = record["soundType"] as? String else { return }
+                guard let whoSend = record["whoSend"] as? String else { return }
+                
+                returnedItems.append(NyangSound(roomRecord: roomRecord, messsage: message, soundType: soundType, whoSend: whoSend))
+                
+            case .failure(let error):
+                print("Error recordMatchedBlock: \(error)")
+            }
+        }
+        
+        print(returnedItems)
+        
+        queryOperation.queryResultBlock = { [weak self] returnedResult in
+            print("Returned result: \(returnedResult)")
+            DispatchQueue.main.async {
+                self?.nyangSounds = returnedItems
+            }
+            
+        }
+        
+        CKContainer.default().publicCloudDatabase.add(queryOperation)
+        
     }
 }

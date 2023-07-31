@@ -48,3 +48,12 @@ let dummyRoomViewModels = [RoomViewModel(allUsers: [dummyProfile0,dummyProfile1,
 ]
 
 let dummyRoomCellViewModel = RoomCellViewModel(isOnTime: true, room: dummyRoom0)
+
+//MARK: -NyangSound
+struct NyangSound: Hashable {
+    let roomRecord: CKRecord
+    let messsage: String
+    let soundType: String
+    let whoSend: String
+}
+

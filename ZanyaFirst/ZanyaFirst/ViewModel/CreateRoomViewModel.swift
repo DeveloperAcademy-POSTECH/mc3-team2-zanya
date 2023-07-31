@@ -36,5 +36,6 @@ class CreateRoomViewModel: ObservableObject {
     func clickedCompleteButton() {
         guard !roomName.isEmpty else { return }
         createRoom(roomName: roomName)
+        self.roomName = ""
     }
 }
