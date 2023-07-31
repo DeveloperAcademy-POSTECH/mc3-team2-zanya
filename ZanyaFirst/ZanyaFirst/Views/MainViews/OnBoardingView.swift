@@ -8,40 +8,36 @@
 import SwiftUI
 
 struct OnBoardingView: View {
+    //MARK: -1. PROPERTY
     
     init() {
         UINavigationBar.setAnimationsEnabled(false)
     }
     
     @StateObject private var viewModel = SplashViewModel()
+    @State private var isBlinking = false
     
+    //MARK: - 2. BODY
     var body: some View {
         NavigationView {
-            ZStack {
-                //TODO: 레이아웃 작업은 추후에 다시 해야함.
-                background
-                VStack(alignment: .center){
-                    Spacer()
-                    Image(SplashLogoSecond)
-                        .padding(.leading, 55)
-                    Spacer()
-                    Spacer()
-                    Image(SplashImage)
-                    Spacer()
-                    
-                    NavigationLink {
-                        getDestination()
-                    } label: {
-                        Image(SplashOKButton)
-                    }
-                    
-                    Spacer()
-                    Spacer()
+            
+            ZStack(alignment: .top){
+                Image(LaunchPageSheet)
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea()
+                NavigationLink {
+                    getDestination()
+                } label: {
+                    Image(LaunchStartButton)
+                        .padding(.top, 703)
+                        .opacity(isBlinking ? 0 : 1)
                 }
-            }// ZStack
-            .ignoresSafeArea()
+            }
             .onAppear {
                 viewModel.fetchUID()
+                blinkAnimation()
+    
             }
             .onOpenURL { url in
                 var link = url.absoluteString.removingPercentEncoding!
@@ -51,10 +47,11 @@ struct OnBoardingView: View {
         }// NavigationView
     }// body
     
-    var background: some View {
-        Image(SplashViewBackground)
-            .resizable()
-//            .aspectRatio(contentMode: .fit)
+    private func blinkAnimation() {
+        withAnimation(Animation.easeInOut(duration: 0.6).repeatForever()) {
+            isBlinking.toggle()
+            
+        }
     }
     
     // 프로필 유무에 따른 분기를 위해 만든 함수.
@@ -68,7 +65,7 @@ struct OnBoardingView: View {
         }
     }
     
-    
+    //MARK: -3. PREVIEW
     struct SplashView_Previews: PreviewProvider {
         static var previews: some View {
             OnBoardingView()
@@ -76,6 +73,7 @@ struct OnBoardingView: View {
     }
 }
 
+//MARK: -4. EXTENSION
 extension String {
     func remove(target string: String) -> String {
         return components(separatedBy: string).joined()

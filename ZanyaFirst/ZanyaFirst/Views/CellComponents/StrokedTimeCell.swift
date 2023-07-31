@@ -14,18 +14,15 @@ struct StrokedTimeCell: View {
     var strokeColor: String = AppGreen
     
     var body: some View {
-//        VStack(alignment: .leading) {
             ZStack {
                 StrokeTimeLabel(text: text, size: size, strokeColor: strokeColor)
                 HStack {
                     Text(text)
                         .font(Font.custom("LINE Seed Sans KR Bold", fixedSize: size))
                         .foregroundColor(color)
-//                    Spacer()
                 }
             }
             .frame(height: size)
-//        }
     }
 }
 

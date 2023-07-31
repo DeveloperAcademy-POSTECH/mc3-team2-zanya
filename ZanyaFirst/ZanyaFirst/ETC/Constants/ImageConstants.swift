@@ -21,6 +21,7 @@ let AppWine = "AppWine"
 let AppWineAlertText = "AppWineAlertText"
 let AppWhite = "AppWhite"
 let AppYellow = "AppYellow"
+let AppIvory = "AppIvory"
 
 //MARK: -페이지마다 만들기 귀찮아서 만드는 이미지어레이
 let ProfileImageArray = ["whiteCat_Profile", "cheeseCat_Profile", "greyCat_Profile", "shamCat_Profile", "gentleCat_Profile","blackCat_Profile"]
@@ -96,10 +97,20 @@ let SendButtonActivate = "SendButtonActivate"
 let SendButtonDisabled = "SendButtonDisabled"
 let Rectangle11 = "Rectangle11"
 let Rectangle33 = "Rectangle33"
-let TTS1ButtonImageActivate = "TTS1ButtonImageActivate"
+
+//MARK: -TTS BUTTON
+let TTS1ButtonImage = "TTS1ButtonImage"
 let TTS2ButtonImage = "TTS2ButtonImage"
 let TTS3ButtonImage = "TTS3ButtonImage"
 let TTS4ButtonImage = "TTS4ButtonImage"
+
+let TTS1ButtonImage_disable = "TTS1ButtonImage_disable"
+let TTS2ButtonImage_disable = "TTS2ButtonImage_disable"
+let TTS3ButtonImage_disable = "TTS3ButtonImage_disable"
+let TTS4ButtonImage_disable = "TTS4ButtonImage_disable"
+
+let SoundEnableButtonImage = "SoundEnableButtonImage"
+let SoundDisableButtonImage = "SoundDisableButtonImage"
 let paw = "paw"
 
 
@@ -154,6 +165,10 @@ let outMessageCancleButton = "outMessageCancleButton"
 let outMessageOutButton = "outMessageOutButton"
 let BlurRectangle = "BlurRectangle"
 
+let inviteMessageSheet = "inviteMessageSheet"
+let inviteMessageInviteButton = "inviteMessageInviteButton"
+let inviteMessageCancelButton = "inviteMessageCancelButton"
+
 
 //MARK: - MAINPAGE CATPROFILE
 let setProfileSham_MainProfile = "setProfileSham_MainProfile"
@@ -201,6 +216,7 @@ let SetPageXmark = "SetPageXmark"
 let CreatePageSheet = "CreatePageSheet"
 let CreateRoomTitle = "CreateRoomTitle"
 let CreateRoomSaveButton = "CreateRoomSaveButton"
+let CreateRoomSaveButton_disabled = "CreateRoomSaveButton_disabled"
 let CreateTitleSheet = "CreateTitleSheet"
 let CreatePickerSheet = "CreatePickerSheet"
 let CreatePageXmark = "CreatePageXmark"

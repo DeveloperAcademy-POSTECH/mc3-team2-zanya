@@ -191,6 +191,39 @@ extension MainView {
         .frame(width: screenWidth, height: screenHeight)
         .background(.ultraThinMaterial)
     }
+    
+    private var inviteMessage: some View {
+        ZStack{
+            Image(BlurRectangle)
+            Image(inviteMessageSheet)
+                .resizable()
+                .frame(width: 300, height: 160)
+                .shadow(color: .black.opacity(0.25), radius: 3, x: 0, y: 4)
+            
+            VStack{
+                Spacer()
+                HStack(spacing: 0){
+                    Button {
+                        print("cancle")
+                    } label: {
+                        Image(inviteMessageCancelButton)
+                            .resizable()
+                            .frame(width: 138, height: 46.01)
+                    }.padding(.leading, 8)
+                    Spacer()
+                    Button {
+                        print("invite")
+                    } label: {
+                        Image(inviteMessageInviteButton)
+                            .resizable()
+                            .frame(width: 138, height: 46.01)
+                    }.padding(.trailing, 8)
+                    
+                }.padding(.bottom,10.37)
+            }.frame(width: 300, height: 166)
+        }.frame(width: screenWidth, height: screenHeight)
+            .background(.ultraThinMaterial)
+    }
 }
 
 extension Date {
@@ -200,5 +233,12 @@ extension Date {
                 .hour(.twoDigits(amPM: .omitted))
                 .minute(.twoDigits)
         )
+    }
+}
+extension View {
+    func hideKeyboardWhenTappedAround() -> some View {
+        return self.onTapGesture {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        }
     }
 }
