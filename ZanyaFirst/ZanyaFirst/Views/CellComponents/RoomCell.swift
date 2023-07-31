@@ -13,11 +13,8 @@ struct RoomCell: View {
     @EnvironmentObject var alertObject: CustomAlertObject
 
     var isOnTime: Bool = true //TODO: -일단 트루놨는데 알람에서 타임 받아서 여기 비워줘야함
-    var title: String
-  
-//    var time: Date
-    var userCount: Int
-
+//    var title: String
+//    var userCount: Int
     let preFix: String = "zanya-invite:://"
     
     @State var isClickedOut: Bool = false
@@ -39,6 +36,7 @@ struct RoomCell: View {
                 roomCellSheet
                 leftView
                 rightView
+                roomOutArea
             }
             .frame(width: 304, height: 160)
         } else {
@@ -47,6 +45,7 @@ struct RoomCell: View {
                 roomCellSheet
                 leftView
                 rightView
+                roomOutArea
             }
             .frame(width: 304, height: 160)
         }
@@ -71,10 +70,11 @@ struct RoomCell: View {
     var rightView: some View {
         VStack(alignment: .trailing, spacing: 0) {
             roomOutButton
+            
             Image(InviteTalkBox)
                 .padding(EdgeInsets(top: 34, leading: 0, bottom: -3, trailing: 0))
                 .shadow(color: .black.opacity(0.1), radius: 3, x: 0, y: 2)
-                .opacity(userCount > 1 ? 1 : 0)
+                .opacity(viewModel.userCount > 1 ? 1 : 0)
             
             roomInviteButton
                 .padding(.leading, 194)
@@ -89,15 +89,19 @@ struct RoomCell: View {
     }
     
     var roomOutButton: some View {
-        Button {
-            alertObject.isClicked = true
-            alertObject.roomName = viewModel.title
-            alertObject.room = viewModel.room
-            alertObject.UID = self.UID
-            print("Room \(viewModel.title) Out!")
-        } label: {
-            Image(viewModel.isOnTime ? RoomBoxOutPink : RoomBoxOutBlue)
-        }
+//        Button {
+//            alertObject.isClicked = true
+//            alertObject.roomName = viewModel.title
+//            alertObject.room = viewModel.room
+//            alertObject.UID = self.UID
+//            print("Room \(viewModel.title) Out!")
+//        } label: {
+//            ZStack{
+//                Image(viewModel.isOnTime ? RoomBoxOutPink : RoomBoxOutBlue)
+//            }
+//        }
+//        .border(.red)
+        Image(viewModel.isOnTime ? RoomBoxOutPink : RoomBoxOutBlue)
     }
     
     var roomInviteButton: some View {
@@ -125,20 +129,36 @@ struct RoomCell: View {
             }
         )// Sheet
     }
+    
+    var roomOutArea: some View {
+        VStack(alignment: .trailing){
+            Rectangle()
+                .opacity(0.01)
+                .frame(width: 40, height: 40)
+                .padding(EdgeInsets(top: 0, leading: 240, bottom: 100, trailing: 0))
+                .onTapGesture {
+                    alertObject.isClicked = true
+                    alertObject.roomName = viewModel.title
+                    alertObject.room = viewModel.room
+                    alertObject.UID = self.UID
+                    print("Room \(viewModel.title) Out!")
+                }
+        }
+    }
 }
 
-//struct RoomCell_Previews: PreviewProvider {
-//    static var previews: some View {
-//        VStack{
-//            RoomCell(viewModel: RoomCellViewModel(isOnTime: dummyRoomCellViewModel.isOnTime, room: dummyRoom0))
-//                .previewLayout(.sizeThatFits)
-//                .environmentObject(CustomAlertObject())
-//            RoomCell(viewModel: RoomCellViewModel(isOnTime: false, room: dummyRoom0))
-//                .previewLayout(.sizeThatFits)
-//                .environmentObject(CustomAlertObject())
-//        }
-//    }
-//}
+struct RoomCell_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack{
+            RoomCell(viewModel: RoomCellViewModel(isOnTime: dummyRoomCellViewModel.isOnTime, room: dummyRoom0))
+                .previewLayout(.sizeThatFits)
+                .environmentObject(CustomAlertObject())
+            RoomCell(viewModel: RoomCellViewModel(isOnTime: false, room: dummyRoom0))
+                .previewLayout(.sizeThatFits)
+                .environmentObject(CustomAlertObject())
+        }
+    }
+}
 
 struct ActivityView: UIViewControllerRepresentable{
     let text: String
