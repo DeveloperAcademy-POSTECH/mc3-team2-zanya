@@ -11,45 +11,36 @@ import SwiftUI
 struct CreateRoomView: View {
     
     //MARK: -1. PROPERTY
+    @Environment(\.dismiss) private var dismiss
     @ObservedObject var viewModel = CreateRoomViewModel()
+    @ObservedObject var keyboardMonitor : KeyboardMonitor = KeyboardMonitor()
+    
     @State var date = Date()
     @State var isClickedComBut: Bool = false
-    @Environment(\.dismiss) private var dismiss
+   
     
     //MARK: -2. BODY
     var body: some View {
-        ZStack {
+        ZStack{
             CreatePageSheetBG
             Xmark
-            VStack(spacing: 0) {
-                CreateRoomTextField
-                CreateTimePicker
-                Spacer()
-                CreateSaveButton
+            
+            GeometryReader { geo in
+                VStack(spacing: 0) {
+                    CreateRoomTextField
+                    CreateTimePicker
+                    Spacer()
+                    CreateSaveButton
+                }
+//                .padding(.top, UIApplication.shared.windows[0].safeAreaInsets.top)
+                .padding(.init(top: 0, leading: 24, bottom: 0, trailing: 24))
             }
+           
         }
         .ignoresSafeArea()
         .navigationBarBackButtonHidden()
-//        .alert(isPresented: $isClickedComBut) {
-//            Alert(title: Text("방이 생성되었습니다"), dismissButton: .default(Text("OK")) {})
-//        }
-
-//        .confirmationDialog("\n방이 생성되었습니다", isPresented: $isClickedComBut, titleVisibility: .visible) {
-//            Text("")
-//        } message: {
-//            Text("")
-//        }
-        
-//        .confirmationDialog(
-//            "방이 생성되었습니다",
-//            isPresented: $isClickedComBut, titleVisibility: .visible
-//        ) {
-//            Button("OK", role: .cancel) {
-//                // Handle empty trash action.
-//            }
-//        } message: {
-//            Text("")
-//        }
+        .hideKeyboardWhenTappedAround()
+        .animation(.easeOut(duration: 0.1), value: keyboardMonitor.isKeyboardUP)
         .confirmationDialog(
             "방이 생성되었습니다",
             isPresented: $isClickedComBut,
@@ -62,8 +53,8 @@ struct CreateRoomView: View {
         } message: {
             Text("")
         }
-        }
     }
+}
 
 
 //MARK: -3. PREVIEW
@@ -79,7 +70,8 @@ extension CreateRoomView {
     private var CreatePageSheetBG: some View {
         ZStack {
             Image(CreatePageSheet)
-                .ignoresSafeArea()
+                .resizable()
+                .aspectRatio(contentMode: .fit)
             VStack{
                 Image(CreateRoomTitle)
                     .padding(.top, 51)
@@ -110,7 +102,7 @@ extension CreateRoomView {
                 .padding()
                 .padding(.top, 25)
         }.frame(width: 297)
-            .padding(.init(top: 179, leading: 0, bottom: 24, trailing: 0))
+            .padding(.init(top: keyboardMonitor.isKeyboardUP ? 120 : 179, leading: 0, bottom: 24, trailing: 0))
     }
     
     //MARK: 이거 색깔 어케바꾸지;;;
@@ -131,18 +123,17 @@ extension CreateRoomView {
     }
     
     private var CreateSaveButton: some View {
-        VStack{
             Button {
                 Text("New Room Created")
                 isClickedComBut = true
-//                viewModel.clickedCompleteButton()
+                //                viewModel.clickedCompleteButton()
             } label: {
-                Image(CreateRoomSaveButton)
+                Image(viewModel.roomName == "" ? CreateRoomSaveButton_disabled : CreateRoomSaveButton)
             }
-        }
         .padding(.init(top: 0, leading: 0, bottom: 53, trailing: 0))
         .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 4)
-        
+        .offset(y: keyboardMonitor.keyboardHeight * -0.9)
+        .disabled(viewModel.roomName == "" ? true : false)
     }
 }
 

@@ -72,16 +72,11 @@ class MainViewModel: UpdateProfileViewModelDelegate, ObservableObject {
                     DispatchQueue.main.async {
                         self?.rooms = returnedItems
                     }
-                    
                 }
                 CKContainer.default().publicCloudDatabase.add(queryOperation)
             }
         }
     }
-    
-//    func addOperations(operation: CKDatabaseOperation) {
-//        CKContainer.default().publicCloudDatabase.add(operation)
-//    }
     
     func fetchAllUsers() {
         CKContainer.default().fetchUserRecordID { [weak self] returnedID, returnedError in
@@ -104,7 +99,6 @@ class MainViewModel: UpdateProfileViewModelDelegate, ObservableObject {
                             
                         }
                         
-                        
                     case .failure(let error):
                         print("Error recordMatchedBlock: \(error)")
                     }
@@ -113,13 +107,10 @@ class MainViewModel: UpdateProfileViewModelDelegate, ObservableObject {
                 queryOperation.queryResultBlock = { returnedResult in
                     print("Returned result: \(returnedResult)")
                     
-                    
                 }
-                
                 CKContainer.default().publicCloudDatabase.add(queryOperation)
             }
         }
-        
     }
 }
 

@@ -10,9 +10,11 @@ import UIKit
 
 struct RoomCell: View {
     
+    @EnvironmentObject var alertObject: CustomAlertObject
+
     var isOnTime: Bool = true //TODO: -일단 트루놨는데 알람에서 타임 받아서 여기 비워줘야함
     var title: String
-
+  
 //    var time: Date
     var userCount: Int
 
@@ -20,16 +22,21 @@ struct RoomCell: View {
     
     @State var isClickedOut: Bool = false
     @State var showShare: Bool = false
+    @StateObject var viewModel: RoomCellViewModel
+    @State var UID: String?
     
+    //TODO: -일단 트루놨는데 알람에서 타임 받아서 여기 비워줘야함
+    //    var title: String
+    //    var userCount: Int
+    //    let preFix: String = "zanya-invite:://"
     //    var time: Date
     //TODO: 시간 모델 만들어서 받아야함
     
     var body: some View {
         
-        if isOnTime == true {
+        if viewModel.isOnTime == true {
             ZStack{
                 roomCellSheet
-    
                 leftView
                 rightView
             }
@@ -38,7 +45,6 @@ struct RoomCell: View {
             //IsOnTime = false
             ZStack{
                 roomCellSheet
-                
                 leftView
                 rightView
             }
@@ -48,48 +54,49 @@ struct RoomCell: View {
     
     var leftView: some View {
         VStack(alignment: .leading, spacing: 0) {
-            StrokedTextCellLeading(text: title, size: 19,
-                                   color: isOnTime ? .white : Color(AppLavender),
-                                   strokeColor: isOnTime ? AppWine : Apppurple)
+            StrokedTextCellLeading(text: viewModel.title, size: 19,
+                                   color: viewModel.isOnTime ? .white : Color(AppLavender),
+                                   strokeColor: viewModel.isOnTime ? AppWine : Apppurple)
             Spacer()
-            TextCell(text: "오전", size: 16, color: isOnTime ? Color(AppWine) : Color(Apppurple))
+            TextCell(text: "오전", size: 16, color: viewModel.isOnTime ? Color(AppWine) : Color(Apppurple))
                 .padding(EdgeInsets(top: 0, leading: 3, bottom: 5, trailing: 0))
             StrokedTimeCell(text: "11:00", size: 40,
-                            color: isOnTime ? Color(AppWine) : Color(Apppurple),
+                            color: viewModel.isOnTime ? Color(AppWine) : Color(Apppurple),
                             strokeColor: AppWhite)
-                .offset(x:-87,y:0)
+            .offset(x:-87,y:0)
         }
         .padding(EdgeInsets(top: 22, leading: 22, bottom: 24, trailing: 0))
-//        .border(.red)
     }
     
     var rightView: some View {
         VStack(alignment: .trailing, spacing: 0) {
             roomOutButton
-            Spacer()
+            Image(InviteTalkBox)
+                .padding(EdgeInsets(top: 34, leading: 0, bottom: -3, trailing: 0))
+                .shadow(color: .black.opacity(0.1), radius: 3, x: 0, y: 2)
+                .opacity(userCount > 1 ? 1 : 0)
+            
             roomInviteButton
                 .padding(.leading, 194)
         }
         .padding(EdgeInsets(top: 22, leading: 0, bottom: 24, trailing: 22))
-        .confirmationDialog("방을 나가게 됩니다.", isPresented: $isClickedOut, titleVisibility: .visible){
-            Button("나가기", role: .destructive){
-                //TODO: 방나가기 액션
-            }
-        }
     }
     
     var roomCellSheet: some View {
-        Image(isOnTime ? RoomCellSheetPink : RoomCellSheetBlue)
+        Image(viewModel.isOnTime ? RoomCellSheetPink : RoomCellSheetBlue)
             .resizable()
             .aspectRatio(contentMode: .fit)
     }
     
     var roomOutButton: some View {
         Button {
-            print("dd")
-            isClickedOut = true
+            alertObject.isClicked = true
+            alertObject.roomName = viewModel.title
+            alertObject.room = viewModel.room
+            alertObject.UID = self.UID
+            print("Room \(viewModel.title) Out!")
         } label: {
-            Image(isOnTime ? RoomBoxOutPink : RoomBoxOutBlue)
+            Image(viewModel.isOnTime ? RoomBoxOutPink : RoomBoxOutBlue)
         }
     }
     
@@ -99,10 +106,10 @@ struct RoomCell: View {
             showShare.toggle()
         } label: {
             ZStack(alignment: .center){
-                Image(isOnTime ? InvitePinkBtn : InviteBlueBtn)
+                Image(viewModel.isOnTime ? InvitePinkBtn : InviteBlueBtn)
                 HStack(spacing: 5){
-                    Image(isOnTime ? InviteTextPink : InviteTextBlue)
-                    TextCell(text: "\(userCount)/6", size: 12, color: .white, weight: "Regular")
+                    Image(viewModel.isOnTime ? InviteTextPink : InviteTextBlue)
+                    TextCell(text: "\(viewModel.userCount)/6", size: 12, color: .white, weight: "Regular")
                 }
                 .frame(width: 82)
             }
@@ -113,7 +120,7 @@ struct RoomCell: View {
                 showShare = false
                 print("\(showShare) onDismiss") },
             content: {
-                ActivityView(text: preFix + title)
+                ActivityView(text: viewModel.preFix + viewModel.title)
                     .presentationDetents([.medium, .large])
             }
         )// Sheet
@@ -123,10 +130,12 @@ struct RoomCell: View {
 struct RoomCell_Previews: PreviewProvider {
     static var previews: some View {
         VStack{
-            RoomCell(isOnTime: true, title: "일어날래 나랑살래?", userCount: 0)
+            RoomCell(viewModel: RoomCellViewModel(isOnTime: dummyRoomCellViewModel.isOnTime, room: dummyRoom0))
                 .previewLayout(.sizeThatFits)
-            RoomCell(isOnTime: false, title: "일어날래 나랑살래?", userCount: 0)
+                .environmentObject(CustomAlertObject())
+            RoomCell(viewModel: RoomCellViewModel(isOnTime: false, room: dummyRoom0))
                 .previewLayout(.sizeThatFits)
+                .environmentObject(CustomAlertObject())
         }
     }
 }

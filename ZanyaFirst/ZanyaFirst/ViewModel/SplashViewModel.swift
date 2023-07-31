@@ -192,7 +192,6 @@ class SplashViewModel: ObservableObject {
     func addRoom(url:String) {
         var arrayOfUIDs: [String] = []
         let rooms: [Room] = self.rooms
-//        var room = C
         var room = CKRecord(recordType: "Room")
         
         for tmp in rooms {
@@ -205,7 +204,6 @@ class SplashViewModel: ObservableObject {
         }
         arrayOfUIDs.append(self.profile.UID)
         
-//        room["name"] = url
         room["uids"] = arrayOfUIDs
 
         print("room name : \(room["name"])")
