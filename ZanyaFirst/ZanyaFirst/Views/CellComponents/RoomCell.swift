@@ -57,7 +57,7 @@ struct RoomCell: View {
                                    color: viewModel.isOnTime ? .white : Color(AppLavender),
                                    strokeColor: viewModel.isOnTime ? AppWine : Apppurple)
             Spacer()
-            TextCell(text: "오전", size: 16, color: viewModel.isOnTime ? Color(AppWine) : Color(Apppurple))
+            TextCell(text: "오전", size: 17, color: viewModel.isOnTime ? Color(AppWine) : Color(Apppurple))
                 .padding(EdgeInsets(top: 0, leading: 3, bottom: 5, trailing: 0))
             StrokedTimeCell(text: "11:00", size: 40,
                             color: viewModel.isOnTime ? Color(AppWine) : Color(Apppurple),
@@ -70,14 +70,15 @@ struct RoomCell: View {
     var rightView: some View {
         VStack(alignment: .trailing, spacing: 0) {
             roomOutButton
+            Spacer()
             
             Image(InviteTalkBox)
-                .padding(EdgeInsets(top: 34, leading: 0, bottom: -3, trailing: 0))
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: -3, trailing: 0))
                 .shadow(color: .black.opacity(0.1), radius: 3, x: 0, y: 2)
-                .opacity(viewModel.userCount > 1 ? 1 : 0)
+                .opacity(viewModel.userCount > 1 ? 0 : 1)
             
             roomInviteButton
-                .padding(.leading, 194)
+                .padding(.leading, 182)
         }
         .padding(EdgeInsets(top: 22, leading: 0, bottom: 24, trailing: 22))
     }
@@ -86,6 +87,7 @@ struct RoomCell: View {
         Image(viewModel.isOnTime ? RoomCellSheetPink : RoomCellSheetBlue)
             .resizable()
             .aspectRatio(contentMode: .fit)
+            .frame(width: 304)
     }
     
     var roomOutButton: some View {
@@ -111,11 +113,12 @@ struct RoomCell: View {
         } label: {
             ZStack(alignment: .center){
                 Image(viewModel.isOnTime ? InvitePinkBtn : InviteBlueBtn)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
                 HStack(spacing: 5){
                     Image(viewModel.isOnTime ? InviteTextPink : InviteTextBlue)
                     TextCell(text: "\(viewModel.userCount)/6", size: 12, color: .white, weight: "Regular")
                 }
-                .frame(width: 82)
             }
         }
         .sheet(
