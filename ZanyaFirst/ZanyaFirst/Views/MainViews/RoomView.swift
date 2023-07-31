@@ -75,7 +75,6 @@ extension RoomView {
             //배경 서있는 고양이 이미지
             
             Image("\(viewModel.users[0].imageKey ?? "")_Standing") // 이미지 사이즈 확인을 위한 테스트용 이미지
-            
                 .resizable()
                 .scaledToFit()
                 .frame(width: 210)

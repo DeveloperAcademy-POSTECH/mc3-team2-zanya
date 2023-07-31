@@ -40,12 +40,12 @@ struct OnBoardingView: View {
     
             }
             .onOpenURL { url in
-                var link = url.absoluteString.removingPercentEncoding!
-                print("roomURL: \(link.replacingOccurrences(of: "zanya-invite:://", with: ""))")
-                viewModel.addRoom(url: link.replacingOccurrences(of: "zanya-invite:://", with: ""))
+                let roomName = viewModel.parseURL(url: url)
+                print("roomURL: \(roomName)")
+                viewModel.addRoom(roomName: roomName)
             }
         }// NavigationView
-    }// body
+    }// bodyㅐ
     
     private func blinkAnimation() {
         withAnimation(Animation.easeInOut(duration: 0.6).repeatForever()) {
@@ -64,6 +64,7 @@ struct OnBoardingView: View {
             SetProfileView()
         }
     }
+
     
     //MARK: -3. PREVIEW
     struct SplashView_Previews: PreviewProvider {

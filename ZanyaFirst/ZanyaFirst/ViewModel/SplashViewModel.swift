@@ -189,14 +189,14 @@ class SplashViewModel: ObservableObject {
         }
     }
     
-    func addRoom(url:String) {
+    func addRoom(roomName:String) {
         var arrayOfUIDs: [String] = []
         let rooms: [Room] = self.rooms
         var room = CKRecord(recordType: "Room")
         
         for tmp in rooms {
             print("방 이름 ~ \(tmp.name)")
-            if tmp.name == url {
+            if tmp.name == roomName {
                 room = tmp.record!
                 arrayOfUIDs.append(contentsOf: tmp.UIDs)
                 break
@@ -218,5 +218,12 @@ class SplashViewModel: ObservableObject {
             print("Record: \(returnedRecord)")
             print("Error: \(returnedError)")
         }
+    }
+    
+    func parseURL(url: URL) -> String {
+        let decodedLink = url.absoluteString.removingPercentEncoding!
+        let removePrefix = decodedLink.replacingOccurrences(of: "zanya-invite:://", with: "")
+        let replaceUnderLineToSpace = removePrefix.replacingOccurrences(of: "_", with: " ")
+        return replaceUnderLineToSpace
     }
 }
