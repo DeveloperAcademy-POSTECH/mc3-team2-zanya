@@ -46,3 +46,5 @@ let dummyRoomViewModels = [RoomViewModel(allUsers: [dummyProfile0,dummyProfile1,
                            RoomViewModel(allUsers: [dummyProfile0,dummyProfile1,dummyProfile2,dummyProfile3,dummyProfile4,dummyProfile5], users: [dummyProfile0,dummyProfile2,dummyProfile4,dummyProfile1], roomInfo: Room(name: "멍멍멍", UIDs: ["UID = 0","UID = 1","UID = 2"], record: CKRecord(recordType : "Room"))),
                            RoomViewModel(allUsers: [dummyProfile0,dummyProfile1,dummyProfile2,dummyProfile3,dummyProfile4,dummyProfile5], users: [dummyProfile1,dummyProfile4,dummyProfile5], roomInfo: Room(name: "야옹야옹", UIDs: ["UID = 3","UID = 4","UID = 5"], record: CKRecord(recordType : "Room")))
 ]
+
+let dummyRoomCellViewModel = RoomCellViewModel(isOnTime: true, room: dummyRoom0)

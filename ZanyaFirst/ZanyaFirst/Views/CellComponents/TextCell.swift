@@ -15,7 +15,7 @@ struct TextCell: View {
     var weight: String = "Bold"
     
     var body: some View {
-        VStack{
+        VStack(spacing: 0) {
             Text(text)
                 .font(Font.custom("LINE Seed Sans KR \(weight)", size: size))
                 .foregroundColor(color)

@@ -44,7 +44,7 @@ struct StrokeTextLabel: UIViewRepresentable {
                 NSAttributedString.Key.strokeWidth: 25.0,
                 NSAttributedString.Key.foregroundColor: color,
                 NSAttributedString.Key.strokeColor: color,
-                NSAttributedString.Key.font: UIFont(name: "LINE Seed Sans KR Bold", size: size)
+                NSAttributedString.Key.font: UIFont(name: "LINE Seed Sans KR Bold", size: size)!
             ]
         )
         
