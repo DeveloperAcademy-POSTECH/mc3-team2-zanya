@@ -38,8 +38,8 @@ func playSound(sound: String, type: String = "", volume: Float = 1.0) {
 func stopPlaying() {
     audioPlayer?.stop()
 }
-
-func speechMsg(msg: String) {
+//defalt
+func speechMsg_TTS1(msg: String) {
     let utterance = AVSpeechUtterance(string: msg)
     utterance.voice = AVSpeechSynthesisVoice(language: "ko-KR")
     utterance.pitchMultiplier = 0.7
@@ -48,3 +48,27 @@ func speechMsg(msg: String) {
     synthesizer.speak(utterance)
 }
 
+func speechMsg_TTS2(msg: String) {
+    let utterance = AVSpeechUtterance(string: msg)
+    utterance.voice = AVSpeechSynthesisVoice(language: "ko-KR")
+    utterance.pitchMultiplier = 2
+    utterance.rate = 0.5
+    
+    synthesizer.speak(utterance)
+}
+func speechMsg_TTS3(msg: String) {
+    let utterance = AVSpeechUtterance(string: msg)
+    utterance.voice = AVSpeechSynthesisVoice(language: "ko-KR")
+    utterance.pitchMultiplier = 0.3
+    utterance.rate = 0.1
+    
+    synthesizer.speak(utterance)
+}
+func speechMsg_TTS4(msg: String) {
+    let utterance = AVSpeechUtterance(string: msg)
+    utterance.voice = AVSpeechSynthesisVoice(language: "ko-KR")
+    utterance.pitchMultiplier = 0.1
+    utterance.rate = 0.4
+    
+    synthesizer.speak(utterance)
+}
