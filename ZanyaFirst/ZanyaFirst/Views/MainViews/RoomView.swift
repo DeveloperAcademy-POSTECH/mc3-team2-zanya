@@ -11,13 +11,15 @@ struct RoomView: View {
     
     //MARK: - 1. PROPERTY
     @StateObject var viewModel: RoomViewModel
+    @ObservedObject var keyboardMonitor : KeyboardMonitor = KeyboardMonitor()
     @State var text : String = ""
     @State var ArrayNum : Int = 0
     @State var PunchMessageToggle: Bool = true
     @State var tapIndexNum : Int = 0
+    @State private var selectedButton: String = "TTS1"
     @Environment(\.dismiss) private var dismiss
-
-//    var profile: Profile
+    
+    //    var profile: Profile
     let profileImageArray = ProfileImageArray
     
     //For DonAnimation
@@ -28,19 +30,23 @@ struct RoomView: View {
     
     //MARK: - 2. BODY
     var body: some View {
-        ZStack {
-            backgroundPage
-            VStack(spacing: 0){
-                toolBar
-                Spacer()
-                memberSheet
-                bottomTab
-            
+        GeometryReader { geo in
+            ZStack {
+                backgroundPage
+                VStack(spacing: 0){
+                    toolBar
+                    Spacer()
+                    memberSheet
+                    bottomTab
+                    
+                }
+                HiddenTapButton
             }
-            HiddenTapButton
         }.navigationBarBackButtonHidden()
             .ignoresSafeArea()
             .toolbar(.hidden)
+            .hideKeyboardWhenTappedAround()
+            .animation(.easeOut(duration: 0.1), value: keyboardMonitor.isKeyboardUP)
             .onAppear{
                 viewModel.requestNotificationPermission()
                 viewModel.subscribeToNotifications_Dog()
@@ -67,9 +73,9 @@ extension RoomView {
             //배경화면
             Image(BackgroundSheet)
             //배경 서있는 고양이 이미지
-
+            
             Image("\(viewModel.users[0].imageKey ?? "")_Standing") // 이미지 사이즈 확인을 위한 테스트용 이미지
-
+            
                 .resizable()
                 .scaledToFit()
                 .frame(width: 210)
@@ -95,7 +101,7 @@ extension RoomView {
             }
         }
     }
-
+    
     private var toolBar: some View {
         HStack(spacing: 0){
             //BackButton
@@ -142,7 +148,7 @@ extension RoomView {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 48)
-                           // Spacer()
+                            // Spacer()
                             ClearRectangle(width: 0,height: 6)
                         }
                         VStack{
@@ -156,7 +162,7 @@ extension RoomView {
                         }
                     }.frame(width: 48, height: 60)
                         .padding(.init(top: 0, leading: 11, bottom: -16.75, trailing: 0))
-
+                    
                 }
                 Spacer()
             } .frame(width: 360, height: 111.5)
@@ -183,56 +189,56 @@ extension RoomView {
                 .padding(.init(top: 0, leading: 0, bottom: -98, trailing: 0))
             ZStack(alignment: .center) {
                 TabView{
-                        ZStack(alignment: .center){
-                            Image(punchElementPage2[tapIndexNum])
-                                .zIndex(isItemEffect ? 2 : 0)
-                            Image(punchElementPage[tapIndexNum])
-                                .zIndex(1)
-                            HStack{
-                                Spacer()
-                                Image(Punchelement[tapIndexNum])
-                                    .scaleEffect(isItemEffect ? 1.1 : 1.0)
-                                    .rotationEffect(isItemEffect ? .degrees(changingDerees) : .zero)
-                                    .onTapGesture {
-                                        print("Tap ZStack")
-                                        print("\(tapIndexNum)")
-                                 //       EffectSound.shared.playEffectSound()    // 효과음 내는 곳
-                                        playSound(sound: SoundList[tapIndexNum].rawValue)
-                                        withAnimation {
-                                            isItemEffect.toggle()   // 배경 물방울이랑 템버린 반응용 bool
-                                        }
-                                        touchCount += 1 // 고양이 왼손 오른손을 교차하기 위한 로직
-                                        switch touchCount % 2 {
-                                        case 0:
-                                            catHandIndex = 2
-                                        case 1:
-                                            catHandIndex = 1
-                                        default:
-                                            break
-                                        }
-                                        if isItemEffect {
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                                catHandIndex = 0
-                                                withAnimation {
-                                                    isItemEffect = false
-                                                    changingDerees *= -1
-                                                }
+                    ZStack(alignment: .center){
+                        Image(punchElementPage2[tapIndexNum])
+                            .zIndex(isItemEffect ? 2 : 0)
+                        Image(punchElementPage[tapIndexNum])
+                            .zIndex(1)
+                        HStack{
+                            Spacer()
+                            Image(Punchelement[tapIndexNum])
+                                .scaleEffect(isItemEffect ? 1.1 : 1.0)
+                                .rotationEffect(isItemEffect ? .degrees(changingDerees) : .zero)
+                                .onTapGesture {
+                                    print("Tap ZStack")
+                                    print("\(tapIndexNum)")
+                                    //       EffectSound.shared.playEffectSound()    // 효과음 내는 곳
+                                    playSound(sound: SoundList[tapIndexNum].rawValue)
+                                    withAnimation {
+                                        isItemEffect.toggle()   // 배경 물방울이랑 템버린 반응용 bool
+                                    }
+                                    touchCount += 1 // 고양이 왼손 오른손을 교차하기 위한 로직
+                                    switch touchCount % 2 {
+                                    case 0:
+                                        catHandIndex = 2
+                                    case 1:
+                                        catHandIndex = 1
+                                    default:
+                                        break
+                                    }
+                                    if isItemEffect {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                            catHandIndex = 0
+                                            withAnimation {
+                                                isItemEffect = false
+                                                changingDerees *= -1
                                             }
                                         }
-                                        switch tapIndexNum {
-                                        case 0 :
-                                            viewModel.touchNyang()
-                                        case 1:
-                                            viewModel.touchPig()
-                                        case 2:
-                                            viewModel.touchDog()
-                                        default:
-                                            viewModel.touchNyang()
-                                        }
                                     }
-                                Spacer()
-                            }.zIndex(3)
-                        }
+                                    switch tapIndexNum {
+                                    case 0 :
+                                        viewModel.touchNyang()
+                                    case 1:
+                                        viewModel.touchPig()
+                                    case 2:
+                                        viewModel.touchDog()
+                                    default:
+                                        viewModel.touchNyang()
+                                    }
+                                }
+                            Spacer()
+                        }.zIndex(3)
+                    }
                 }.tabViewStyle(.page(indexDisplayMode: .never))
                 
                 HStack(spacing: 0){
@@ -263,10 +269,10 @@ extension RoomView {
                 }.padding(.bottom, 37)
             }.frame(width: 360, height: 360)
             Image(HandArray[0][catHandIndex])// TODO: - 클라우드에서 프로필 값 받아오기 / 일단 가라로 0 넣어둠
-                
+            
         }
     }
-
+    
     private var messagePage: some View {
         let columns = Array(
             repeating: GridItem(.flexible(), spacing: -12),
@@ -276,7 +282,6 @@ extension RoomView {
             Image(MessagePage)
                 .padding(.init(top: 0, leading: 0, bottom: -98, trailing: 0))
             Image(Rectangle77)
-            
             ScrollView(showsIndicators: false) {
                 LazyVGrid(columns: columns, spacing: 15) {
                     ForEach(0..<10) {i in //TODO: - 메세지 데이터에서 메세지 숫자 받기
@@ -307,58 +312,81 @@ extension RoomView {
                 }.padding(.top, 12)
             }.frame(width: 362, height: 226)
                 .padding(.init(top: 0, leading: 0, bottom: 136, trailing: 0))
-            Image(Rectangle33)
-            
-            
-            
-            VStack(spacing: 0){
-                //TTS BUTTON
-                HStack(spacing: 0){
-                    Button {
-                        print("clickedTTS1")
-                    } label: {
-                        Image(TTS1ButtonImageActivate)
-                    }.padding(.trailing, 4)
-                    Button {
-                        print("clickedTTS2")
-                    } label: {
-                        Image(TTS2ButtonImage)
-                    }.padding(.trailing, 4)
-                    Button {
-                        print("clickedTTS3")
-                    } label: {
-                        Image(TTS3ButtonImage)
-                    }.padding(.trailing, 4)
-                    Button {
-                        print("clickedTTS4")
-                    } label: {
-                        Image(TTS4ButtonImage)
-                    }.padding(.trailing, 4)
-                    Spacer()
-                }.padding(.init(top: 0, leading: 15, bottom: 16, trailing: 15))
-                HStack(spacing: 15){
-                    ZStack{
-                        Image(Rectangle11)
-                        TextField("메세지를 입력하세요", text: $text)
-                            .frame(width:280)
-                    }
-                    Button {
-                        print("음성메세지 전송버튼") //TODO: 음성메세지 전송할 수 있게 하기
-                    } label: {
-                        if text != "" {
-                            Image(SendButtonActivate)}
-                        else {
-                            Image(SendButtonDisabled)
+            Rectangle().fill(LinearGradient(colors: [Color(AppIvory), .clear], startPoint: .top, endPoint: .bottom))
+                .frame(width: 362, height: 30)
+                .cornerRadius(6)
+                .padding(.bottom, 334)
+            Rectangle().fill(LinearGradient(colors: [Color(AppIvory), .clear], startPoint: .bottom, endPoint: .top))
+                .frame(width: 362, height: 40)
+                .cornerRadius(6)
+                .padding(.bottom, 134)
+            ZStack{
+                Image(Rectangle33)
+                VStack(spacing: 0){
+                    //TTS BUTTON
+                    HStack(spacing: 0){
+                        Button {
+                            print("clickedTTS1")
+                            selectedButton = "TTS1"
+                        } label: {
+                            Image(selectedButton == "TTS1" ? TTS1ButtonImage : TTS1ButtonImage_disable)
+                        }.padding(.trailing, 4)
+                        Button {
+                            print("clickedTTS2")
+                            selectedButton = "TTS2"
+                        } label: {
+                            Image(selectedButton == "TTS2" ? TTS2ButtonImage : TTS2ButtonImage_disable)
+                        }.padding(.trailing, 4)
+                        Button {
+                            print("clickedTTS3")
+                            selectedButton = "TTS3"
+                        } label: {
+                            Image(selectedButton == "TTS3" ? TTS3ButtonImage : TTS3ButtonImage_disable)
+                        }.padding(.trailing, 4)
+                        Button {
+                            print("clickedTTS4")
+                            selectedButton = "TTS4"
+                        } label: {
+                            Image(selectedButton == "TTS4" ? TTS4ButtonImage : TTS4ButtonImage_disable)
+                        }.padding(.trailing, 4)
+                        Spacer()
+                    }.padding(.init(top: 0, leading: 15, bottom: 0, trailing: 15))
+                        .padding(.top, keyboardMonitor.isKeyboardUP ? -20 : -10)
+                        .padding(.bottom, keyboardMonitor.isKeyboardUP ? 4 : 14)
+                    HStack(spacing: 15){
+                        ZStack{
+                            Image(Rectangle11)
+                            
+                            HStack {
+                                TextField("냥소리를 입력해보세요 :3", text: $text)
+                                Button {
+                                   print("d")
+                                    speechMsg(msg: text)
+                                } label: {
+                                    if text != "" {
+                                        Image(SoundEnableButtonImage)}
+                                    else {
+                                        Image(SoundDisableButtonImage)
+                                    }
+                                }
+                            } .frame(width:280)
+                                .padding(.bottom, 2)
+                                .padding(.leading, 6)
+                        }
+                        Button {
+                            print("음성메세지 전송버튼") //TODO: 음성메세지 전송할 수 있게 하기
+                        } label: {
+                            if text != "" {
+                                Image(SendButtonActivate)}
+                            else {
+                                Image(SendButtonDisabled)
+                            }
                         }
                     }
+                    .padding(.bottom, keyboardMonitor.isKeyboardUP ? 20 : 0)
                 }
-            }
-            .padding(.init(top: 0, leading: 0, bottom: 29, trailing: 0))
-            
-            
+            } .offset(y: keyboardMonitor.keyboardHeight * -0.84)
         }
-            
-        
     }
     
     private var HiddenTapButton: some View {

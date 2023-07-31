@@ -10,6 +10,7 @@
 		075B7FB92A6E43250071A856 /* StrokedTextCellLeading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075B7FB82A6E43250071A856 /* StrokedTextCellLeading.swift */; };
 		075B7FBD2A6E47900071A856 /* StrokeTextLabelCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075B7FBC2A6E47900071A856 /* StrokeTextLabelCenter.swift */; };
 		075B7FBF2A6E47B30071A856 /* StrokedTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075B7FBE2A6E47B30071A856 /* StrokedTimeCell.swift */; };
+		0765D9E92A76529E00C6B00C /* KeyboardMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0765D9E82A76529E00C6B00C /* KeyboardMonitor.swift */; };
 		07B3E2FD2A6680870080860A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3E2FC2A6680870080860A /* ContentView.swift */; };
 		07B3E3002A671BE20080860A /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3E2FF2A671BE20080860A /* LocalNotificationManager.swift */; };
 		07B3E3072A671F820080860A /* LINESeedKR-Th.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07B3E3042A671F820080860A /* LINESeedKR-Th.ttf */; };
@@ -54,6 +55,7 @@
 		075B7FB82A6E43250071A856 /* StrokedTextCellLeading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokedTextCellLeading.swift; sourceTree = "<group>"; };
 		075B7FBC2A6E47900071A856 /* StrokeTextLabelCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeTextLabelCenter.swift; sourceTree = "<group>"; };
 		075B7FBE2A6E47B30071A856 /* StrokedTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokedTimeCell.swift; sourceTree = "<group>"; };
+		0765D9E82A76529E00C6B00C /* KeyboardMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardMonitor.swift; sourceTree = "<group>"; };
 		07B3E2FC2A6680870080860A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		07B3E2FF2A671BE20080860A /* LocalNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
 		07B3E3042A671F820080860A /* LINESeedKR-Th.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LINESeedKR-Th.ttf"; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				075B7FB82A6E43250071A856 /* StrokedTextCellLeading.swift */,
 				075B7FBC2A6E47900071A856 /* StrokeTextLabelCenter.swift */,
 				075B7FBE2A6E47B30071A856 /* StrokedTimeCell.swift */,
+				0765D9E82A76529E00C6B00C /* KeyboardMonitor.swift */,
 			);
 			path = CellComponents;
 			sourceTree = "<group>";
@@ -373,6 +376,7 @@
 				07B455642A667CE900EB9801 /* CreateRoomViewModel.swift in Sources */,
 				07B4556C2A667D7300EB9801 /* ScreenConstants.swift in Sources */,
 				07B3E3132A6739DE0080860A /* ClearRectangle.swift in Sources */,
+				0765D9E92A76529E00C6B00C /* KeyboardMonitor.swift in Sources */,
 				07B3E3232A67A74A0080860A /* TimeModel.swift in Sources */,
 				113018CB2A67FF3300DAD625 /* Color+.swift in Sources */,
 				07B455602A667C9E00EB9801 /* SetImageViewModel.swift in Sources */,

@@ -10,12 +10,13 @@ import SwiftUI
 struct UpdateProfileView: View {
     
     //MARK: -1. PROPERTY
+    @Environment(\.dismiss) private var dismiss
     @StateObject var viewModel : UpdateProfileViewModel
-    // @Binding var path: NavigationPath
+    @ObservedObject var keyboardMonitor : KeyboardMonitor = KeyboardMonitor()
     
     let profileArray = ProfileImageArray
     let setProfileImageArray = SetPrifileCatArray
-    @Environment(\.dismiss) private var dismiss
+  
     
     //MARK: -2. BODY
     var body: some View {
@@ -23,26 +24,25 @@ struct UpdateProfileView: View {
             ZStack{
                 UpdateProfileBackground
                 Chevron
-                VStack(spacing: 0) {
-                    catArray
-                    textField
-                    Spacer()
-                    saveButton
+                
+                GeometryReader { geo in
+                    VStack(spacing: 0) {
+                        catArray
+                        textField
+                        Spacer()
+                        saveButton
+                    }// Vstack
+                    .padding(.top, UIApplication.shared.windows[0].safeAreaInsets.top)
                 }
-            }.ignoresSafeArea()
+            }// Zstack
+            .ignoresSafeArea()
         }
         .navigationBarBackButtonHidden()
+        .hideKeyboardWhenTappedAround()
+        .animation(.easeOut(duration: 0.1), value: keyboardMonitor.isKeyboardUP)
         .onAppear{
             viewModel.fetchUID()
         }
-//        .alert(isPresented: $viewModel.isUpdated) {
-//            Alert(title: Text("프로필이 수정되었습니다"), dismissButton: .default(Text("OK")) {})
-//        }
-//        .confirmationDialog("프로필이 수정되었습니다", isPresented: $viewModel.isUpdated, titleVisibility: .visible) {
-//            Text("dsafdafdasfas").font(.system(size: 40))
-//        } message: {
-//            Text("")
-//        }
         .confirmationDialog(
             "프로필이 수정되었습니다",
             isPresented: $viewModel.isUpdated,
@@ -72,15 +72,15 @@ extension UpdateProfileView {
     private var UpdateProfileBackground: some View {
         ZStack {
             Image(SetProfileBackgroundSheet)
-                .ignoresSafeArea()
+                .resizable()
+                .aspectRatio(contentMode: .fit)
             VStack{
                 Image(updateProfileTitle)
                     .padding(.top, 51)
                 Spacer()
             }
         }
-        
-    }
+    }// UpdateProfileBackground
 
     private var catArray: some View{
         VStack(alignment: .center, spacing: 0) {
@@ -106,7 +106,7 @@ extension UpdateProfileView {
             }// catsRow ForEach
         }// VStack
         .padding(.horizontal, 46)
-        .padding(.init(top: 147, leading: 0, bottom: 0, trailing: 0))
+        .padding(.init(top: 97, leading: 0, bottom: 0, trailing: 0))
     }// catArray
     
     private var textField: some View{
@@ -123,12 +123,16 @@ extension UpdateProfileView {
     private var saveButton: some View{
         ZStack{
             Button {
+                
                 viewModel.clickedSaveButton()
             } label: {
                 Image(updateProfileSaveButton)
-                    .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 4)
-            }
-        }.padding(.bottom, 57)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .padding(EdgeInsets(top: 0, leading: 22, bottom: 51, trailing: 22))
+                    .shadow(color: .black.opacity(0.15), radius: 5.5, x: 0, y: 4)
+            } .offset(y: keyboardMonitor.keyboardHeight * -0.9)
+        }
     }
     private var Chevron: some View {
         VStack{
