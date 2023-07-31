@@ -38,20 +38,25 @@ final class KeyboardMonitor : ObservableObject {
             }.store(in: &subsscriptions)
         //키보드 내려갈 때
         NotificationCenter.Publisher(center: NotificationCenter.default, name: UIResponder.keyboardWillHideNotification)
-            .sink{ (noti : Notification) in
+            .sink{ [weak self] (noti : Notification) in
                 print("KeyboardMonitor - keyboardWillHideNotification: noti : ", noti)
-                self.updatedKeyboardStatusAction = .hide
-                self.keyboardHeight = 0
-                self.isKeyboardUP = false
+                DispatchQueue.main.async {
+                    self?.updatedKeyboardStatusAction = .hide
+                    self?.keyboardHeight = 0
+                    self?.isKeyboardUP = false
+                }
             }.store(in: &subsscriptions)
         //키보드가 사이즈 변경할때
         NotificationCenter.Publisher(center: NotificationCenter.default, name: UIResponder.keyboardWillChangeFrameNotification)
-            .sink{ (noti : Notification) in
+            .sink{ [weak self] (noti : Notification) in
                 print("KeyboardMonitor - keyboardDidChangeFrameNotification: noti : ", noti)
                 let keyboardFrame = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
                 
                 print("KeyboardMonitor - keyboardDidChangeFrameNotification:  keyboardFrame.height:", keyboardFrame.height)
-                self.keyboardHeight = keyboardFrame.height
+                
+                DispatchQueue.main.async {
+                    self?.keyboardHeight = keyboardFrame.height
+                }
                 
             }.store(in: &subsscriptions)
         

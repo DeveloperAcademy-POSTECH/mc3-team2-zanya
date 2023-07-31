@@ -17,6 +17,7 @@ struct CreateRoomView: View {
     
     @State var date = Date()
     @State var isClickedComBut: Bool = false
+    @Binding var task: Int
    
     
     //MARK: -2. BODY
@@ -48,6 +49,7 @@ struct CreateRoomView: View {
         ) {
             Button("OK", role: .cancel) {
                 viewModel.clickedCompleteButton()
+                task += 1
                 dismiss()
             }
         } message: {
@@ -58,11 +60,11 @@ struct CreateRoomView: View {
 
 
 //MARK: -3. PREVIEW
-struct CreateRoomView_Previews: PreviewProvider {
-    static var previews: some View {
-        CreateRoomView()
-    }
-}
+//struct CreateRoomView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CreateRoomView()
+//    }
+//}
 
 //MARK: -4. EXTENSION
 extension CreateRoomView {
@@ -125,6 +127,7 @@ extension CreateRoomView {
     private var CreateSaveButton: some View {
             Button {
                 Text("New Room Created")
+                guard !viewModel.roomName.isEmpty else { return }
                 isClickedComBut = true
                 //                viewModel.clickedCompleteButton()
             } label: {
