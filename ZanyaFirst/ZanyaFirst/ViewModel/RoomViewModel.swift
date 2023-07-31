@@ -280,6 +280,10 @@ class RoomViewModel: ObservableObject {
         addNyangSound(whoSend: self.users[0].name, imageKey: self.users[0].imageKey ?? "", message: self.sendMessage, soundType: self.soundType)
         
         self.sendMessage = ""
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.fetchNyangMessage()
+        }
     }
     
     func fetchNyangMessage() {
