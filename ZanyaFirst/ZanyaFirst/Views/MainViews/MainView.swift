@@ -144,7 +144,7 @@ extension MainView {
                         RoomView(viewModel: RoomViewModel(allUsers: viewModel.allUsers, users: [viewModel.profile], roomInfo: room))
                     } label: {
                         //TODO: isOnTime 로직 구현해야함
-                        RoomCell(viewModel: RoomCellViewModel(isOnTime: true, room: room), UID: viewModel.profile.UID)
+                        RoomCell(title: room.name, userCount: room.UIDs.count,viewModel: RoomCellViewModel(isOnTime: true, room: room) ,UID: viewModel.profile.UID)
                             .environmentObject(alertObject)
                     }// label
                 }// ForEach

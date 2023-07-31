@@ -159,7 +159,6 @@ let mainPageProfileSheet = "mainPageProfileSheet"
 
 //MARK: -ALERT COMPONENTS
 let outMessageSheet = "outMessageSheet"
-let inviteMessageCancelButton = "inviteMessageCancelButton"
 let inviteMessageOkayButton = "inviteMessageOkayButton"
 let outMessageCancleButton = "outMessageCancleButton"
 let outMessageOutButton = "outMessageOutButton"

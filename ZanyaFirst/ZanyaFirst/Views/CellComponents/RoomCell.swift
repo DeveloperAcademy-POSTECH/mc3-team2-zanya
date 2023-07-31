@@ -127,18 +127,18 @@ struct RoomCell: View {
     }
 }
 
-struct RoomCell_Previews: PreviewProvider {
-    static var previews: some View {
-        VStack{
-            RoomCell(viewModel: RoomCellViewModel(isOnTime: dummyRoomCellViewModel.isOnTime, room: dummyRoom0))
-                .previewLayout(.sizeThatFits)
-                .environmentObject(CustomAlertObject())
-            RoomCell(viewModel: RoomCellViewModel(isOnTime: false, room: dummyRoom0))
-                .previewLayout(.sizeThatFits)
-                .environmentObject(CustomAlertObject())
-        }
-    }
-}
+//struct RoomCell_Previews: PreviewProvider {
+//    static var previews: some View {
+//        VStack{
+//            RoomCell(viewModel: RoomCellViewModel(isOnTime: dummyRoomCellViewModel.isOnTime, room: dummyRoom0))
+//                .previewLayout(.sizeThatFits)
+//                .environmentObject(CustomAlertObject())
+//            RoomCell(viewModel: RoomCellViewModel(isOnTime: false, room: dummyRoom0))
+//                .previewLayout(.sizeThatFits)
+//                .environmentObject(CustomAlertObject())
+//        }
+//    }
+//}
 
 struct ActivityView: UIViewControllerRepresentable{
     let text: String
