@@ -171,8 +171,8 @@ extension RoomView {
     
     private var bottomTab: some View {
         ZStack {
-//            punchPage
-//                .zIndex(PunchMessageToggle ? 1 : 0)
+            punchPage
+                .zIndex(PunchMessageToggle ? 1 : 0)
             messagePage
                 .zIndex(PunchMessageToggle ? 0 : 1)
         }
