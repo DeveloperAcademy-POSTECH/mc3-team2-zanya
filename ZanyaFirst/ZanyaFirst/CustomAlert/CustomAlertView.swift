@@ -12,7 +12,9 @@ struct CustomAlertView: View {
     @EnvironmentObject var alertObject: CustomAlertObject
     
     @State var roomName: String?
-
+    
+    @Binding var task: Int
+    
     var body: some View {
         ZStack {
             Rectangle()
@@ -107,6 +109,7 @@ struct CustomAlertView: View {
             print("okay \(alertObject.isClicked)")
             print("UID \(alertObject.UID)")
             alertObject.userRoomOut()
+            task += 1
         } label: {
             if roomName != nil {
                 Image(outMessageOutButton)
@@ -122,10 +125,10 @@ struct CustomAlertView: View {
     }
 }
 
-struct CustomAlertView_Previews: PreviewProvider {
-    static var previews: some View {
-        CustomAlertView(roomName: "일어날래, 나랑 살래?")
-            .environmentObject(CustomAlertObject())
-    }
-}
+//struct CustomAlertView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CustomAlertView(roomName: "일어날래, 나랑 살래?")
+//            .environmentObject(CustomAlertObject())
+//    }
+//}
 

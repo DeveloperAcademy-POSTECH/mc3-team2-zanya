@@ -19,6 +19,8 @@ class MainViewModel: UpdateProfileViewModelDelegate, ObservableObject {
     
     @Published var rooms: [Room] = []
     
+    @Published var task: Int = 0
+    
     init(profile: Profile) {
         self.profile = profile
         fetchItem()

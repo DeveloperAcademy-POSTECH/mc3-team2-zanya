@@ -43,7 +43,7 @@ struct MainView: View {
                 }
                 .blur(radius: alertObject.isClicked ? 12 : 0, opaque: false)
                 
-                CustomAlertView()
+                CustomAlertView(task: $viewModel.task)
                     .environmentObject(alertObject)
                     .zIndex(alertObject.isClicked ? 5 : 0)
                     .onChange(of: alertObject.isClicked) { newValue in
@@ -57,7 +57,13 @@ struct MainView: View {
         .task {
             try? await lnManager
                 .requestAuthorization()
+            
         }// task
+        .task(id: viewModel.task) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                viewModel.fetchItem()
+            }
+        }
         .onChange(of: scenePhase) { newValue in
             if newValue == .active {
                 Task {
@@ -127,7 +133,7 @@ extension MainView {
                 Spacer()
                 
                 NavigationLink {
-                    CreateRoomView()
+                    CreateRoomView(task: $viewModel.task)
                 } label: {
                     ClearRectangle(width: 121, height: 34, ClearOn: true)
                 }
