@@ -284,30 +284,44 @@ extension RoomView {
             Image(Rectangle77)
             ScrollView(showsIndicators: false) {
                 LazyVGrid(columns: columns, spacing: 15) {
-                    ForEach(0..<10) {i in //TODO: - 메세지 데이터에서 메세지 숫자 받기
-                        
-                        Button {
-                            print("message play")
-                        } label: {
-                            ZStack(alignment: .bottomLeading){
-                                Image(messageCell)
-                                    .resizable()
-                                    .frame(width: 105, height: 85)
-                                HStack {
-                                    VStack(alignment: .leading){
-                                        TextCell(text: "비누", size: 11, color: .white) // TODO: - 메세지 데이터에서 닉네임 받기
-                                            .padding(.init(top: 0, leading: 10, bottom: -7, trailing: 0))
-                                        TextCell(text: "20초", size: 10, color: .white) // TODO: - 메세지 데이터에서 시간 값 받기
-                                            .padding(.init(top: 0, leading: 10, bottom: 10, trailing: 0))
-                                    }
-                                    Spacer()
-                                    Image("messageBox_WhiteCat") // TODO: - 메세지 데이터에서 프로필 이미지키 받기
-                                        .resizable()
-                                        .frame(width: 38.36, height: 31.54)
-                                        .padding(.init(top: 0, leading: 0, bottom: 8.46, trailing: 9.64))
+                    if viewModel.nyangSounds.count != 0  {
+                        ForEach(0..<viewModel.nyangSounds.count) {i in //TODO: - 메세지 데이터에서 메세지 숫자 받기
+                            Button {
+                                print("message play")
+                                if selectedButton == "TTS1" {
+                                    speechMsg_TTS1(msg: viewModel.nyangSounds[i].messsage)
+                                } else if selectedButton == "TTS2" {
+                                    speechMsg_TTS2(msg: text)
+                                } else if selectedButton == "TTS3" {
+                                    speechMsg_TTS3(msg: text)
+                                } else if selectedButton == "TTS4" {
+                                    speechMsg_TTS4(msg: text)
                                 }
-                            }.frame(width: 101, height: 81)
+                            } label: {
+                                ZStack(alignment: .bottomLeading){
+                                    Image(messageCell)
+                                        .resizable()
+                                        .frame(width: 105, height: 85)
+                                    HStack {
+                                        VStack(alignment: .leading){
+                                            TextCell(text: "비누", size: 11, color: .white) // TODO: - 메세지 데이터에서 닉네임 받기
+                                            TextCell(text: "\(viewModel.nyangSounds[i].whoSend)", size: 11, color: .white) // TODO: - 메세지 데이터에서 닉네임 받기
+                                                .padding(.init(top: 0, leading: 10, bottom: -7, trailing: 0))
+                                            TextCell(text: "20초", size: 10, color: .white) // TODO: - 메세지 데이터에서 시간 값 받기
+                                                .padding(.init(top: 0, leading: 10, bottom: 10, trailing: 0))
+                                        }
+                                        Spacer()
+                                        Image("messageBox_WhiteCat") // TODO: - 메세지 데이터에서 프로필 이미지키 받기
+    //                                    Image(viewModel.nyangSounds[i].whoSend.imageKey)
+                                            .resizable()
+                                            .frame(width: 38.36, height: 31.54)
+                                            .padding(.init(top: 0, leading: 0, bottom: 8.46, trailing: 9.64))
+                                    }
+                                }.frame(width: 101, height: 81)
+                            }
                         }
+                    } else {
+                        
                     }
                 }.padding(.top, 12)
             }.frame(width: 362, height: 226)
@@ -360,8 +374,15 @@ extension RoomView {
                             HStack {
                                 TextField("냥소리를 입력해보세요 :3", text: $text)
                                 Button {
-                                   print("d")
-                                    speechMsg(msg: text)
+                                    if selectedButton == "TTS1" {
+                                        speechMsg_TTS1(msg: text)
+                                    } else if selectedButton == "TTS2" {
+                                        speechMsg_TTS2(msg: text)
+                                    } else if selectedButton == "TTS3" {
+                                        speechMsg_TTS3(msg: text)
+                                    } else if selectedButton == "TTS4" {
+                                        speechMsg_TTS4(msg: text)
+                                    }
                                 } label: {
                                     if text != "" {
                                         Image(SoundEnableButtonImage)}
@@ -375,6 +396,7 @@ extension RoomView {
                         }
                         Button {
                             print("음성메세지 전송버튼") //TODO: 음성메세지 전송할 수 있게 하기
+                            viewModel.sendNyangSound()
                         } label: {
                             if text != "" {
                                 Image(SendButtonActivate)}
