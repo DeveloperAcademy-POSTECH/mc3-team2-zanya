@@ -31,23 +31,25 @@ struct Room: Hashable {
     let name: String
     var UIDs: [String]
     let record: CKRecord? //CKRecord(recordType : "Room")
+    let time: Date
+    
     // var inOnTime: Bool //TODO: - 알람 시간 넣어줘야하는데
 }
 
 //MARK: -ROOM DUMMY
 //MARK: -ROOMS DUMMY
 
-let dummyRoom0 = Room(name: "일어날래 나랑살래", UIDs: ["UID = 0","UID = 1","UID = 2","UID = 3","UID = 4","UID = 5"], record: CKRecord(recordType : "Room"))
-let dummyRoom1 = Room(name: "멍멍멍", UIDs: ["UID = 0","UID = 1","UID = 2"], record: CKRecord(recordType : "Room"))
-let dummyRoom2 = Room(name: "야옹야옹", UIDs: ["UID = 3","UID = 4","UID = 5"], record: CKRecord(recordType : "Room"))
-
-
-let dummyRoomViewModels = [RoomViewModel(allUsers: [dummyProfile0,dummyProfile1,dummyProfile2,dummyProfile3,dummyProfile4,dummyProfile5], users: [dummyProfile0,dummyProfile1,dummyProfile2,dummyProfile3,dummyProfile4,dummyProfile5], roomInfo: Room(name: "고마하고 일나라", UIDs: ["UID = 0","UID = 1","UID = 2"], record: CKRecord(recordType: "Room"))),
-                           RoomViewModel(allUsers: [dummyProfile0,dummyProfile1,dummyProfile2,dummyProfile3,dummyProfile4,dummyProfile5], users: [dummyProfile0,dummyProfile2,dummyProfile4,dummyProfile1], roomInfo: Room(name: "멍멍멍", UIDs: ["UID = 0","UID = 1","UID = 2"], record: CKRecord(recordType : "Room"))),
-                           RoomViewModel(allUsers: [dummyProfile0,dummyProfile1,dummyProfile2,dummyProfile3,dummyProfile4,dummyProfile5], users: [dummyProfile1,dummyProfile4,dummyProfile5], roomInfo: Room(name: "야옹야옹", UIDs: ["UID = 3","UID = 4","UID = 5"], record: CKRecord(recordType : "Room")))
-]
-
-let dummyRoomCellViewModel = RoomCellViewModel(isOnTime: true, room: dummyRoom0)
+//let dummyRoom0 = Room(name: "일어날래 나랑살래", UIDs: ["UID = 0","UID = 1","UID = 2","UID = 3","UID = 4","UID = 5"], record: CKRecord(recordType : "Room"))
+//let dummyRoom1 = Room(name: "멍멍멍", UIDs: ["UID = 0","UID = 1","UID = 2"], record: CKRecord(recordType : "Room"))
+//let dummyRoom2 = Room(name: "야옹야옹", UIDs: ["UID = 3","UID = 4","UID = 5"], record: CKRecord(recordType : "Room"))
+//
+//
+//let dummyRoomViewModels = [RoomViewModel(allUsers: [dummyProfile0,dummyProfile1,dummyProfile2,dummyProfile3,dummyProfile4,dummyProfile5], users: [dummyProfile0,dummyProfile1,dummyProfile2,dummyProfile3,dummyProfile4,dummyProfile5], roomInfo: Room(name: "고마하고 일나라", UIDs: ["UID = 0","UID = 1","UID = 2"], record: CKRecord(recordType: "Room"))),
+//                           RoomViewModel(allUsers: [dummyProfile0,dummyProfile1,dummyProfile2,dummyProfile3,dummyProfile4,dummyProfile5], users: [dummyProfile0,dummyProfile2,dummyProfile4,dummyProfile1], roomInfo: Room(name: "멍멍멍", UIDs: ["UID = 0","UID = 1","UID = 2"], record: CKRecord(recordType : "Room"))),
+//                           RoomViewModel(allUsers: [dummyProfile0,dummyProfile1,dummyProfile2,dummyProfile3,dummyProfile4,dummyProfile5], users: [dummyProfile1,dummyProfile4,dummyProfile5], roomInfo: Room(name: "야옹야옹", UIDs: ["UID = 3","UID = 4","UID = 5"], record: CKRecord(recordType : "Room")))
+//]
+//
+//let dummyRoomCellViewModel = RoomCellViewModel(isOnTime: true, room: dummyRoom0)
 
 //MARK: -NyangSound
 struct NyangSound: Hashable {

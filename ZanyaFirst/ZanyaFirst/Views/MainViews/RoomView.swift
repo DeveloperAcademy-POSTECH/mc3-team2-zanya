@@ -59,11 +59,11 @@ struct RoomView: View {
 
 
 //MARK: -3. PREVIEW
-struct RoomView_Preview: PreviewProvider {
-    static var previews: some View {
-        RoomView(viewModel: dummyRoomViewModels[1] )
-    }
-}
+//struct RoomView_Preview: PreviewProvider {
+//    static var previews: some View {
+//        RoomView(viewModel: dummyRoomViewModels[1] )
+//    }
+//}
 
 //MARK: - 4. EXTENSION
 extension RoomView {

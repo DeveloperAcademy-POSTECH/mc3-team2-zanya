@@ -10,16 +10,17 @@ import CloudKit
 
 class CreateRoomViewModel: ObservableObject {
     @Published var roomName: String = ""
-   
+    @Published var time = Date()
     
-    private func createRoom(roomName: String) {
+    private func createRoom(roomName: String, time: Date) {
         CKContainer.default().fetchUserRecordID { [weak self] returnedID, returnedError in
             if let uid = returnedID {
                 let room = CKRecord(recordType: "Room")
                 
                 room["name"] = roomName
+                room["time"] = time
                 room["uids"] = [uid.recordName]
-                
+                print(time)
                 self?.saveItem(record: room)
             }
         }
@@ -35,7 +36,7 @@ class CreateRoomViewModel: ObservableObject {
     
     func clickedCompleteButton() {
         guard !roomName.isEmpty else { return }
-        createRoom(roomName: roomName)
+        createRoom(roomName: roomName, time: time)
         self.roomName = ""
     }
 }
