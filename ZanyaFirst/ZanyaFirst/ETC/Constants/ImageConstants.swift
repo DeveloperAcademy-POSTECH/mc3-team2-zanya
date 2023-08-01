@@ -22,13 +22,12 @@ let AppWineAlertText = "AppWineAlertText"
 let AppWhite = "AppWhite"
 let AppYellow = "AppYellow"
 let AppIvory = "AppIvory"
+let AppPink = "AppPink"
 
 //MARK: -페이지마다 만들기 귀찮아서 만드는 이미지어레이
 let ProfileImageArray = ["whiteCat_Profile", "cheeseCat_Profile", "greyCat_Profile", "shamCat_Profile", "gentleCat_Profile","blackCat_Profile"]
 let SetPrifileCatArray = [["setProfileSham", "setProfileCheese", "setProfileBlack"], ["setProfileWhite", "setProfileGrey", "setProfileGentle"]]
-
 let ProfileStandingArray = ["whiteCat_Standing", "cheeseCat_Standing", "greyCat_Standing", "shamCat_Standing","gentleCat_Standing", "blackCat_Standing"]
-let HandArray = [["shamCat_Hand","shamCat_HandLeft","shamCat_HandRight"],["cheeseCat_Hand","cheeseCat_HandLeft","cheeseCat_HandRight"],["blackCat_Hand","blackCat_HandLeft","blackCat_HandRight"],["whiteCat_Hand","whiteCat_HandLeft","whiteCat_HandRight"],["greyCat_Hand","greyCat_HandLeft","greyCat_HandRight"],["gentleCat_Hand","gentleCat_HandLeft","gentleCat_HandRight"]]
 
 //MARK: -CAT PROFILE
 let shamCat = "shamCat"
@@ -154,6 +153,7 @@ let MainPageSheetImage = "MainPageSheetImage"
 let MainPageProfile = "MainPageProfile"
 let EmptyRoomSheetImage = "EmptyRoomSheetImage"
 let InvitePlate = "InvitePlate"
+let InviteFriend = "InviteFriend"
 let nameSheet = "nameSheet"
 let mainPageProfileSheet = "mainPageProfileSheet"
 
@@ -220,3 +220,8 @@ let CreateTitleSheet = "CreateTitleSheet"
 let CreatePickerSheet = "CreatePickerSheet"
 let CreatePageXmark = "CreatePageXmark"
 
+//MARK: -ROOMDISABLE PAGE COMPONENTS
+
+let RoomDisableSheet = "RoomDisableSheet"
+let RoomDisableLogo = "RoomDisableLogo"
+let RoomDisableCompletButtonImage = "RoomDisableCompletButtonImage"

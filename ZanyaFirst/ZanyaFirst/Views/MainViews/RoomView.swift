@@ -19,6 +19,8 @@ struct RoomView: View {
     
     @Environment(\.dismiss) private var dismiss
     
+    @AppStorage("isFirst") var isFirst: Bool = UserDefaults.standard.bool(forKey: "isFirst")
+    
     //    var profile: Profile
     let profileImageArray = ProfileImageArray
     
@@ -27,6 +29,7 @@ struct RoomView: View {
     @State private var isItemEffect = false
     @State private var catHandIndex = 0
     @State private var touchCount = 0
+    @State private var showShare: Bool = false
     
     //MARK: - 2. BODY
     var body: some View {
@@ -38,24 +41,38 @@ struct RoomView: View {
                     Spacer()
                     memberSheet
                     bottomTab
-                    
                 }
                 HiddenTapButton
             }
-        }.navigationBarBackButtonHidden()
-            .ignoresSafeArea()
-            .toolbar(.hidden)
-            .hideKeyboardWhenTappedAround()
-            .animation(.easeOut(duration: 0.1), value: keyboardMonitor.isKeyboardUP)
-            .onAppear{
+        }
+        .navigationBarBackButtonHidden()
+        .ignoresSafeArea()
+        .toolbar(.hidden)
+        .hideKeyboardWhenTappedAround()
+        .animation(.easeOut(duration: 0.1), value: keyboardMonitor.isKeyboardUP)
+        .onAppear {
+            if !isFirst {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    isFirst.toggle()
+                }
                 viewModel.requestNotificationPermission()
                 viewModel.subscribeToNotifications_Dog()
                 viewModel.subscribeToNotifications_Cat()
                 viewModel.subscribeToNotifications_Pig()
             }
+        }
+        .sheet(
+            isPresented: $showShare,
+            onDismiss: {
+                showShare = false
+                print("\(showShare) onDismiss") },
+            content: {
+                ActivityView(text: viewModel.preFix + viewModel.roomInfo.name)
+                    .presentationDetents([.medium, .large])
+            }
+        )// Sheet   
     }
 }
-
 
 
 //MARK: -3. PREVIEW
@@ -65,22 +82,31 @@ struct RoomView: View {
 //    }
 //}
 
+
 //MARK: - 4. EXTENSION
 extension RoomView {
     
     private var backgroundPage: some View {
         ZStack(alignment: .topLeading){
+            
             //배경화면
             Image(BackgroundSheet)
-            //배경 서있는 고양이 이미지
             
+            //배경 서있는 고양이 이미지
             Image("\(viewModel.users[0].imageKey ?? "")_Standing") // 이미지 사이즈 확인을 위한 테스트용 이미지
                 .resizable()
                 .scaledToFit()
                 .frame(width: 210)
                 .padding(.init(top: 147, leading: 156.84, bottom: 0, trailing: 0))
-            //펀치페이지 말풍성
-            if PunchMessageToggle == true {
+            
+            //펀치페이지 말풍선
+            if !isFirst {
+                ZStack{
+                    Image(MessageDialogSheet)
+                        .shadow(color: .black.opacity(0.2), radius: 3.18533, x: 0, y: 4.24711)
+                }
+                .padding(.init(top: 112, leading: 13, bottom: 0, trailing: 0))
+            } else if PunchMessageToggle == true {
                 ZStack(alignment: .topLeading){
                     Image(PunchDialogSheet)
                         .shadow(color: .black.opacity(0.2), radius: 3.18533, x: 0, y: 4.24711)
@@ -88,18 +114,23 @@ extension RoomView {
                         //TODO: 시간모델 받아와야 함
                         TextCell(text: "99초" , size: 30, color: Color("AppRed"))//TODO: 시간모델 받아와야 함
                             .padding(.top,-4.5)
-                        Image(itsempty).padding(.top,-6)
-                    } .padding(.init(top: 41.04, leading: 62, bottom: 0, trailing: 0))
-                }.padding(.init(top: 104.96, leading: 13, bottom: 0, trailing: 0))
-                //메세지 페이지 말풍선
+                        Image(itsempty)
+                            .padding(.top,-6)
+                    }
+                    .padding(.init(top: 41.04, leading: 62, bottom: 0, trailing: 0))
+                }
+                .padding(.init(top: 104.96, leading: 13, bottom: 0, trailing: 0))
             } else {
+                //메세지 페이지 말풍선
                 ZStack{
                     Image(MessageDialogSheet)
                         .shadow(color: .black.opacity(0.2), radius: 3.18533, x: 0, y: 4.24711)
-                }.padding(.init(top: 112, leading: 13, bottom: 0, trailing: 0))
+                }
+                .padding(.init(top: 112, leading: 13, bottom: 0, trailing: 0))
             }
         }
     }
+    
     
     private var toolBar: some View {
         HStack(spacing: 0){
@@ -118,7 +149,8 @@ extension RoomView {
                     .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 4)
                 StrokedTextCellCenter(text: viewModel.roomInfo.name, size: 18, color: .white, strokeColor: AppNavy)
                     .padding(.bottom, 4)
-            }.padding(.init(top: 0, leading: 13, bottom: 0, trailing: 13))
+            }
+            .padding(.init(top: 0, leading: 13, bottom: 0, trailing: 13))
             
             //QuestionButton
             Button {
@@ -137,34 +169,70 @@ extension RoomView {
             Image(MemberSheet)
                 .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 4)
             
-            HStack(alignment: .center,spacing: 0) {
-                ForEach(0..<viewModel.users.count, id: \.self) { i in
-                    ZStack(alignment: .center){
-                        Image(ProfilePlateOff)
-                        VStack {
-                            //Spacer()
-                            Image("\(viewModel.users[i].imageKey ?? "")_RoomSheet") // TODO: 룸데이터에서 유저 정보 받아와야함
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 48)
-                            // Spacer()
-                            ClearRectangle(width: 0,height: 6)
-                        }
-                        VStack{
-                            Spacer()
-                            Image(nameSheet)
-                        }
-                        VStack{
-                            Spacer()
-                            TextCell(text: viewModel.users[i].name, size: 11, color: Color("AppBrown"))
-                                .padding(.bottom, 4)
-                        }
-                    }.frame(width: 48, height: 60)
-                        .padding(.init(top: 0, leading: 11, bottom: -16.75, trailing: 0))
+            if viewModel.users.count != 6 {
+                HStack(alignment: .center,spacing: 0) {
+                    ForEach(0..<viewModel.users.count, id: \.self) { i in
+                        ZStack(alignment: .center){
+                            Image(ProfilePlateOff)
+                            VStack {
+                                //Spacer()
+                                Image("\(viewModel.users[i].imageKey ?? "")_RoomSheet") // TODO: 룸데이터에서 유저 정보 받아와야함
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 48)
+                                // Spacer()
+                                ClearRectangle(width: 0,height: 6)
+                            }
+                            VStack{
+                                Spacer()
+                                Image(nameSheet)
+                            }
+                            VStack{
+                                Spacer()
+                                TextCell(text: viewModel.users[i].name, size: 11, color: Color("AppBrown"))
+                                    .padding(.bottom, 4)
+                            }
+                        }.frame(width: 48, height: 60)
+                            .padding(.init(top: 0, leading: 11, bottom: -16.75, trailing: 0))
+                    }
+                    Button {
+                        showShare.toggle()
+                    } label: {
+                        Image(InviteFriend)
+                    } .padding(.init(top: 0, leading: 8, bottom: -16.75, trailing: 0))
                     
-                }
-                Spacer()
-            } .frame(width: 360, height: 111.5)
+                    
+                    Spacer()
+                } .frame(width: 360, height: 111.5)
+            } else {
+                HStack(alignment: .center,spacing: 0) {
+                    ForEach(0..<viewModel.users.count, id: \.self) { i in
+                        ZStack(alignment: .center){
+                            Image(ProfilePlateOff)
+                            VStack {
+                                //Spacer()
+                                Image("\(viewModel.users[i].imageKey ?? "")_RoomSheet") // TODO: 룸데이터에서 유저 정보 받아와야함
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 48)
+                                // Spacer()
+                                ClearRectangle(width: 0,height: 6)
+                            }
+                            VStack{
+                                Spacer()
+                                Image(nameSheet)
+                            }
+                            VStack{
+                                Spacer()
+                                TextCell(text: viewModel.users[i].name, size: 11, color: Color("AppBrown"))
+                                    .padding(.bottom, 4)
+                            }
+                        }.frame(width: 48, height: 60)
+                            .padding(.init(top: 0, leading: 11, bottom: -16.75, trailing: 0))
+                    }
+                    Spacer()
+                } .frame(width: 360, height: 111.5)
+            }
         }.padding(.init(top: 0, leading: 0, bottom: 13, trailing: 0))
     }
     
@@ -236,9 +304,11 @@ extension RoomView {
                                     }
                                 }
                             Spacer()
-                        }.zIndex(3)
+                        }
+                        .zIndex(3)
                     }
-                }.tabViewStyle(.page(indexDisplayMode: .never))
+                }
+                .tabViewStyle(.page(indexDisplayMode: .never))
                 
                 HStack(spacing: 0){
                     Button {
@@ -253,7 +323,9 @@ extension RoomView {
                         Image(InstrumentLeft)
                             .padding(.init(top: 0, leading: 3, bottom: 0, trailing: 0))
                     }
+                    
                     Spacer()
+                    
                     Button {
                         if tapIndexNum == 2 {
                             tapIndexNum = 0}
@@ -265,10 +337,29 @@ extension RoomView {
                         Image(InstrumentRight)
                             .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 3))
                     }
-                }.padding(.bottom, 37)
-            }.frame(width: 360, height: 360)
-            Image(HandArray[0][catHandIndex])// TODO: - 클라우드에서 프로필 값 받아오기 / 일단 가라로 0 넣어둠
+                }
+                .padding(.bottom, 37)
+            }
+            .frame(width: 360, height: 360)
+            //고양이손
+            if catHandIndex == 0 {
+                Image("\(viewModel.users[0].imageKey ?? "")_Hand")
+                    .resizable()
+                    .scaledToFit()
+            }
             
+            
+            else if catHandIndex == 1 {
+                Image("\(viewModel.users[0].imageKey ?? "")_HandLeft")
+                    .resizable()
+                    .scaledToFit()
+            }
+            
+            else if catHandIndex == 2 {
+                Image("\(viewModel.users[0].imageKey ?? "")_HandRight")
+                    .resizable()
+                    .scaledToFit()
+            }
         }
     }
     
@@ -306,7 +397,7 @@ extension RoomView {
                                         .frame(width: 105, height: 85)
                                     HStack {
                                         VStack(alignment: .leading){
-//                                            TextCell(text: "비누", size: 11, color: .white) // TODO: - 메세지 데이터에서 닉네임 받기
+                                            //                                            TextCell(text: "비누", size: 11, color: .white) // TODO: - 메세지 데이터에서 닉네임 받기
                                             TextCell(text: "\(viewModel.nyangSounds[i].whoSend)", size: 11, color: .white) // TODO: - 메세지 데이터에서 닉네임 받기
                                                 .padding(.init(top: 0, leading: 10, bottom: -7, trailing: 0))
                                             TextCell(text: "20초", size: 10, color: .white) // TODO: - 메세지 데이터에서 시간 값 받기
@@ -319,60 +410,76 @@ extension RoomView {
                                             .frame(width: 38.36, height: 31.54)
                                             .padding(.init(top: 0, leading: 0, bottom: 8.46, trailing: 9.64))
                                     }
-                                }.frame(width: 101, height: 81)
+                                }
+                                .frame(width: 101, height: 81)
                             }
                         }
                     } else {
                         
                     }
-                }.padding(.top, 12)
-            }.frame(width: 362, height: 226)
-                .padding(.init(top: 0, leading: 0, bottom: 136, trailing: 0))
+                }
+                .padding(.top, 12)
+            }
+            .frame(width: 362, height: 226)
+            .padding(.init(top: 0, leading: 0, bottom: 136, trailing: 0))
+            
             Rectangle().fill(LinearGradient(colors: [Color(AppIvory), .clear], startPoint: .top, endPoint: .bottom))
                 .frame(width: 362, height: 30)
                 .cornerRadius(6)
                 .padding(.bottom, 334)
+            
             Rectangle().fill(LinearGradient(colors: [Color(AppIvory), .clear], startPoint: .bottom, endPoint: .top))
                 .frame(width: 362, height: 40)
                 .cornerRadius(6)
                 .padding(.bottom, 134)
-            ZStack{
+            
+            ZStack {
                 Image(Rectangle33)
+              
                 VStack(spacing: 0){
-                    //TTS BUTTON
+                    //냥소리 TTS BUTTON
                     HStack(spacing: 0){
+                      
                         Button {
                             print("clickedTTS1")
                             viewModel.soundType = "TTS1"
                         } label: {
                             Image(viewModel.soundType == "TTS1" ? TTS1ButtonImage : TTS1ButtonImage_disable)
-                        }.padding(.trailing, 4)
+                        }
+                        .padding(.trailing, 4)
+                        
                         Button {
                             print("clickedTTS2")
                             viewModel.soundType = "TTS2"
                         } label: {
                             Image(viewModel.soundType == "TTS2" ? TTS2ButtonImage : TTS2ButtonImage_disable)
-                        }.padding(.trailing, 4)
+                        }
+                        .padding(.trailing, 4)
+                        
                         Button {
                             print("clickedTTS3")
                             viewModel.soundType = "TTS3"
                         } label: {
                             Image(viewModel.soundType == "TTS3" ? TTS3ButtonImage : TTS3ButtonImage_disable)
-                        }.padding(.trailing, 4)
+                        }
+                        .padding(.trailing, 4)
+                        
                         Button {
                             print("clickedTTS4")
                             viewModel.soundType = "TTS4"
                         } label: {
                             Image(viewModel.soundType == "TTS4" ? TTS4ButtonImage : TTS4ButtonImage_disable)
-                        }.padding(.trailing, 4)
+                        }
+                        .padding(.trailing, 4)
+                        
                         Spacer()
-                    }.padding(.init(top: 0, leading: 15, bottom: 0, trailing: 15))
-                        .padding(.top, keyboardMonitor.isKeyboardUP ? -20 : -10)
-                        .padding(.bottom, keyboardMonitor.isKeyboardUP ? 4 : 14)
+                    }
+                    .padding(.init(top: -10, leading: 15, bottom: 14, trailing: 15))   
+                  
                     HStack(spacing: 15){
                         ZStack{
                             Image(Rectangle11)
-                            
+                            //냥소리 텍스트필드
                             HStack {
                                 TextField("냥소리를 입력해보세요 :3", text: $viewModel.sendMessage)
                                 Button {
@@ -395,9 +502,10 @@ extension RoomView {
                                         Image(SoundDisableButtonImage)
                                     }
                                 }
-                            } .frame(width:280)
-                                .padding(.bottom, 2)
-                                .padding(.leading, 6)
+                            }
+                            .frame(width:280)
+                            .padding(.bottom, 2)
+                            .padding(.leading, 6)
                         }
                         Button {
                             print("음성메세지 전송버튼") //TODO: 음성메세지 전송할 수 있게 하기
@@ -410,9 +518,10 @@ extension RoomView {
                             }
                         }
                     }
-                    .padding(.bottom, keyboardMonitor.isKeyboardUP ? 20 : 0)
+                    .padding(.bottom, 0)
                 }
-            } .offset(y: keyboardMonitor.keyboardHeight * -0.84)
+            } 
+            .offset(y: keyboardMonitor.keyboardHeight * -0.99)
         }
     }
     
@@ -430,9 +539,10 @@ extension RoomView {
                 Rectangle()
                     .frame(height: 50)
             }
-        }   .offset(y: 20)
-            .foregroundColor(.clear)
-            .padding(0)
+        }
+        .offset(y: 20)
+        .foregroundColor(.clear)
+        .padding(0)
     }
     
     func tapElement() {
@@ -441,6 +551,5 @@ extension RoomView {
         } else {
             ArrayNum += 1 }
     }
-    
 }
 
