@@ -180,7 +180,7 @@ extension RoomView {
                     } label: {
                         Image(InviteFriend)
                     } .padding(.init(top: 0, leading: 8, bottom: -16.75, trailing: 0))
-
+                    
                     
                     Spacer()
                 } .frame(width: 360, height: 111.5)
@@ -230,7 +230,7 @@ extension RoomView {
         let punchElementPage = [TambourinePage, BBoongPage, DJPage]
         let punchElementPage2 = [TambourinePage2, BBoongPage2, DJPage2]
         let Punchelement = [Tambourine, BBoong, DJ]
-       
+        
         return ZStack(alignment: .bottom){
             Image(PunchPage)
                 .padding(.init(top: 0, leading: 0, bottom: -98, trailing: 0))
@@ -317,11 +317,24 @@ extension RoomView {
             }.frame(width: 360, height: 360)
             //고양이손
             if catHandIndex == 0 {
-                Image("\(viewModel.users[0].imageKey ?? "")_Hand")}
+                Image("\(viewModel.users[0].imageKey ?? "")_Hand")
+                    .resizable()
+                    .scaledToFit()
+            }
+            
+            
             else if catHandIndex == 1 {
-                Image("\(viewModel.users[0].imageKey ?? "")_HandLeft")}
+                Image("\(viewModel.users[0].imageKey ?? "")_HandLeft")
+                    .resizable()
+                    .scaledToFit()
+            }
+            
             else if catHandIndex == 2 {
-                Image("\(viewModel.users[0].imageKey ?? "")_HandRight")}
+                Image("\(viewModel.users[0].imageKey ?? "")_HandRight")
+                    .resizable()
+                    .scaledToFit()
+            }
+            
             
         }
     }
@@ -360,7 +373,7 @@ extension RoomView {
                                         .frame(width: 105, height: 85)
                                     HStack {
                                         VStack(alignment: .leading){
-//                                            TextCell(text: "비누", size: 11, color: .white) // TODO: - 메세지 데이터에서 닉네임 받기
+                                            //                                            TextCell(text: "비누", size: 11, color: .white) // TODO: - 메세지 데이터에서 닉네임 받기
                                             TextCell(text: "\(viewModel.nyangSounds[i].whoSend)", size: 11, color: .white) // TODO: - 메세지 데이터에서 닉네임 받기
                                                 .padding(.init(top: 0, leading: 10, bottom: -7, trailing: 0))
                                             TextCell(text: "20초", size: 10, color: .white) // TODO: - 메세지 데이터에서 시간 값 받기
