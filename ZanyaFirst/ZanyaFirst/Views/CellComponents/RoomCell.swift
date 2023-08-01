@@ -63,18 +63,8 @@ struct RoomCell: View {
             } else {
                 TextCell(text: "오전", size: 17, color: viewModel.isOnTime ? Color(AppWine) : Color(Apppurple))
             }
-            if String(viewModel.min).count == 1 && String(viewModel.hour).count == 1{
-                StrokedTimeCell(text: "0\(viewModel.hour):0\(viewModel.min)", size: 40,
-                                color: viewModel.isOnTime ? Color(AppWine) : Color(Apppurple),
-                                strokeColor: AppWhite)
-                .offset(x:-87,y:0)
-            } else if String(viewModel.min).count == 1 {
+            if String(viewModel.min).count == 1 {
                 StrokedTimeCell(text: "\(viewModel.hour):0\(viewModel.min)", size: 40,
-                                color: viewModel.isOnTime ? Color(AppWine) : Color(Apppurple),
-                                strokeColor: AppWhite)
-                .offset(x:-87,y:0)
-            } else if String(viewModel.hour).count == 1 {
-                StrokedTimeCell(text: "0\(viewModel.hour):\(viewModel.min)", size: 40,
                                 color: viewModel.isOnTime ? Color(AppWine) : Color(Apppurple),
                                 strokeColor: AppWhite)
                 .offset(x:-87,y:0)
