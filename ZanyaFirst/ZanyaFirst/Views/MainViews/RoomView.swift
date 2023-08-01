@@ -51,7 +51,7 @@ struct RoomView: View {
         .animation(.easeOut(duration: 0.1), value: keyboardMonitor.isKeyboardUP)
         .onAppear{
             if !isFirst {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     isFirst.toggle()
                 }
             }
@@ -87,8 +87,14 @@ extension RoomView {
                 .frame(width: 210)
                 .padding(.init(top: 147, leading: 156.84, bottom: 0, trailing: 0))
             
-            //펀치페이지 말풍성
-            if PunchMessageToggle == true {
+            //펀치페이지 말풍선
+            if !isFirst {
+                ZStack{
+                    Image(MessageDialogSheet)
+                        .shadow(color: .black.opacity(0.2), radius: 3.18533, x: 0, y: 4.24711)
+                }
+                .padding(.init(top: 112, leading: 13, bottom: 0, trailing: 0))
+            } else if PunchMessageToggle == true {
                 ZStack(alignment: .topLeading){
                     Image(PunchDialogSheet)
                         .shadow(color: .black.opacity(0.2), radius: 3.18533, x: 0, y: 4.24711)
@@ -112,6 +118,7 @@ extension RoomView {
             }
         }
     }
+    
     
     private var toolBar: some View {
         HStack(spacing: 0){
