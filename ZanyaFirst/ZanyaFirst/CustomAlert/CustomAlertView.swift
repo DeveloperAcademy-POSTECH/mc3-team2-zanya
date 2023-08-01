@@ -32,11 +32,11 @@ struct CustomAlertView: View {
                         .font(Font.custom("LINE Seed Sans KR Bold", size: 17))
                         .foregroundColor(.AppWineAlertText)
                 }
-                .padding(.bottom, 28.6)
+                .padding(.bottom, 42)
 
             } else {
                 TextCell(text: "아직 초대한 친구가 없어요. \n친구를 초대하시겠어요?", size: 17, color: .AppWineAlertText)
-                    .padding(.bottom, 28.6)
+                    .padding(.bottom, 33.6)
                     .multilineTextAlignment(.center)
             }
             
@@ -44,7 +44,7 @@ struct CustomAlertView: View {
                 dismissButton
                 okButton
             }
-            .padding(.top, 105)
+            .padding(.top, 100)
         }
         .ignoresSafeArea()
         .onChange(of: alertObject.roomName) { newValue in
@@ -67,7 +67,7 @@ struct CustomAlertView: View {
                 )
                 .frame(width: 304, height: 164)
             
-            RoundedRectangle(cornerRadius: 28)
+            RoundedRectangle(cornerRadius: 26)
                 .fill(
                     LinearGradient(
                         stops: [

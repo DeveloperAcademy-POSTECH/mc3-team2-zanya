@@ -13,11 +13,8 @@ struct RoomCell: View {
     @EnvironmentObject var alertObject: CustomAlertObject
 
     var isOnTime: Bool = true //TODO: -일단 트루놨는데 알람에서 타임 받아서 여기 비워줘야함
-    var title: String
-  
-//    var time: Date
-    var userCount: Int
-
+//    var title: String
+//    var userCount: Int
     let preFix: String = "zanya-invite:://"
     
     @State var isClickedOut: Bool = false
@@ -39,6 +36,7 @@ struct RoomCell: View {
                 roomCellSheet
                 leftView
                 rightView
+                roomOutArea
             }
             .frame(width: 304, height: 160)
         } else {
@@ -47,6 +45,7 @@ struct RoomCell: View {
                 roomCellSheet
                 leftView
                 rightView
+                roomOutArea
             }
             .frame(width: 304, height: 160)
         }
@@ -54,50 +53,60 @@ struct RoomCell: View {
     
     var leftView: some View {
         VStack(alignment: .leading, spacing: 0) {
-            StrokedTextCellLeading(text: viewModel.title, size: 19,
+            StrokedTextCellLeading(text: viewModel.title, size: 21,
                                    color: viewModel.isOnTime ? .white : Color(AppLavender),
                                    strokeColor: viewModel.isOnTime ? AppWine : Apppurple)
             Spacer()
-            TextCell(text: "오전", size: 16, color: viewModel.isOnTime ? Color(AppWine) : Color(Apppurple))
+            TextCell(text: "오전", size: 17, color: viewModel.isOnTime ? Color(AppWine) : Color(Apppurple))
                 .padding(EdgeInsets(top: 0, leading: 3, bottom: 5, trailing: 0))
             StrokedTimeCell(text: "11:00", size: 40,
                             color: viewModel.isOnTime ? Color(AppWine) : Color(Apppurple),
                             strokeColor: AppWhite)
-            .offset(x:-87,y:0)
+            .offset(x:-88,y:0)
         }
-        .padding(EdgeInsets(top: 22, leading: 22, bottom: 24, trailing: 0))
+        .padding(EdgeInsets(top: 22, leading: 20, bottom: 22, trailing: 0))
     }
     
     var rightView: some View {
         VStack(alignment: .trailing, spacing: 0) {
             roomOutButton
+            Spacer()
+            
             Image(InviteTalkBox)
-                .padding(EdgeInsets(top: 34, leading: 0, bottom: -3, trailing: 0))
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: -3, trailing: 0))
                 .shadow(color: .black.opacity(0.1), radius: 3, x: 0, y: 2)
-                .opacity(userCount > 1 ? 1 : 0)
+                .opacity(viewModel.userCount > 1 ? 0 : 1)
             
             roomInviteButton
-                .padding(.leading, 194)
+                .padding(.leading, 182)
         }
-        .padding(EdgeInsets(top: 22, leading: 0, bottom: 24, trailing: 22))
+        .padding(EdgeInsets(top: 22, leading: 0, bottom: 22, trailing: 22))
     }
     
     var roomCellSheet: some View {
         Image(viewModel.isOnTime ? RoomCellSheetPink : RoomCellSheetBlue)
             .resizable()
             .aspectRatio(contentMode: .fit)
+            .frame(width: 304)
     }
     
     var roomOutButton: some View {
-        Button {
-            alertObject.isClicked = true
-            alertObject.roomName = viewModel.title
-            alertObject.room = viewModel.room
-            alertObject.UID = self.UID
-            print("Room \(viewModel.title) Out!")
-        } label: {
-            Image(viewModel.isOnTime ? RoomBoxOutPink : RoomBoxOutBlue)
-        }
+//        Button {
+//            alertObject.isClicked = true
+//            alertObject.roomName = viewModel.title
+//            alertObject.room = viewModel.room
+//            alertObject.UID = self.UID
+//            print("Room \(viewModel.title) Out!")
+//        } label: {
+//            ZStack{
+//                Image(viewModel.isOnTime ? RoomBoxOutPink : RoomBoxOutBlue)
+//            }
+//        }
+//        .border(.red)
+        Image(viewModel.isOnTime ? RoomBoxOutPink : RoomBoxOutBlue)
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 23)
     }
     
     var roomInviteButton: some View {
@@ -107,11 +116,15 @@ struct RoomCell: View {
         } label: {
             ZStack(alignment: .center){
                 Image(viewModel.isOnTime ? InvitePinkBtn : InviteBlueBtn)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
                 HStack(spacing: 5){
                     Image(viewModel.isOnTime ? InviteTextPink : InviteTextBlue)
-                    TextCell(text: "\(viewModel.userCount)/6", size: 12, color: .white, weight: "Regular")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 14)
+                    TextCell(text: "\(viewModel.userCount)/6", size: 14, color: .white, weight: "Regular")
                 }
-                .frame(width: 82)
             }
         }
         .sheet(
@@ -120,25 +133,41 @@ struct RoomCell: View {
                 showShare = false
                 print("\(showShare) onDismiss") },
             content: {
-                ActivityView(text: viewModel.preFix + viewModel.title)
+                ActivityView(text: viewModel.preFix + viewModel.title.replacingOccurrences(of: " ", with: "_"))
                     .presentationDetents([.medium, .large])
             }
         )// Sheet
     }
+    
+    var roomOutArea: some View {
+        VStack(alignment: .trailing){
+            Rectangle()
+                .opacity(0.01)
+                .frame(width: 40, height: 40)
+                .padding(EdgeInsets(top: 0, leading: 240, bottom: 100, trailing: 0))
+                .onTapGesture {
+                    alertObject.isClicked = true
+                    alertObject.roomName = viewModel.title
+                    alertObject.room = viewModel.room
+                    alertObject.UID = self.UID
+                    print("Room \(viewModel.title) Out!")
+                }
+        }
+    }
 }
 
-//struct RoomCell_Previews: PreviewProvider {
-//    static var previews: some View {
-//        VStack{
-//            RoomCell(viewModel: RoomCellViewModel(isOnTime: dummyRoomCellViewModel.isOnTime, room: dummyRoom0))
-//                .previewLayout(.sizeThatFits)
-//                .environmentObject(CustomAlertObject())
-//            RoomCell(viewModel: RoomCellViewModel(isOnTime: false, room: dummyRoom0))
-//                .previewLayout(.sizeThatFits)
-//                .environmentObject(CustomAlertObject())
-//        }
-//    }
-//}
+struct RoomCell_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack{
+            RoomCell(viewModel: RoomCellViewModel(isOnTime: dummyRoomCellViewModel.isOnTime, room: dummyRoom0))
+                .previewLayout(.sizeThatFits)
+                .environmentObject(CustomAlertObject())
+            RoomCell(viewModel: RoomCellViewModel(isOnTime: false, room: dummyRoom0))
+                .previewLayout(.sizeThatFits)
+                .environmentObject(CustomAlertObject())
+        }
+    }
+}
 
 struct ActivityView: UIViewControllerRepresentable{
     let text: String
