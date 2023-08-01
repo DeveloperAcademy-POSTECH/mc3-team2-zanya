@@ -57,28 +57,28 @@ struct RoomCell: View {
                                    color: viewModel.isOnTime ? .white : Color(AppLavender),
                                    strokeColor: viewModel.isOnTime ? AppWine : Apppurple)
             Spacer()
-            if viewModel.timeComponenets.hour! > 12 {
+            if viewModel.afterNoon {
                 TextCell(text: "오후", size: 17, color: viewModel.isOnTime ? Color(AppWine) : Color(Apppurple))
             } else {
                 TextCell(text: "오전", size: 17, color: viewModel.isOnTime ? Color(AppWine) : Color(Apppurple))
             }
-            if String(viewModel.timeComponenets.minute!).count == 1 && String(viewModel.timeComponenets.hour!).count == 1{
-                StrokedTimeCell(text: "0\(viewModel.timeComponenets.hour!):0\(viewModel.timeComponenets.minute!)", size: 40,
+            if String(viewModel.min).count == 1 && String(viewModel.hour).count == 1{
+                StrokedTimeCell(text: "0\(viewModel.hour):0\(viewModel.min)", size: 40,
                                 color: viewModel.isOnTime ? Color(AppWine) : Color(Apppurple),
                                 strokeColor: AppWhite)
                 .offset(x:-87,y:0)
-            } else if String(viewModel.timeComponenets.minute!).count == 1 {
-                StrokedTimeCell(text: "\(viewModel.timeComponenets.hour!):0\(viewModel.timeComponenets.minute!)", size: 40,
+            } else if String(viewModel.min).count == 1 {
+                StrokedTimeCell(text: "\(viewModel.hour):0\(viewModel.min)", size: 40,
                                 color: viewModel.isOnTime ? Color(AppWine) : Color(Apppurple),
                                 strokeColor: AppWhite)
                 .offset(x:-87,y:0)
-            } else if String(viewModel.timeComponenets.hour!).count == 1 {
-                StrokedTimeCell(text: "0\(viewModel.timeComponenets.hour!):\(viewModel.timeComponenets.minute!)", size: 40,
+            } else if String(viewModel.hour).count == 1 {
+                StrokedTimeCell(text: "0\(viewModel.hour):\(viewModel.min)", size: 40,
                                 color: viewModel.isOnTime ? Color(AppWine) : Color(Apppurple),
                                 strokeColor: AppWhite)
                 .offset(x:-87,y:0)
             } else {
-                StrokedTimeCell(text: "\(viewModel.timeComponenets.hour!):\(viewModel.timeComponenets.minute!)", size: 40,
+                StrokedTimeCell(text: "\(viewModel.hour):\(viewModel.min)", size: 40,
                                 color: viewModel.isOnTime ? Color(AppWine) : Color(Apppurple),
                                 strokeColor: AppWhite)
                 .offset(x:-87,y:0)
