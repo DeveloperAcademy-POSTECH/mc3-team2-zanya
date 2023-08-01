@@ -14,10 +14,13 @@ class RoomCellViewModel: ObservableObject {
     let preFix: String = "zanya-invite:://"
     @Published var room: Room
     
+    var timeComponenets = DateComponents()
+    
     init(isOnTime:Bool, room: Room){
         self.isOnTime = isOnTime
         self.title = room.name
         self.userCount = room.UIDs.count
         self.room = room
+        self.timeComponenets = Calendar.current.dateComponents([.hour,.minute], from: room.time)
     }
 }
