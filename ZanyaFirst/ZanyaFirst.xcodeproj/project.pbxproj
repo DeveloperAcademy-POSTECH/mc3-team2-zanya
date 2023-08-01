@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		074ED2AC2A78F4EF0037EE67 /* RoomDisableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074ED2AB2A78F4EF0037EE67 /* RoomDisableView.swift */; };
 		075B7FB92A6E43250071A856 /* StrokedTextCellLeading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075B7FB82A6E43250071A856 /* StrokedTextCellLeading.swift */; };
 		075B7FBD2A6E47900071A856 /* StrokeTextLabelCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075B7FBC2A6E47900071A856 /* StrokeTextLabelCenter.swift */; };
 		075B7FBF2A6E47B30071A856 /* StrokedTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075B7FBE2A6E47B30071A856 /* StrokedTimeCell.swift */; };
@@ -55,6 +56,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		074ED2AB2A78F4EF0037EE67 /* RoomDisableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomDisableView.swift; sourceTree = "<group>"; };
 		075B7FB82A6E43250071A856 /* StrokedTextCellLeading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokedTextCellLeading.swift; sourceTree = "<group>"; };
 		075B7FBC2A6E47900071A856 /* StrokeTextLabelCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeTextLabelCenter.swift; sourceTree = "<group>"; };
 		075B7FBE2A6E47B30071A856 /* StrokedTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokedTimeCell.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				07B455592A667C5A00EB9801 /* RoomView.swift */,
 				07B455532A667BF200EB9801 /* SetImageView.swift */,
 				07DA7BCF2A70B5AF000218A4 /* LaunchScreen.swift */,
+				074ED2AB2A78F4EF0037EE67 /* RoomDisableView.swift */,
 			);
 			path = MainViews;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 				07B455542A667BF200EB9801 /* SetImageView.swift in Sources */,
 				07B455712A667DE100EB9801 /* PlaySound.swift in Sources */,
 				07B3E31D2A67A0980080860A /* OnBoardingView.swift in Sources */,
+				074ED2AC2A78F4EF0037EE67 /* RoomDisableView.swift in Sources */,
 				07B455622A667CCC00EB9801 /* UpdateProfileViewModel.swift in Sources */,
 				075B7FB92A6E43250071A856 /* StrokedTextCellLeading.swift in Sources */,
 				07B3E30D2A6720C90080860A /* TextCell.swift in Sources */,
