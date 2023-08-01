@@ -15,7 +15,7 @@ struct CreateRoomView: View {
     @ObservedObject var viewModel = CreateRoomViewModel()
     @ObservedObject var keyboardMonitor : KeyboardMonitor = KeyboardMonitor()
     
-    @State var date = Date()
+    
     @State var isClickedComBut: Bool = false
     @Binding var task: Int
    
@@ -35,6 +35,8 @@ struct CreateRoomView: View {
                 }
 //                .padding(.top, UIApplication.shared.windows[0].safeAreaInsets.top)
                 .padding(.init(top: 0, leading: 24, bottom: 0, trailing: 24))
+            }.onAppear{
+                print(viewModel.time)
             }
            
         }
@@ -113,7 +115,7 @@ extension CreateRoomView {
             Image(CreatePickerSheet)
             //TODO: -피커 가운데 바 노랗게 하는건 모르겠음
             VStack {
-                DatePicker(selection: $date, displayedComponents: .hourAndMinute){}
+                DatePicker(selection: $viewModel.time, displayedComponents: .hourAndMinute){}
                     .datePickerStyle(WheelDatePickerStyle())
                     .colorInvert()
                     .colorMultiply(Color(AppWine))

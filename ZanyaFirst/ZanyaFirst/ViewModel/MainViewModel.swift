@@ -21,14 +21,34 @@ class MainViewModel: UpdateProfileViewModelDelegate, ObservableObject {
     
     @Published var task: Int = 0
     
+    
+    var timeComponets = Calendar.current.dateComponents([.hour,.minute], from: Date())
+    var isOnTime: Bool = false
+    
     init(profile: Profile) {
         self.profile = profile
         fetchItem()
         fetchAllUsers()
         
         print("MainViewModel: Profile -> \(profile)")
+        
+        let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+            self.initTimeComponents()
+        }
     }
 
+    func nowIsOnTime(room: Room) -> Bool {
+        if timeComponets.hour! == Calendar.current.dateComponents([.hour,.minute], from: room.time).hour! && timeComponets.minute! == Calendar.current.dateComponents([.hour,.minute], from: room.time).minute!{
+            self.isOnTime = true
+        } else {
+            self.isOnTime = false
+        }
+        return self.isOnTime
+    }
+    func initTimeComponents() {
+        self.timeComponets = Calendar.current.dateComponents([.hour,.minute], from: Date())
+        print("현재시간: \(timeComponets.hour)시 \(timeComponets.minute)분")
+    }
     
     func clickedUpdateProfileButton() {
         goToUpdateProfileView = true
@@ -58,8 +78,9 @@ class MainViewModel: UpdateProfileViewModelDelegate, ObservableObject {
                     case .success(let record):
                         guard let name = record["name"] as? String else { return }
                         guard let uids = record["uids"] as? [String] else { return }
+                        guard let time = record["time"] as? Date else { return }
                         if uids.contains(id.recordName){
-                            returnedItems.append(Room(name: name, UIDs: uids, record: record))
+                            returnedItems.append(Room(name: name, UIDs: uids, record: record,time: time))
                         }
                         print(uids)
                         

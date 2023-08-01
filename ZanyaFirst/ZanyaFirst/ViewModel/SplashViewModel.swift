@@ -94,10 +94,11 @@ class SplashViewModel: ObservableObject {
                     case .success(let record):
                         guard let name = record["name"] as? String else { return }
                         guard let uids = record["uids"] as? [String] else { return }
+                        guard let time = record["time"] as? Date else { return }
 //                        if uids.contains(id.recordName){
 //                            returnedItems.append(Room(name: name, UIDs: uids, record: record))
 //                        }
-                        returnedItems.append(Room(name: name, UIDs: uids, record: record))
+                        returnedItems.append(Room(name: name, UIDs: uids, record: record, time: time))
 //                        print(uids)
                         
                     case .failure(let error):
