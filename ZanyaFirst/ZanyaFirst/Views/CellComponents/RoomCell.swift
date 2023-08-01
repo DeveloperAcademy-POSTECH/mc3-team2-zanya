@@ -62,9 +62,9 @@ struct RoomCell: View {
             StrokedTimeCell(text: "11:00", size: 40,
                             color: viewModel.isOnTime ? Color(AppWine) : Color(Apppurple),
                             strokeColor: AppWhite)
-            .offset(x:-87,y:0)
+            .offset(x:-88,y:0)
         }
-        .padding(EdgeInsets(top: 22, leading: 22, bottom: 22, trailing: 0))
+        .padding(EdgeInsets(top: 22, leading: 20, bottom: 22, trailing: 0))
     }
     
     var rightView: some View {
