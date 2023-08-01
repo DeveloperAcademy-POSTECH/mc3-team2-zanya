@@ -22,6 +22,7 @@ let AppWineAlertText = "AppWineAlertText"
 let AppWhite = "AppWhite"
 let AppYellow = "AppYellow"
 let AppIvory = "AppIvory"
+let AppPink = "AppPink"
 
 //MARK: -페이지마다 만들기 귀찮아서 만드는 이미지어레이
 let ProfileImageArray = ["whiteCat_Profile", "cheeseCat_Profile", "greyCat_Profile", "shamCat_Profile", "gentleCat_Profile","blackCat_Profile"]
@@ -219,3 +220,8 @@ let CreateTitleSheet = "CreateTitleSheet"
 let CreatePickerSheet = "CreatePickerSheet"
 let CreatePageXmark = "CreatePageXmark"
 
+//MARK: -ROOMDISABLE PAGE COMPONENTS
+
+let RoomDisableSheet = "RoomDisableSheet"
+let RoomDisableLogo = "RoomDisableLogo"
+let RoomDisableCompletButtonImage = "RoomDisableCompletButtonImage"
