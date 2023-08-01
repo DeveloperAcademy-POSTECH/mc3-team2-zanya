@@ -27,6 +27,7 @@ struct RoomView: View {
     @State private var isItemEffect = false
     @State private var catHandIndex = 0
     @State private var touchCount = 0
+    @State private var showShare: Bool = false
     
     //MARK: - 2. BODY
     var body: some View {
@@ -53,6 +54,16 @@ struct RoomView: View {
                 viewModel.subscribeToNotifications_Cat()
                 viewModel.subscribeToNotifications_Pig()
             }
+            .sheet(
+                isPresented: $showShare,
+                onDismiss: {
+                    showShare = false
+                    print("\(showShare) onDismiss") },
+                content: {
+                    ActivityView(text: viewModel.preFix + viewModel.roomInfo.name)
+                        .presentationDetents([.medium, .large])
+                }
+            )// Sheet
     }
 }
 
@@ -61,7 +72,7 @@ struct RoomView: View {
 //MARK: -3. PREVIEW
 struct RoomView_Preview: PreviewProvider {
     static var previews: some View {
-        RoomView(viewModel: dummyRoomViewModels[1] )
+        RoomView(viewModel: dummyRoomViewModels[1])
     }
 }
 
@@ -138,34 +149,70 @@ extension RoomView {
             Image(MemberSheet)
                 .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 4)
             
-            HStack(alignment: .center,spacing: 0) {
-                ForEach(0..<viewModel.users.count, id: \.self) { i in
-                    ZStack(alignment: .center){
-                        Image(ProfilePlateOff)
-                        VStack {
-                            //Spacer()
-                            Image("\(viewModel.users[i].imageKey ?? "")_RoomSheet") // TODO: 룸데이터에서 유저 정보 받아와야함
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 48)
-                            // Spacer()
-                            ClearRectangle(width: 0,height: 6)
-                        }
-                        VStack{
-                            Spacer()
-                            Image(nameSheet)
-                        }
-                        VStack{
-                            Spacer()
-                            TextCell(text: viewModel.users[i].name, size: 11, color: Color("AppBrown"))
-                                .padding(.bottom, 4)
-                        }
-                    }.frame(width: 48, height: 60)
-                        .padding(.init(top: 0, leading: 11, bottom: -16.75, trailing: 0))
+            if viewModel.users.count != 6 {
+                HStack(alignment: .center,spacing: 0) {
+                    ForEach(0..<viewModel.users.count, id: \.self) { i in
+                        ZStack(alignment: .center){
+                            Image(ProfilePlateOff)
+                            VStack {
+                                //Spacer()
+                                Image("\(viewModel.users[i].imageKey ?? "")_RoomSheet") // TODO: 룸데이터에서 유저 정보 받아와야함
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 48)
+                                // Spacer()
+                                ClearRectangle(width: 0,height: 6)
+                            }
+                            VStack{
+                                Spacer()
+                                Image(nameSheet)
+                            }
+                            VStack{
+                                Spacer()
+                                TextCell(text: viewModel.users[i].name, size: 11, color: Color("AppBrown"))
+                                    .padding(.bottom, 4)
+                            }
+                        }.frame(width: 48, height: 60)
+                            .padding(.init(top: 0, leading: 11, bottom: -16.75, trailing: 0))
+                    }
+                    Button {
+                        showShare.toggle()
+                    } label: {
+                        Image(InviteFriend)
+                    } .padding(.init(top: 0, leading: 8, bottom: -16.75, trailing: 0))
+
                     
-                }
-                Spacer()
-            } .frame(width: 360, height: 111.5)
+                    Spacer()
+                } .frame(width: 360, height: 111.5)
+            } else {
+                HStack(alignment: .center,spacing: 0) {
+                    ForEach(0..<viewModel.users.count, id: \.self) { i in
+                        ZStack(alignment: .center){
+                            Image(ProfilePlateOff)
+                            VStack {
+                                //Spacer()
+                                Image("\(viewModel.users[i].imageKey ?? "")_RoomSheet") // TODO: 룸데이터에서 유저 정보 받아와야함
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 48)
+                                // Spacer()
+                                ClearRectangle(width: 0,height: 6)
+                            }
+                            VStack{
+                                Spacer()
+                                Image(nameSheet)
+                            }
+                            VStack{
+                                Spacer()
+                                TextCell(text: viewModel.users[i].name, size: 11, color: Color("AppBrown"))
+                                    .padding(.bottom, 4)
+                            }
+                        }.frame(width: 48, height: 60)
+                            .padding(.init(top: 0, leading: 11, bottom: -16.75, trailing: 0))
+                    }
+                    Spacer()
+                } .frame(width: 360, height: 111.5)
+            }
         }.padding(.init(top: 0, leading: 0, bottom: 13, trailing: 0))
     }
     
@@ -183,7 +230,7 @@ extension RoomView {
         let punchElementPage = [TambourinePage, BBoongPage, DJPage]
         let punchElementPage2 = [TambourinePage2, BBoongPage2, DJPage2]
         let Punchelement = [Tambourine, BBoong, DJ]
-        
+       
         return ZStack(alignment: .bottom){
             Image(PunchPage)
                 .padding(.init(top: 0, leading: 0, bottom: -98, trailing: 0))
@@ -268,7 +315,13 @@ extension RoomView {
                     }
                 }.padding(.bottom, 37)
             }.frame(width: 360, height: 360)
-            Image(HandArray[0][catHandIndex])// TODO: - 클라우드에서 프로필 값 받아오기 / 일단 가라로 0 넣어둠
+            //고양이손
+            if catHandIndex == 0 {
+                Image("\(viewModel.users[0].imageKey ?? "")_Hand")}
+            else if catHandIndex == 1 {
+                Image("\(viewModel.users[0].imageKey ?? "")_HandLeft")}
+            else if catHandIndex == 2 {
+                Image("\(viewModel.users[0].imageKey ?? "")_HandRight")}
             
         }
     }
@@ -340,7 +393,7 @@ extension RoomView {
             ZStack{
                 Image(Rectangle33)
                 VStack(spacing: 0){
-                    //TTS BUTTON
+                    //냥소리 TTS BUTTON
                     HStack(spacing: 0){
                         Button {
                             print("clickedTTS1")
@@ -367,13 +420,12 @@ extension RoomView {
                             Image(viewModel.soundType == "TTS4" ? TTS4ButtonImage : TTS4ButtonImage_disable)
                         }.padding(.trailing, 4)
                         Spacer()
-                    }.padding(.init(top: 0, leading: 15, bottom: 0, trailing: 15))
-                        .padding(.top, keyboardMonitor.isKeyboardUP ? -20 : -10)
-                        .padding(.bottom, keyboardMonitor.isKeyboardUP ? 4 : 14)
+                    }.padding(.init(top: -10, leading: 15, bottom: 14, trailing: 15))
+                    
                     HStack(spacing: 15){
                         ZStack{
                             Image(Rectangle11)
-                            
+                            //냥소리 텍스트필드
                             HStack {
                                 TextField("냥소리를 입력해보세요 :3", text: $viewModel.sendMessage)
                                 Button {
@@ -411,9 +463,9 @@ extension RoomView {
                             }
                         }
                     }
-                    .padding(.bottom, keyboardMonitor.isKeyboardUP ? 20 : 0)
+                    .padding(.bottom, 0)
                 }
-            } .offset(y: keyboardMonitor.keyboardHeight * -0.84)
+            } .offset(y: keyboardMonitor.keyboardHeight * -0.99)
         }
     }
     

@@ -20,6 +20,10 @@ class RoomViewModel: ObservableObject {
     @Published var sendMessage: String = ""
     @Published var soundType: String = "TTS1"
     
+    //룸시트 초대하기 버튼
+    let preFix: String = "zanya-invite:://"
+    
+    
     //구독 아이디
     let subscriptionID_Cat = "notification_Cat"
     let subscriptionID_Dog = "notification_Dog"
