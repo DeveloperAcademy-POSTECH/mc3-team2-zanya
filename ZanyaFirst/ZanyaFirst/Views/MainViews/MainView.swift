@@ -27,6 +27,8 @@ struct MainView: View {
     //var rooms : [RoomViewModel] = dummyRoomViewModels//TODO: 프리뷰 용임 //올리기 전에 지워야함
     
     
+    
+    
     //MARK: - 2. BODY
     var body: some View {
         NavigationView {
@@ -147,11 +149,27 @@ extension MainView {
             ScrollView(showsIndicators: false) {
                 ForEach(viewModel.rooms, id: \.self) { room in
                     NavigationLink{
-                        RoomView(viewModel: RoomViewModel(allUsers: viewModel.allUsers, users: [viewModel.profile], roomInfo: room))
+                        if viewModel.timeComponets.hour! == Calendar.current.dateComponents([.hour,.minute], from: room.time).hour! && viewModel.timeComponets.minute! == Calendar.current.dateComponents([.hour,.minute], from: room.time).minute!{
+                            RoomView(viewModel: RoomViewModel(allUsers: viewModel.allUsers, users: [viewModel.profile], roomInfo: room))
+                        } else {
+                            Text("시간이 안됐엉")
+                                .onAppear{
+                                    print("현재시간: \(viewModel.timeComponets.hour)시 \(viewModel.timeComponets.minute)분")
+                                    print("방의시간: \(Calendar.current.dateComponents([.hour,.minute], from: room.time).hour)시 \(Calendar.current.dateComponents([.hour,.minute], from: room.time).minute)분")
+                                    
+                                }
+                        }
+                        
+                        
                     } label: {
                         //TODO: isOnTime 로직 구현해야함
-                        RoomCell(viewModel: RoomCellViewModel(isOnTime: true, room: room) ,UID: viewModel.profile.UID)
-                            .environmentObject(alertObject)
+                        if viewModel.nowIsOnTime(room: room) {
+                            RoomCell(viewModel: RoomCellViewModel(isOnTime: true, room: room) ,UID: viewModel.profile.UID)
+                                .environmentObject(alertObject)
+                        }else {
+                            RoomCell(viewModel: RoomCellViewModel(isOnTime: false, room: room) ,UID: viewModel.profile.UID)
+                                .environmentObject(alertObject)
+                        }
                     }// label
                 }// ForEach
             }// ScrollView
