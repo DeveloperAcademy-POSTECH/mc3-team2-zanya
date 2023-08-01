@@ -53,7 +53,7 @@ struct RoomCell: View {
     
     var leftView: some View {
         VStack(alignment: .leading, spacing: 0) {
-            StrokedTextCellLeading(text: viewModel.title, size: 19,
+            StrokedTextCellLeading(text: viewModel.title, size: 21,
                                    color: viewModel.isOnTime ? .white : Color(AppLavender),
                                    strokeColor: viewModel.isOnTime ? AppWine : Apppurple)
             Spacer()
@@ -62,9 +62,9 @@ struct RoomCell: View {
             StrokedTimeCell(text: "11:00", size: 40,
                             color: viewModel.isOnTime ? Color(AppWine) : Color(Apppurple),
                             strokeColor: AppWhite)
-            .offset(x:-87,y:0)
+            .offset(x:-88,y:0)
         }
-        .padding(EdgeInsets(top: 22, leading: 22, bottom: 24, trailing: 0))
+        .padding(EdgeInsets(top: 22, leading: 20, bottom: 22, trailing: 0))
     }
     
     var rightView: some View {
@@ -80,7 +80,7 @@ struct RoomCell: View {
             roomInviteButton
                 .padding(.leading, 182)
         }
-        .padding(EdgeInsets(top: 22, leading: 0, bottom: 24, trailing: 22))
+        .padding(EdgeInsets(top: 22, leading: 0, bottom: 22, trailing: 22))
     }
     
     var roomCellSheet: some View {
@@ -104,6 +104,9 @@ struct RoomCell: View {
 //        }
 //        .border(.red)
         Image(viewModel.isOnTime ? RoomBoxOutPink : RoomBoxOutBlue)
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 23)
     }
     
     var roomInviteButton: some View {
@@ -117,7 +120,10 @@ struct RoomCell: View {
                     .aspectRatio(contentMode: .fit)
                 HStack(spacing: 5){
                     Image(viewModel.isOnTime ? InviteTextPink : InviteTextBlue)
-                    TextCell(text: "\(viewModel.userCount)/6", size: 12, color: .white, weight: "Regular")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 14)
+                    TextCell(text: "\(viewModel.userCount)/6", size: 14, color: .white, weight: "Regular")
                 }
             }
         }
