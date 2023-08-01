@@ -23,6 +23,7 @@ extension Color {
     static let AppNavy = Color("AppNavy")
     static let Apppurple = Color("Apppurple")
     static let AppRed = Color("AppRed")
+    static let AppTextFieldGray = Color("AppTextFieldGray")
     static let AppWine = Color("AppWine")
     static let AppWineAlertText = Color("AppWineAlertText")
     static let AppWhite = Color("AppWhite")

@@ -100,13 +100,16 @@ extension CreateRoomView {
     }
     
     private var CreateRoomTextField: some View {
-        ZStack{
+        ZStack(alignment: .center){
             Image(CreateTitleSheet)
-            TextField("방 이름을 정해주세요", text: $viewModel.roomName )
+            TextField("방 이름을 정해주세요",
+                      text: $viewModel.roomName,
+                      prompt: Text("방 제목을 정해주세요 :3").font(Font.custom("LINE Seed Sans KR Regular", size: 18)).foregroundColor(.AppTextFieldGray))
                 .padding()
-                .padding(.top, 25)
-        }.frame(width: 297)
-            .padding(.init(top: keyboardMonitor.isKeyboardUP ? 120 : 179, leading: 0, bottom: 24, trailing: 0))
+                .padding(.top, 22)
+        }
+        .frame(width: 297)
+        .padding(.init(top: keyboardMonitor.isKeyboardUP ? 120 : 179, leading: 0, bottom: 24, trailing: 0))
     }
     
     //MARK: 이거 색깔 어케바꾸지;;;
@@ -119,10 +122,11 @@ extension CreateRoomView {
                     .datePickerStyle(WheelDatePickerStyle())
                     .colorInvert()
                     .colorMultiply(Color(AppWine))
-            }.frame(width: 198.5)
-                .padding(.trailing, 8)
-                .padding(.top, 15)
-                .foregroundColor(.FontRed)
+            }
+            .frame(width: 198.5)
+            .padding(.trailing, 8)
+            .padding(.top, 15)
+            .foregroundColor(.FontRed)
         }
     }
     
