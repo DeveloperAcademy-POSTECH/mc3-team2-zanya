@@ -31,26 +31,35 @@ struct RoomView: View {
     @State private var touchCount = 0
     @State private var showShare: Bool = false
     
+    @GestureState private var isDetectingContinuousPress = false
     
     //MARK: - 2. BODY
     var body: some View {
-        ZStack {
-            Group {
-                backgroundPage
-                VStack(spacing: 0){
-                    toolBar
-                    Spacer()
-                    bottomTab
+        GeometryReader { geo in
+            ZStack {
+                Group {
+                    backgroundPage
+                    VStack(spacing: 0){
+                        toolBar
+                        Spacer()
+                        bottomTab
+                    }
+                    HiddenTapButton
+                    memberSheet
+                        .padding(.bottom, 140)
+                    if isDetectingContinuousPress {
+                      Image("tutorial")
+                          .resizable()
+                          .scaledToFit()
+                    } else {
+
+                    }
                 }
-                HiddenTapButton
-                //            InviteTutorial_Cheese()
-                //            TutorialView_Cheese()
-                memberSheet
-                    .padding(.bottom, 140)
+                .blur(radius: viewModel.timeRemaining == 0 ? 7.5 : 0, opaque: false)
+              
+                timeOver
             }
-            .blur(radius: viewModel.timeRemaining == 0 ? 7.5 : 0, opaque: false)
-            
-            timeOver
+
         }
         .navigationBarBackButtonHidden()
         .ignoresSafeArea()
@@ -63,7 +72,7 @@ struct RoomView: View {
                     isFirst.toggle()
                 }
             }
-            
+          
             viewModel.requestNotificationPermission()
             viewModel.subscribeToNotifications_Dog()
             viewModel.subscribeToNotifications_Cat()
@@ -75,7 +84,7 @@ struct RoomView: View {
                 showShare = false
                 print("\(showShare) onDismiss") },
             content: {
-                ActivityView(text: viewModel.preFix + viewModel.roomInfo.name)
+                ActivityView(text: viewModel.preFix + (viewModel.roomInfo.record?.recordID.recordName ?? ""))
                     .presentationDetents([.medium, .large])
             }
         )// Sheet
@@ -178,7 +187,7 @@ extension RoomView {
             } label: {
                 Image(QuestionButton)
                     .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 4)
-            }
+            }.simultaneousGesture(continuousPress)
         }
         .padding(.init(top: 53, leading: 15, bottom: 0, trailing: 15))
         .frame(maxWidth: screenWidth)
@@ -244,7 +253,7 @@ extension RoomView {
                             }
                             VStack{
                                 Spacer()
-                                Image(nameSheet)
+                                Image(i == 0 ? nameSheetMe : nameSheet)
                             }
                             VStack{
                                 Spacer()
@@ -593,6 +602,27 @@ extension RoomView {
             ArrayNum = 0
         } else {
             ArrayNum += 1 }
+    }
+    
+    var continuousPress: some Gesture {
+        LongPressGesture(minimumDuration: 0.1)
+            .sequenced(before: DragGesture(minimumDistance: 0, coordinateSpace: .local))
+            .updating($isDetectingContinuousPress) { value, gestureState, _ in
+                switch value {
+                case .second(true, nil):
+                    gestureState = true
+                    print("updating: Second")
+                default:
+                    break
+                }
+            }.onEnded { value in
+                switch value {
+                case .second(_, _):
+                    print("onended: Second")
+                default:
+                    break
+                }
+            }
     }
 }
 

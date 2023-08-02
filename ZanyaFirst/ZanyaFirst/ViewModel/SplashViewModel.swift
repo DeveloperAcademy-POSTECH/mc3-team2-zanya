@@ -190,15 +190,15 @@ class SplashViewModel: ObservableObject {
         }
     }
     
-    func addRoom(roomName:String) {
+    func addRoom(roomRecord: String) {
         var arrayOfUIDs: [String] = []
         let rooms: [Room] = self.rooms
         var room = CKRecord(recordType: "Room")
         
         for tmp in rooms {
-            print("방 이름 ~ \(tmp.name)")
-            if tmp.name == roomName {
-                room = tmp.record!
+            print("방 레코드 ~ \(tmp.record?.recordID.recordName ?? "nil")")
+            if tmp.record?.recordID.recordName == roomRecord {
+                room = tmp.record ?? CKRecord(recordType: "Room")
                 arrayOfUIDs.append(contentsOf: tmp.UIDs)
                 break
             }

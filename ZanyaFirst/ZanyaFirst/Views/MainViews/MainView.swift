@@ -151,14 +151,7 @@ extension MainView {
                             RoomView(viewModel: RoomViewModel(allUsers: viewModel.allUsers, users: [viewModel.profile], roomInfo: room))
 //                            , timeRemaining: Int(180-Date().timeIntervalSince(room.time))
                         } else {
-                            Text("시간이 안됐엉")
-                                .onAppear{
-                                    print("현재시간: \(viewModel.timeComponets.hour)시 \(viewModel.timeComponets.minute)분 \(viewModel.timeComponets.second)초")
-                                    
-                                    
-                                    print("방의시간: \(Calendar.current.dateComponents([.hour,.minute], from: room.time).hour)시 \(Calendar.current.dateComponents([.hour,.minute], from: room.time).minute)분")
-                                    
-                                }
+                            RoomDisableView(viewModel: RoomDisableViewModel(room: room))
                         }
                         
                         
