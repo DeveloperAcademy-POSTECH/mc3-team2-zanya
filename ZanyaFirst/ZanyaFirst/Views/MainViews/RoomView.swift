@@ -41,11 +41,11 @@ struct RoomView: View {
                 VStack(spacing: 0){
                     toolBar
                     Spacer()
-                    memberSheet
                     bottomTab
                 }
                 HiddenTapButton
-                
+                memberSheet
+                    .padding(.bottom, 140)
                 if isDetectingContinuousPress {
                     Image("tutorial")
                         .resizable()
@@ -54,14 +54,7 @@ struct RoomView: View {
 
                 }
             }
-            HiddenTapButton
-//            InviteTutorial_Cheese()
-//            TutorialView_Cheese()
-            memberSheet
-                .padding(.bottom, 140)
-//                .border(.red)
-                
-            //                TutorialView()
+
         }
         .navigationBarBackButtonHidden()
         .ignoresSafeArea()
