@@ -16,7 +16,7 @@ struct RoomView: View {
     @State var ArrayNum : Int = 0
     @State var PunchMessageToggle: Bool = true
     @State var tapIndexNum : Int = 0
-    
+
     @Environment(\.dismiss) private var dismiss
     
     @AppStorage("isFirst") var isFirst: Bool = UserDefaults.standard.bool(forKey: "isFirst")
@@ -31,24 +31,26 @@ struct RoomView: View {
     @State private var touchCount = 0
     @State private var showShare: Bool = false
     
+    
     //MARK: - 2. BODY
     var body: some View {
         ZStack {
-            backgroundPage
-            VStack(spacing: 0){
-                toolBar
-                Spacer()
-                bottomTab
-                    .border(.red)
+            Group {
+                backgroundPage
+                VStack(spacing: 0){
+                    toolBar
+                    Spacer()
+                    bottomTab
+                }
+                HiddenTapButton
+                //            InviteTutorial_Cheese()
+                //            TutorialView_Cheese()
+                memberSheet
+                    .padding(.bottom, 140)
             }
-            HiddenTapButton
-//            InviteTutorial_Cheese()
-//            TutorialView_Cheese()
-            memberSheet
-                .padding(.bottom, 140)
-//                .border(.red)
-                
-            //                TutorialView()
+            .blur(radius: viewModel.timeRemaining == 0 ? 7.5 : 0, opaque: false)
+            
+            timeOver
         }
         .navigationBarBackButtonHidden()
         .ignoresSafeArea()
@@ -60,11 +62,12 @@ struct RoomView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     isFirst.toggle()
                 }
-                viewModel.requestNotificationPermission()
-                viewModel.subscribeToNotifications_Dog()
-                viewModel.subscribeToNotifications_Cat()
-                viewModel.subscribeToNotifications_Pig()
             }
+            
+            viewModel.requestNotificationPermission()
+            viewModel.subscribeToNotifications_Dog()
+            viewModel.subscribeToNotifications_Cat()
+            viewModel.subscribeToNotifications_Pig()
         }
         .sheet(
             isPresented: $showShare,
@@ -84,6 +87,7 @@ struct RoomView: View {
 struct RoomView_Preview: PreviewProvider {
     static var previews: some View {
         RoomView(viewModel: RoomViewModel(allUsers: dummyProfiles, users: dummyProfiles, roomInfo: dummyRoom))
+//        , timeRemaining: Int(Date().timeIntervalSince(dummyRoom.time))
     }
 }
 
@@ -93,10 +97,9 @@ extension RoomView {
     
     private var backgroundPage: some View {
         ZStack(alignment: .topLeading){
-            
             //배경화면
             Image(BackgroundSheet)
-            
+
             //배경 서있는 고양이 이미지
             Image("\(viewModel.users[0].imageKey ?? "")_Standing") // 이미지 사이즈 확인을 위한 테스트용 이미지
                 .resizable()
@@ -105,37 +108,47 @@ extension RoomView {
                 .padding(.init(top: 148, leading: 156.84, bottom: 0, trailing: 0))
             
             //펀치페이지 말풍선
-//            if !isFirst {
-//                //앱 설치 후 최초 방 진입 시 1번만 노출
+            //            if !isFirst {
+            //                //앱 설치 후 최초 방 진입 시 1번만 노출
+            //                ZStack{
+            //                    Image(MessageDialogSheet)
+            //                        .shadow(color: .black.opacity(0.2), radius: 3.18533, x: 0, y: 4.24711)
+            //                }
+            //                .padding(.init(top: 112, leading: 13, bottom: 0, trailing: 0))
+            //            } else
+            
+            ZStack(alignment: .center) {
+                Image(PunchDialogSheet)
+                    .shadow(color: .black.opacity(0.2), radius: 3.18533, x: 0, y: 4.24711)
+                VStack(spacing: 0){
+                    Text(viewModel.convertSecondsToTime(timeInSeconds: viewModel.timeRemaining))
+                        .font(Font.custom("LINE Seed Sans KR Bold", size: 30))
+                        .foregroundColor(viewModel.timeRemaining < 60 ? .AppRed : .AppGreen)
+                        .onReceive(viewModel.timer) { _ in
+                            if viewModel.timeRemaining > 0 {
+                                viewModel.timeRemaining -= 1
+                            } else {
+                                print("time's up")
+                                viewModel.timer.upstream.connect().cancel()
+                            }
+                            print(viewModel.timeRemaining)
+                        }
+                    Image(itsempty)
+                }
+                .padding(.bottom, 16)
+            }
+            .padding(.init(top: 104.96, leading: 13, bottom: 0, trailing: 0))
+            
+//            if PunchMessageToggle == true {
+//
+//            } else {
+//                //메세지 페이지 말풍선
 //                ZStack{
-//                    Image(MessageDialogSheet)
+//                    Image(MessageDialogTutorial_2)
 //                        .shadow(color: .black.opacity(0.2), radius: 3.18533, x: 0, y: 4.24711)
 //                }
 //                .padding(.init(top: 112, leading: 13, bottom: 0, trailing: 0))
-//            } else
-            
-            if PunchMessageToggle == true {
-                ZStack(alignment: .topLeading){
-                    Image(PunchDialogSheet)
-                        .shadow(color: .black.opacity(0.2), radius: 3.18533, x: 0, y: 4.24711)
-                    VStack(spacing: 5){
-                        //TODO: 시간모델 받아와야 함
-                        TextCell(text: "99초" , size: 30, color: Color("AppRed"))//TODO: 시간모델 받아와야 함
-                            .padding(.top, -4.5)
-                        Image(itsempty)
-                            .padding(.top, -6)
-                    }
-                    .padding(.init(top: 41.04, leading: 62, bottom: 0, trailing: 0))
-                }
-                .padding(.init(top: 104.96, leading: 13, bottom: 0, trailing: 0))
-            } else {
-                //메세지 페이지 말풍선
-                ZStack{
-                    Image(MessageDialogSheet)
-                        .shadow(color: .black.opacity(0.2), radius: 3.18533, x: 0, y: 4.24711)
-                }
-                .padding(.init(top: 112, leading: 13, bottom: 0, trailing: 0))
-            }
+//            }
         }
     }
     
@@ -258,15 +271,16 @@ extension RoomView {
         }
     }
     
-    private var punchPage: some View {
+    var punchPage: some View {
         let SoundList = [Sounds.catcat, Sounds.pigpig, Sounds.dogdog]
         let punchElementPage = [TambourinePage, BBoongPage, DJPage]
         let punchElementPage2 = [TambourinePage2, BBoongPage2, DJPage2]
         let Punchelement = [Tambourine, BBoong, DJ]
         
-        return ZStack(alignment: .bottom){
+        return ZStack(alignment: .bottom) {
             Image(PunchPage)
                 .padding(.init(top: 0, leading: 0, bottom: -101, trailing: 0))
+            
             ZStack(alignment: .center) {
                 TabView{
                     ZStack(alignment: .center){
@@ -354,26 +368,24 @@ extension RoomView {
                 .padding(.bottom, 37)
             }
             .frame(width: 360, height: 360)
+            ///이 스택에 blur를 줘야 View가 안 밀림. blur 모디파이어 사용시, 새 뷰를 그리기 때문에 View가 밀릴 경우 역으로 blur를 줘가며 찾으면 됨.
+            .blur(radius: 0)
             //고양이손
             if catHandIndex == 0 {
                 Image("\(viewModel.users[0].imageKey ?? "")_Hand")
                     .resizable()
                     .scaledToFit()
-            }
-            
-            
-            else if catHandIndex == 1 {
+            } else if catHandIndex == 1 {
                 Image("\(viewModel.users[0].imageKey ?? "")_HandLeft")
                     .resizable()
                     .scaledToFit()
-            }
-            
-            else if catHandIndex == 2 {
+            } else if catHandIndex == 2 {
                 Image("\(viewModel.users[0].imageKey ?? "")_HandRight")
                     .resizable()
                     .scaledToFit()
             }
         }
+//        .blur(radius: 7.5)
     }
     
     private var messagePage: some View {
@@ -448,11 +460,11 @@ extension RoomView {
             
             ZStack {
                 Image(Rectangle33)
-              
+                
                 VStack(spacing: 0){
                     //냥소리 TTS BUTTON
                     HStack(spacing: 0){
-                      
+                        
                         Button {
                             print("clickedTTS1")
                             viewModel.soundType = "TTS1"
@@ -487,8 +499,8 @@ extension RoomView {
                         
                         Spacer()
                     }
-                    .padding(.init(top: -10, leading: 15, bottom: 14, trailing: 15))   
-                  
+                    .padding(.init(top: -10, leading: 15, bottom: 14, trailing: 15))
+                    
                     HStack(spacing: 15){
                         ZStack{
                             Image(Rectangle11)
@@ -533,7 +545,7 @@ extension RoomView {
                     }
                     .padding(.bottom, 0)
                 }
-            } 
+            }
             .offset(y: keyboardMonitor.keyboardHeight * -0.99)
         }
     }
@@ -556,6 +568,24 @@ extension RoomView {
         .offset(y: 20)
         .foregroundColor(.clear)
         .padding(0)
+    }
+    
+    private var timeOver: some View {
+        ZStack {
+            Rectangle().fill(.white.opacity(0.5))
+            Image(TimeOverLogo)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+            Button {
+                print("강조되고 반복되는 소리는 비누를 불안하게 해요.")
+                dismiss()
+            } label: {
+                Image(TimeOverButton)
+            }
+            .padding(.top, 703)
+
+        }
+        .opacity(viewModel.timeRemaining == 0 ? 1 : 0)
     }
     
     func tapElement() {

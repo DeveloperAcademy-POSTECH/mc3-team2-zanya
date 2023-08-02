@@ -20,7 +20,7 @@ class CreateRoomViewModel: ObservableObject {
                 room["name"] = roomName
                 room["time"] = time
                 room["uids"] = [uid.recordName]
-                print(time)
+                print("생성시간 \(time)")
                 self?.saveItem(record: room)
             }
         }

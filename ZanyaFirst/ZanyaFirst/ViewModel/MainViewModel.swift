@@ -22,7 +22,7 @@ class MainViewModel: UpdateProfileViewModelDelegate, ObservableObject {
     @Published var task: Int = 0
     
     
-    var timeComponets = Calendar.current.dateComponents([.hour,.minute], from: Date())
+    var timeComponets = Calendar.current.dateComponents([.hour, .minute, .second], from: Date())
     var isOnTime: Bool = false
     
     init(profile: Profile) {
@@ -36,7 +36,6 @@ class MainViewModel: UpdateProfileViewModelDelegate, ObservableObject {
             self.initTimeComponents()
         }
     }
-
     func nowIsOnTime(room: Room) -> Bool {
         if timeComponets.hour! == Calendar.current.dateComponents([.hour,.minute], from: room.time).hour! && timeComponets.minute! == Calendar.current.dateComponents([.hour,.minute], from: room.time).minute!{
             self.isOnTime = true
@@ -45,9 +44,10 @@ class MainViewModel: UpdateProfileViewModelDelegate, ObservableObject {
         }
         return self.isOnTime
     }
+    
     func initTimeComponents() {
-        self.timeComponets = Calendar.current.dateComponents([.hour,.minute], from: Date())
-        print("현재시간: \(timeComponets.hour)시 \(timeComponets.minute)분")
+        self.timeComponets = Calendar.current.dateComponents([.hour,.minute,.second], from: Date())
+        print("현재시간: \(timeComponets.hour)시 \(timeComponets.minute)분 \(timeComponets.second)초\n\(timeComponets)")
     }
     
     func clickedUpdateProfileButton() {
