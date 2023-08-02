@@ -55,11 +55,11 @@ struct RoomView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     isFirst.toggle()
                 }
-                viewModel.requestNotificationPermission()
-                viewModel.subscribeToNotifications_Dog()
-                viewModel.subscribeToNotifications_Cat()
-                viewModel.subscribeToNotifications_Pig()
             }
+            viewModel.requestNotificationPermission()
+            viewModel.subscribeToNotifications_Dog()
+            viewModel.subscribeToNotifications_Cat()
+            viewModel.subscribeToNotifications_Pig()
         }
         .sheet(
             isPresented: $showShare,
