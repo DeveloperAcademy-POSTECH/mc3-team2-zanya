@@ -144,7 +144,7 @@ struct RoomCell: View {
                 showShare = false
                 print("\(showShare) onDismiss") },
             content: {
-                ActivityView(text: viewModel.preFix + viewModel.title.replacingOccurrences(of: " ", with: "_"))
+                ActivityView(text: viewModel.preFix + (viewModel.room.record?.recordID.recordName ?? ""))
                     .presentationDetents([.medium, .large])
             }
         )// Sheet

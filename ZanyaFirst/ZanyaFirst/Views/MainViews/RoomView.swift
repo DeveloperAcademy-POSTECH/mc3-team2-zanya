@@ -67,7 +67,7 @@ struct RoomView: View {
                 showShare = false
                 print("\(showShare) onDismiss") },
             content: {
-                ActivityView(text: viewModel.preFix + viewModel.roomInfo.name)
+                ActivityView(text: viewModel.preFix + (viewModel.roomInfo.record?.recordID.recordName ?? ""))
                     .presentationDetents([.medium, .large])
             }
         )// Sheet   
