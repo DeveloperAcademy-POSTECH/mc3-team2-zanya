@@ -43,7 +43,8 @@ let dummyRoom = Room(name: "일어날래, 나랑 살래?", UIDs: [dummyProfile0.
 //MARK: -ROOM DUMMY
 //MARK: -ROOMS DUMMY
 
-//let dummyRoom0 = Room(name: "일어날래 나랑살래", UIDs: ["UID = 0","UID = 1","UID = 2","UID = 3","UID = 4","UID = 5"], record: CKRecord(recordType : "Room"))
+let dummyRoom0 = Room(name: "일어날래 나랑살래", UIDs: ["UID = 0","UID = 1","UID = 2","UID = 3","UID = 4","UID = 5"], record: CKRecord(recordType : "Room"), time: Date())
+
 //let dummyRoom1 = Room(name: "멍멍멍", UIDs: ["UID = 0","UID = 1","UID = 2"], record: CKRecord(recordType : "Room"))
 //let dummyRoom2 = Room(name: "야옹야옹", UIDs: ["UID = 3","UID = 4","UID = 5"], record: CKRecord(recordType : "Room"))
 //
@@ -53,7 +54,7 @@ let dummyRoom = Room(name: "일어날래, 나랑 살래?", UIDs: [dummyProfile0.
 //                           RoomViewModel(allUsers: [dummyProfile0,dummyProfile1,dummyProfile2,dummyProfile3,dummyProfile4,dummyProfile5], users: [dummyProfile1,dummyProfile4,dummyProfile5], roomInfo: Room(name: "야옹야옹", UIDs: ["UID = 3","UID = 4","UID = 5"], record: CKRecord(recordType : "Room")))
 //]
 //
-//let dummyRoomCellViewModel = RoomCellViewModel(isOnTime: true, room: dummyRoom0)
+let dummyRoomCellViewModel = RoomCellViewModel(isOnTime: true, room: dummyRoom0)
 
 //MARK: -NyangSound
 struct NyangSound: Hashable {

@@ -54,7 +54,6 @@
 		1153CA5D2A76B04600CA8D11 /* RoomCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1153CA5C2A76B04600CA8D11 /* RoomCellViewModel.swift */; };
 		11785B7A2A73A38E00BBCDEC /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11785B792A73A38E00BBCDEC /* CustomAlertView.swift */; };
 		11D74ADE2A79710D005CC3BC /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D74ADD2A79710D005CC3BC /* TutorialView.swift */; };
-		6F99B5BF2A7A3BFF005A1F34 /* catcat.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F99B5BE2A7A3BFF005A1F34 /* catcat.mp3 */; };
 		6FDEDA712A7914F900017EA7 /* RoomDisableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDEDA702A7914F900017EA7 /* RoomDisableViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -109,7 +108,6 @@
 		1153CA5C2A76B04600CA8D11 /* RoomCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCellViewModel.swift; sourceTree = "<group>"; };
 		11785B792A73A38E00BBCDEC /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		11D74ADD2A79710D005CC3BC /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
-		6F99B5BE2A7A3BFF005A1F34 /* catcat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = catcat.mp3; path = "../../../../../../../Downloads/sound effect/catcat.mp3"; sourceTree = "<group>"; };
 		6FDEDA702A7914F900017EA7 /* RoomDisableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomDisableViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -276,7 +274,6 @@
 		07B4556F2A667DC900EB9801 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				6F99B5BE2A7A3BFF005A1F34 /* catcat.mp3 */,
 				07AB0CDC2A7A1DEF004B7171 /* dogdog.mp3 */,
 				07AB0CDD2A7A1DEF004B7171 /* pigpig.mp3 */,
 				07B455702A667DE100EB9801 /* PlaySound.swift */,
@@ -370,7 +367,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				07B3E3072A671F820080860A /* LINESeedKR-Th.ttf in Resources */,
-				6F99B5BF2A7A3BFF005A1F34 /* catcat.mp3 in Resources */,
 				07B3E3092A671F820080860A /* LINESeedKR-Rg.ttf in Resources */,
 				07AB0CE02A7A1DEF004B7171 /* pigpig.mp3 in Resources */,
 				07B3E3082A671F820080860A /* LINESeedKR-Bd.ttf in Resources */,
