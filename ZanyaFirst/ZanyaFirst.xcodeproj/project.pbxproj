@@ -53,6 +53,7 @@
 		1153CA5B2A76A67800CA8D11 /* CustomAlertObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1153CA5A2A76A67800CA8D11 /* CustomAlertObservableObject.swift */; };
 		1153CA5D2A76B04600CA8D11 /* RoomCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1153CA5C2A76B04600CA8D11 /* RoomCellViewModel.swift */; };
 		11785B7A2A73A38E00BBCDEC /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11785B792A73A38E00BBCDEC /* CustomAlertView.swift */; };
+		6FDEDA712A7914F900017EA7 /* RoomDisableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDEDA702A7914F900017EA7 /* RoomDisableViewModel.swift */; };
 		11D74ADE2A79710D005CC3BC /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D74ADD2A79710D005CC3BC /* TutorialView.swift */; };
 /* End PBXBuildFile section */
 
@@ -106,6 +107,7 @@
 		1153CA5A2A76A67800CA8D11 /* CustomAlertObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertObservableObject.swift; sourceTree = "<group>"; };
 		1153CA5C2A76B04600CA8D11 /* RoomCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCellViewModel.swift; sourceTree = "<group>"; };
 		11785B792A73A38E00BBCDEC /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
+		6FDEDA702A7914F900017EA7 /* RoomDisableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomDisableViewModel.swift; sourceTree = "<group>"; };
 		11D74ADD2A79710D005CC3BC /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -244,6 +246,7 @@
 				113018CE2A6807AA00DAD625 /* SetProfileViewModel.swift */,
 				113018D02A68496600DAD625 /* SplashViewModel.swift */,
 				1153CA5C2A76B04600CA8D11 /* RoomCellViewModel.swift */,
+				6FDEDA702A7914F900017EA7 /* RoomDisableViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -401,6 +404,7 @@
 				1153CA5B2A76A67800CA8D11 /* CustomAlertObservableObject.swift in Sources */,
 				07B3E2FD2A6680870080860A /* ContentView.swift in Sources */,
 				07B4554C2A6679C800EB9801 /* MainView.swift in Sources */,
+				6FDEDA712A7914F900017EA7 /* RoomDisableViewModel.swift in Sources */,
 				07B455662A667D0300EB9801 /* RoomViewModel.swift in Sources */,
 				113018D12A68496600DAD625 /* SplashViewModel.swift in Sources */,
 				07DA7BD02A70B5AF000218A4 /* LaunchScreen.swift in Sources */,

@@ -40,9 +40,9 @@ struct OnBoardingView: View {
     
             }
             .onOpenURL { url in
-                let roomName = viewModel.parseURL(url: url)
-                print("roomURL: \(roomName)")
-                viewModel.addRoom(roomName: roomName)
+                let roomRecord = viewModel.parseURL(url: url)
+                print("roomURL: \(roomRecord)")
+                viewModel.addRoom(roomRecord: roomRecord)
             }
         }// NavigationView
     }// bodyㅐ
