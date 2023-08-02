@@ -13,7 +13,6 @@
 		075B7FBF2A6E47B30071A856 /* StrokedTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075B7FBE2A6E47B30071A856 /* StrokedTimeCell.swift */; };
 		0765D9E92A76529E00C6B00C /* KeyboardMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0765D9E82A76529E00C6B00C /* KeyboardMonitor.swift */; };
 		07AB0CD92A7A1CD7004B7171 /* bounce.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 07AB0CD52A7A1CD7004B7171 /* bounce.mp3 */; };
-		07AB0CDE2A7A1DEF004B7171 /* catcat.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 07AB0CDB2A7A1DEF004B7171 /* catcat.mp3 */; };
 		07AB0CDF2A7A1DEF004B7171 /* dogdog.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 07AB0CDC2A7A1DEF004B7171 /* dogdog.mp3 */; };
 		07AB0CE02A7A1DEF004B7171 /* pigpig.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 07AB0CDD2A7A1DEF004B7171 /* pigpig.mp3 */; };
 		07B3E2FD2A6680870080860A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3E2FC2A6680870080860A /* ContentView.swift */; };
@@ -54,8 +53,9 @@
 		1153CA5B2A76A67800CA8D11 /* CustomAlertObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1153CA5A2A76A67800CA8D11 /* CustomAlertObservableObject.swift */; };
 		1153CA5D2A76B04600CA8D11 /* RoomCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1153CA5C2A76B04600CA8D11 /* RoomCellViewModel.swift */; };
 		11785B7A2A73A38E00BBCDEC /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11785B792A73A38E00BBCDEC /* CustomAlertView.swift */; };
-		6FDEDA712A7914F900017EA7 /* RoomDisableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDEDA702A7914F900017EA7 /* RoomDisableViewModel.swift */; };
 		11D74ADE2A79710D005CC3BC /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D74ADD2A79710D005CC3BC /* TutorialView.swift */; };
+		6F99B5BF2A7A3BFF005A1F34 /* catcat.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F99B5BE2A7A3BFF005A1F34 /* catcat.mp3 */; };
+		6FDEDA712A7914F900017EA7 /* RoomDisableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDEDA702A7914F900017EA7 /* RoomDisableViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,7 +65,6 @@
 		075B7FBE2A6E47B30071A856 /* StrokedTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokedTimeCell.swift; sourceTree = "<group>"; };
 		0765D9E82A76529E00C6B00C /* KeyboardMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardMonitor.swift; sourceTree = "<group>"; };
 		07AB0CD52A7A1CD7004B7171 /* bounce.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bounce.mp3; sourceTree = "<group>"; };
-		07AB0CDB2A7A1DEF004B7171 /* catcat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = catcat.mp3; sourceTree = "<group>"; };
 		07AB0CDC2A7A1DEF004B7171 /* dogdog.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = dogdog.mp3; sourceTree = "<group>"; };
 		07AB0CDD2A7A1DEF004B7171 /* pigpig.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = pigpig.mp3; sourceTree = "<group>"; };
 		07B3E2FC2A6680870080860A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -109,8 +108,9 @@
 		1153CA5A2A76A67800CA8D11 /* CustomAlertObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertObservableObject.swift; sourceTree = "<group>"; };
 		1153CA5C2A76B04600CA8D11 /* RoomCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCellViewModel.swift; sourceTree = "<group>"; };
 		11785B792A73A38E00BBCDEC /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
-		6FDEDA702A7914F900017EA7 /* RoomDisableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomDisableViewModel.swift; sourceTree = "<group>"; };
 		11D74ADD2A79710D005CC3BC /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
+		6F99B5BE2A7A3BFF005A1F34 /* catcat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = catcat.mp3; path = "../../../../../../../Downloads/sound effect/catcat.mp3"; sourceTree = "<group>"; };
+		6FDEDA702A7914F900017EA7 /* RoomDisableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomDisableViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,7 +276,7 @@
 		07B4556F2A667DC900EB9801 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				07AB0CDB2A7A1DEF004B7171 /* catcat.mp3 */,
+				6F99B5BE2A7A3BFF005A1F34 /* catcat.mp3 */,
 				07AB0CDC2A7A1DEF004B7171 /* dogdog.mp3 */,
 				07AB0CDD2A7A1DEF004B7171 /* pigpig.mp3 */,
 				07B455702A667DE100EB9801 /* PlaySound.swift */,
@@ -369,8 +369,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07AB0CDE2A7A1DEF004B7171 /* catcat.mp3 in Resources */,
 				07B3E3072A671F820080860A /* LINESeedKR-Th.ttf in Resources */,
+				6F99B5BF2A7A3BFF005A1F34 /* catcat.mp3 in Resources */,
 				07B3E3092A671F820080860A /* LINESeedKR-Rg.ttf in Resources */,
 				07AB0CE02A7A1DEF004B7171 /* pigpig.mp3 in Resources */,
 				07B3E3082A671F820080860A /* LINESeedKR-Bd.ttf in Resources */,
