@@ -23,18 +23,21 @@ class RoomViewModel: ObservableObject {
     //룸시트 초대하기 버튼
     let preFix: String = "zanya-invite:://"
     
-    
     //구독 아이디
     let subscriptionID_Cat = "notification_Cat"
     let subscriptionID_Dog = "notification_Dog"
     let subscriptionID_Pig = "notification_Pig"
     
+    //타이머
+    @Published var timeRemaining: Int = 0
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+
     
     init(allUsers: [Profile], users: [Profile], roomInfo: Room) {
         self.allUsers = allUsers
         self.users = users
         self.roomInfo = roomInfo
-        
+        self.timeRemaining =  deleteSecFromRoomDate()
 //        requestNotificationPermission()
 //        subscribeToNotifications()
 
@@ -44,6 +47,8 @@ class RoomViewModel: ObservableObject {
         
         print("모든 유저 수 : \(allUsers.count)")
         print("방 인원: \(users.count)")
+        
+//        deleteSecFromRoomDate()
     }
     
     // MARK: - 방 유져 fetch 함수
@@ -121,6 +126,7 @@ class RoomViewModel: ObservableObject {
             }
         }
     }
+    
     func subscribeToNotifications_Pig() {
         let recordType = CKRecord(recordType: "AlarmPig")
         let predicate = NSPredicate(format: "roomRecord = %@", argumentArray: ["\(self.roomInfo.record?.recordID.recordName ?? "")"])
@@ -327,5 +333,53 @@ class RoomViewModel: ObservableObject {
         CKContainer.default().publicCloudDatabase.add(queryOperation)
         
         print("nyangSound fetch!!")
+    }
+    
+    func convertSecondsToTime(timeInSeconds: Int) -> String {
+        let hours = timeInSeconds / 3600
+        let minutes = (timeInSeconds - hours*3600) / 60
+        let seconds = timeInSeconds % 60
+        
+        if timeInSeconds <= 0  {
+            return String("0초")
+        } else if timeInSeconds < 60 {
+            return String(format: "%01i초", seconds)
+        } else if seconds % 60 == 0 && minutes > 0 {
+            return String(format: "%01i분", minutes)
+        } else {
+            return String(format: "%01i분 %01i초", minutes, seconds)
+        }
+    }
+    
+    private func deleteSecFromRoomDate() -> Int {
+        let nowTime = Date()
+        var roomTime = self.roomInfo.time
+        
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: roomTime)
+        var dateComponents = DateComponents()
+        
+        if let year = components.year,
+           let month = components.month,
+           let day = components.day,
+           let hour = components.hour,
+           let minute = components.minute {
+            
+            dateComponents.year = year
+            dateComponents.month = month
+            dateComponents.day = day
+            dateComponents.hour = hour
+            dateComponents.minute = minute
+            dateComponents.second = 00
+    
+//            print("Year: \(year), Month: \(month), Day: \(day), Hour: \(hour), Minute: \(minute)\n\(components)")
+        }
+
+        roomTime = calendar.date(from: dateComponents)!
+        
+        print("현재 시간 \(nowTime)")
+        print("방타임 조정 \(roomTime), \(type(of: roomTime))")
+        
+        return Int(90 - nowTime.timeIntervalSince(roomTime))
     }
 }

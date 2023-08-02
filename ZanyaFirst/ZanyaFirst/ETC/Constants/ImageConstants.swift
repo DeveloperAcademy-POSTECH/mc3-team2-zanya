@@ -139,6 +139,10 @@ let DJPage2 = "DJPage2"
 
 let messageCell = "messageCell"
 
+let TimeOverLogo = "TimeOverLogo"
+let TimeOverButton = "TimeOverButton"
+
+
 //MARK: -SPLASHVIEW
 let SplachStartButton = "SplachStartButton"
 let SplashHand = "SplashHand"

@@ -18,9 +18,10 @@ struct CustomAlertView: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .fill(.black)
-                .opacity(0.3)
+                .fill(.black.opacity(0.3))
+//                .opacity(0.3)
             
+//            Rectangle().fill(.white.opacity(0.5))
             sheet
             
             if let roomName = roomName {
@@ -127,7 +128,7 @@ struct CustomAlertView: View {
 
 //struct CustomAlertView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        CustomAlertView(roomName: "일어날래, 나랑 살래?")
+//        CustomAlertView(roomName: "일어날래, 나랑 살래?", task: $1)
 //            .environmentObject(CustomAlertObject())
 //    }
 //}

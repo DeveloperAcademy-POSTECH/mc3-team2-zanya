@@ -23,6 +23,7 @@ struct MainView: View {
     @State private var profileNumber: Int = 0
     
     let profileArray = ProfileImageArray
+    
     //MARK: 프리뷰하려고 더미룸 데이터 넣고 뿌림
     //var rooms : [RoomViewModel] = dummyRoomViewModels//TODO: 프리뷰 용임 //올리기 전에 지워야함
     
@@ -40,7 +41,7 @@ struct MainView: View {
                     MainPageCreateRoomBtn
                         .zIndex(4)
                 }
-                .blur(radius: alertObject.isClicked ? 12 : 0, opaque: false)
+                .blur(radius: alertObject.isClicked ? 7.5 : 0, opaque: false)
                 
                 CustomAlertView(task: $viewModel.task)
                     .environmentObject(alertObject)
@@ -148,6 +149,7 @@ extension MainView {
                     NavigationLink{
                         if viewModel.timeComponets.hour! == Calendar.current.dateComponents([.hour,.minute], from: room.time).hour! && viewModel.timeComponets.minute! == Calendar.current.dateComponents([.hour,.minute], from: room.time).minute!{
                             RoomView(viewModel: RoomViewModel(allUsers: viewModel.allUsers, users: [viewModel.profile], roomInfo: room))
+//                            , timeRemaining: Int(180-Date().timeIntervalSince(room.time))
                         } else {
                             RoomDisableView(viewModel: RoomDisableViewModel(room: room))
                         }
@@ -198,9 +200,10 @@ extension MainView {
                         Image(outMessageOutButton)
                             .resizable()
                             .frame(width: 138, height: 46.01)
-                    }.padding(.trailing, 8)
-                    
-                }.padding(.bottom,10.37)
+                    }
+                    .padding(.trailing, 8)
+                }
+                .padding(.bottom,10.37)
             }
             .frame(width: 300, height: 166)
         }
@@ -225,7 +228,8 @@ extension MainView {
                         Image(inviteMessageCancelButton)
                             .resizable()
                             .frame(width: 138, height: 46.01)
-                    }.padding(.leading, 8)
+                    }
+                    .padding(.leading, 8)
                     Spacer()
                     Button {
                         print("invite")
@@ -233,11 +237,15 @@ extension MainView {
                         Image(inviteMessageInviteButton)
                             .resizable()
                             .frame(width: 138, height: 46.01)
-                    }.padding(.trailing, 8)
+                    }
+                    .padding(.trailing, 8)
                     
-                }.padding(.bottom,10.37)
-            }.frame(width: 300, height: 166)
-        }.frame(width: screenWidth, height: screenHeight)
+                }
+                .padding(.bottom,10.37)
+            }
+            .frame(width: 300, height: 166)
+        }
+        .frame(width: screenWidth, height: screenHeight)
             .background(.ultraThinMaterial)
     }
 }
