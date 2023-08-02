@@ -26,9 +26,6 @@ struct MainView: View {
     //MARK: 프리뷰하려고 더미룸 데이터 넣고 뿌림
     //var rooms : [RoomViewModel] = dummyRoomViewModels//TODO: 프리뷰 용임 //올리기 전에 지워야함
     
-    
-    
-    
     //MARK: - 2. BODY
     var body: some View {
         NavigationView {
