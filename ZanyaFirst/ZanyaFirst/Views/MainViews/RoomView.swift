@@ -31,6 +31,8 @@ struct RoomView: View {
     @State private var touchCount = 0
     @State private var showShare: Bool = false
     
+    @GestureState private var isDetectingContinuousPress = false
+    
     //MARK: - 2. BODY
     var body: some View {
         GeometryReader { geo in
@@ -43,6 +45,15 @@ struct RoomView: View {
                     bottomTab
                 }
                 HiddenTapButton
+                
+                if isDetectingContinuousPress {
+                    Image("tutorial")
+                        .resizable()
+                        .scaledToFit()
+                } else {
+
+                }
+                
             }
         }
         .navigationBarBackButtonHidden()
@@ -158,7 +169,7 @@ extension RoomView {
             } label: {
                 Image(QuestionButton)
                     .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 4)
-            }
+            }.simultaneousGesture(continuousPress)
         }
         .padding(.init(top: 53, leading: 15, bottom: 0, trailing: 15))
         .frame(maxWidth: screenWidth)
@@ -550,6 +561,27 @@ extension RoomView {
             ArrayNum = 0
         } else {
             ArrayNum += 1 }
+    }
+    
+    var continuousPress: some Gesture {
+        LongPressGesture(minimumDuration: 0.1)
+            .sequenced(before: DragGesture(minimumDistance: 0, coordinateSpace: .local))
+            .updating($isDetectingContinuousPress) { value, gestureState, _ in
+                switch value {
+                case .second(true, nil):
+                    gestureState = true
+                    print("updating: Second")
+                default:
+                    break
+                }
+            }.onEnded { value in
+                switch value {
+                case .second(_, _):
+                    print("onended: Second")
+                default:
+                    break
+                }
+            }
     }
 }
 
