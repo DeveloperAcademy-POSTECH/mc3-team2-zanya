@@ -155,6 +155,7 @@ let EmptyRoomSheetImage = "EmptyRoomSheetImage"
 let InvitePlate = "InvitePlate"
 let InviteFriend = "InviteFriend"
 let nameSheet = "nameSheet"
+let nameSheetMe = "nameSheetMe"
 let mainPageProfileSheet = "mainPageProfileSheet"
 
 //MARK: -ALERT COMPONENTS

@@ -220,7 +220,7 @@ extension RoomView {
                             }
                             VStack{
                                 Spacer()
-                                Image(nameSheet)
+                                Image(i == 0 ? nameSheetMe : nameSheet)
                             }
                             VStack{
                                 Spacer()
