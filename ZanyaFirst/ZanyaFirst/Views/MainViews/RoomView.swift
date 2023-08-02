@@ -41,11 +41,11 @@ struct RoomView: View {
                 VStack(spacing: 0){
                     toolBar
                     Spacer()
-                    memberSheet
                     bottomTab
                 }
                 HiddenTapButton
-                
+                memberSheet
+                    .padding(.bottom, 140)
                 if isDetectingContinuousPress {
                     Image("tutorial")
                         .resizable()
@@ -54,14 +54,7 @@ struct RoomView: View {
 
                 }
             }
-            HiddenTapButton
-//            InviteTutorial_Cheese()
-//            TutorialView_Cheese()
-            memberSheet
-                .padding(.bottom, 140)
-//                .border(.red)
-                
-            //                TutorialView()
+
         }
         .navigationBarBackButtonHidden()
         .ignoresSafeArea()
@@ -144,7 +137,7 @@ extension RoomView {
             } else {
                 //메세지 페이지 말풍선
                 ZStack{
-                    Image(MessageDialogSheet)
+                    Image(MessageDialogTutorial_2)
                         .shadow(color: .black.opacity(0.2), radius: 3.18533, x: 0, y: 4.24711)
                 }
                 .padding(.init(top: 112, leading: 13, bottom: 0, trailing: 0))
