@@ -380,6 +380,6 @@ class RoomViewModel: ObservableObject {
         print("현재 시간 \(nowTime)")
         print("방타임 조정 \(roomTime), \(type(of: roomTime))")
         
-        return Int(90 - nowTime.timeIntervalSince(roomTime))
+        return Int(180 - nowTime.timeIntervalSince(roomTime))
     }
 }

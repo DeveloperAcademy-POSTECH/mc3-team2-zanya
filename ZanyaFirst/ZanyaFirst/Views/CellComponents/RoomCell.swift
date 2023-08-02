@@ -56,6 +56,8 @@ struct RoomCell: View {
             StrokedTextCellLeading(text: viewModel.title, size: 21,
                                    color: viewModel.isOnTime ? .white : Color(AppLavender),
                                    strokeColor: viewModel.isOnTime ? AppWine : Apppurple)
+            .padding(.leading, -2)
+            
             Spacer()
 
             if viewModel.afterNoon {
@@ -63,16 +65,18 @@ struct RoomCell: View {
             } else {
                 TextCell(text: "오전", size: 17, color: viewModel.isOnTime ? Color(AppWine) : Color(Apppurple))
             }
+            
             if String(viewModel.min).count == 1 {
                 StrokedTimeCell(text: "\(viewModel.hour):0\(viewModel.min)", size: 40,
                                 color: viewModel.isOnTime ? Color(AppWine) : Color(Apppurple),
                                 strokeColor: AppWhite)
-                .offset(x:-87,y:0)
+                .padding(.trailing, 20)
             } else {
                 StrokedTimeCell(text: "\(viewModel.hour):\(viewModel.min)", size: 40,
                                 color: viewModel.isOnTime ? Color(AppWine) : Color(Apppurple),
                                 strokeColor: AppWhite)
-                .offset(x:-87,y:0)
+//                .offset(x:-87,y:0)
+                .padding(.trailing, 193)
             }
         }
         .padding(EdgeInsets(top: 22, leading: 20, bottom: 22, trailing: 0))
@@ -167,18 +171,18 @@ struct RoomCell: View {
     }
 }
 
-//struct RoomCell_Previews: PreviewProvider {
-//    static var previews: some View {
-//        VStack{
-//            RoomCell(viewModel: RoomCellViewModel(isOnTime: dummyRoomCellViewModel.isOnTime, room: dummyRoom0))
-//                .previewLayout(.sizeThatFits)
-//                .environmentObject(CustomAlertObject())
-//            RoomCell(viewModel: RoomCellViewModel(isOnTime: false, room: dummyRoom0))
-//                .previewLayout(.sizeThatFits)
-//                .environmentObject(CustomAlertObject())
-//        }
-//    }
-//}
+struct RoomCell_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack{
+            RoomCell(viewModel: RoomCellViewModel(isOnTime: dummyRoomCellViewModel.isOnTime, room: dummyRoom0))
+                .previewLayout(.sizeThatFits)
+                .environmentObject(CustomAlertObject())
+            RoomCell(viewModel: RoomCellViewModel(isOnTime: false, room: dummyRoom0))
+                .previewLayout(.sizeThatFits)
+                .environmentObject(CustomAlertObject())
+        }
+    }
+}
 
 struct ActivityView: UIViewControllerRepresentable{
     let text: String
