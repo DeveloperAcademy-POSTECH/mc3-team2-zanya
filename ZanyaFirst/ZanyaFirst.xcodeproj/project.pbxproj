@@ -54,6 +54,7 @@
 		1153CA5D2A76B04600CA8D11 /* RoomCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1153CA5C2A76B04600CA8D11 /* RoomCellViewModel.swift */; };
 		11785B7A2A73A38E00BBCDEC /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11785B792A73A38E00BBCDEC /* CustomAlertView.swift */; };
 		6FDEDA712A7914F900017EA7 /* RoomDisableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDEDA702A7914F900017EA7 /* RoomDisableViewModel.swift */; };
+		11D74ADE2A79710D005CC3BC /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D74ADD2A79710D005CC3BC /* TutorialView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +108,7 @@
 		1153CA5C2A76B04600CA8D11 /* RoomCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCellViewModel.swift; sourceTree = "<group>"; };
 		11785B792A73A38E00BBCDEC /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		6FDEDA702A7914F900017EA7 /* RoomDisableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomDisableViewModel.swift; sourceTree = "<group>"; };
+		11D74ADD2A79710D005CC3BC /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 		07B3E3012A671DC20080860A /* MainViews */ = {
 			isa = PBXGroup;
 			children = (
+				11D74ADC2A7970EF005CC3BC /* Tutorials */,
 				07B3E31C2A67A0980080860A /* OnBoardingView.swift */,
 				07B4554B2A6679C800EB9801 /* MainView.swift */,
 				07B4554D2A667A1700EB9801 /* SetProfileView.swift */,
@@ -296,6 +299,14 @@
 			path = CustomAlert;
 			sourceTree = "<group>";
 		};
+		11D74ADC2A7970EF005CC3BC /* Tutorials */ = {
+			isa = PBXGroup;
+			children = (
+				11D74ADD2A79710D005CC3BC /* TutorialView.swift */,
+			);
+			path = Tutorials;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -387,6 +398,7 @@
 				07B3E31F2A67A1120080860A /* AlarmModel.swift in Sources */,
 				07B3E3002A671BE20080860A /* LocalNotificationManager.swift in Sources */,
 				07B4554E2A667A1700EB9801 /* SetProfileView.swift in Sources */,
+				11D74ADE2A79710D005CC3BC /* TutorialView.swift in Sources */,
 				075B7FBF2A6E47B30071A856 /* StrokedTimeCell.swift in Sources */,
 				07B4555A2A667C5A00EB9801 /* RoomView.swift in Sources */,
 				1153CA5B2A76A67800CA8D11 /* CustomAlertObservableObject.swift in Sources */,

@@ -53,8 +53,15 @@ struct RoomView: View {
                 } else {
 
                 }
-                
             }
+            HiddenTapButton
+//            InviteTutorial_Cheese()
+//            TutorialView_Cheese()
+            memberSheet
+                .padding(.bottom, 140)
+//                .border(.red)
+                
+            //                TutorialView()
         }
         .navigationBarBackButtonHidden()
         .ignoresSafeArea()
@@ -81,17 +88,17 @@ struct RoomView: View {
                 ActivityView(text: viewModel.preFix + (viewModel.roomInfo.record?.recordID.recordName ?? ""))
                     .presentationDetents([.medium, .large])
             }
-        )// Sheet   
+        )// Sheet
     }
 }
 
 
 //MARK: -3. PREVIEW
-//struct RoomView_Preview: PreviewProvider {
-//    static var previews: some View {
-//        RoomView(viewModel: dummyRoomViewModels[1] )
-//    }
-//}
+struct RoomView_Preview: PreviewProvider {
+    static var previews: some View {
+        RoomView(viewModel: RoomViewModel(allUsers: dummyProfiles, users: dummyProfiles, roomInfo: dummyRoom))
+    }
+}
 
 
 //MARK: - 4. EXTENSION
@@ -108,25 +115,28 @@ extension RoomView {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 210)
-                .padding(.init(top: 147, leading: 156.84, bottom: 0, trailing: 0))
+                .padding(.init(top: 148, leading: 156.84, bottom: 0, trailing: 0))
             
             //펀치페이지 말풍선
-            if !isFirst {
-                ZStack{
-                    Image(MessageDialogSheet)
-                        .shadow(color: .black.opacity(0.2), radius: 3.18533, x: 0, y: 4.24711)
-                }
-                .padding(.init(top: 112, leading: 13, bottom: 0, trailing: 0))
-            } else if PunchMessageToggle == true {
+//            if !isFirst {
+//                //앱 설치 후 최초 방 진입 시 1번만 노출
+//                ZStack{
+//                    Image(MessageDialogSheet)
+//                        .shadow(color: .black.opacity(0.2), radius: 3.18533, x: 0, y: 4.24711)
+//                }
+//                .padding(.init(top: 112, leading: 13, bottom: 0, trailing: 0))
+//            } else
+            
+            if PunchMessageToggle == true {
                 ZStack(alignment: .topLeading){
                     Image(PunchDialogSheet)
                         .shadow(color: .black.opacity(0.2), radius: 3.18533, x: 0, y: 4.24711)
                     VStack(spacing: 5){
                         //TODO: 시간모델 받아와야 함
                         TextCell(text: "99초" , size: 30, color: Color("AppRed"))//TODO: 시간모델 받아와야 함
-                            .padding(.top,-4.5)
+                            .padding(.top, -4.5)
                         Image(itsempty)
-                            .padding(.top,-6)
+                            .padding(.top, -6)
                     }
                     .padding(.init(top: 41.04, leading: 62, bottom: 0, trailing: 0))
                 }
@@ -141,7 +151,6 @@ extension RoomView {
             }
         }
     }
-    
     
     private var toolBar: some View {
         HStack(spacing: 0){
@@ -203,18 +212,22 @@ extension RoomView {
                                 TextCell(text: viewModel.users[i].name, size: 11, color: Color("AppBrown"))
                                     .padding(.bottom, 4)
                             }
-                        }.frame(width: 48, height: 60)
-                            .padding(.init(top: 0, leading: 11, bottom: -16.75, trailing: 0))
+                        }
+                        .frame(width: 48, height: 60)
+                        .padding(.init(top: 0, leading: 11, bottom: -16.75, trailing: 0))
                     }
                     Button {
                         showShare.toggle()
                     } label: {
                         Image(InviteFriend)
-                    } .padding(.init(top: 0, leading: 8, bottom: -16.75, trailing: 0))
+                    }
+                    .padding(.init(top: 0, leading: 8, bottom: -16.75, trailing: 0))
                     
                     
                     Spacer()
-                } .frame(width: 360, height: 111.5)
+                }
+                .frame(width: 360, height: 111.5)
+                
             } else {
                 HStack(alignment: .center,spacing: 0) {
                     ForEach(0..<viewModel.users.count, id: \.self) { i in
@@ -238,13 +251,15 @@ extension RoomView {
                                 TextCell(text: viewModel.users[i].name, size: 11, color: Color("AppBrown"))
                                     .padding(.bottom, 4)
                             }
-                        }.frame(width: 48, height: 60)
-                            .padding(.init(top: 0, leading: 11, bottom: -16.75, trailing: 0))
+                        }
+                        .frame(width: 48, height: 60)
+                        .padding(.init(top: 0, leading: 11, bottom: -16.75, trailing: 0))
                     }
                     Spacer()
-                } .frame(width: 360, height: 111.5)
+                }
+                .frame(width: 360, height: 111.5)
             }
-        }.padding(.init(top: 0, leading: 0, bottom: 13, trailing: 0))
+        }
     }
     
     private var bottomTab: some View {
@@ -264,7 +279,7 @@ extension RoomView {
         
         return ZStack(alignment: .bottom){
             Image(PunchPage)
-                .padding(.init(top: 0, leading: 0, bottom: -98, trailing: 0))
+                .padding(.init(top: 0, leading: 0, bottom: -101, trailing: 0))
             ZStack(alignment: .center) {
                 TabView{
                     ZStack(alignment: .center){
@@ -381,7 +396,7 @@ extension RoomView {
         )
         return ZStack(alignment: .bottom){
             Image(MessagePage)
-                .padding(.init(top: 0, leading: 0, bottom: -98, trailing: 0))
+                .padding(.init(top: 0, leading: 0, bottom: -101, trailing: 0))
             Image(Rectangle77)
             ScrollView(showsIndicators: false) {
                 LazyVGrid(columns: columns, spacing: 15) {
